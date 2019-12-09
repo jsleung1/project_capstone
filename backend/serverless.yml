@@ -1,0 +1,264 @@
+service:
+  name: capstone-veriguide-app
+
+#package:
+#  individually: true
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: VeriGuide API
+        description: Serverless application for VeriGuide, a plagiarism checker for checking student's submissions for The Chinese University Of Hong Kong
+#    models:
+#      - name: CreateTodoRequest
+#        contentType: application/json
+#        schema: ${file(models/create-todo-request.json)}
+#      - name: UpdateTodoRequest
+#        contentType: application/json
+#        schema: ${file(models/update-todo-request.json)}
+
+plugins:
+  - serverless-webpack
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+  - serverless-plugin-existing-s3
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-iam-roles-per-function
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  tracing:
+    lambda: true
+    apiGateway: true
+  environment:
+    USERS_TABLE: VeriGuide-Users-${self:provider.stage}
+
+    COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
+    #COURSES_COURSEID_INDEX: Courses_courseId_Index
+    COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
+    COURSES_STUDENTID_INDEX: Courses_studentId_Index
+
+    ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
+    #ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
+    ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
+
+    SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
+    SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
+    SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
+
+    VG_SUBMISSIONS_FILES_S3_BUCKET: veriguide-submissions-files-${self:provider.stage}
+    SIGNED_URL_EXPIRATION: 300
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+functions:
+  #Auth0:
+  #  handler: src/lambda/auth/auth0Authorizer.handler
+
+  CreateTodo:
+    handler: src/lambda/http/createSubmission.handler
+    events:
+      - http:
+          method: post
+          path: submissions
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    #  - Effect: Allow
+    #    Action:
+    #      - dynamodb:PutItem
+    #    Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+     - Effect: Allow
+       Action:
+         - xray:PutTraceSegments
+         - xray:PutTelemetryRecords
+       Resource: "*"
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+    AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.VG_SUBMISSIONS_FILES_S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+    BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Id: MyPolicy
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: 's3:GetObject'
+              Resource: 'arn:aws:s3:::${self:provider.environment.VG_SUBMISSIONS_FILES_S3_BUCKET}/*'
+        Bucket: !Ref AttachmentsBucket
+    UsersDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.USERS_TABLE}
+    CoursesDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: courseId
+            AttributeType: S
+          - AttributeName: instructorId
+            AttributeType: S
+          - AttributeName: studentId
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: courseId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          #- IndexName: ${self:provider.environment.COURSES_COURSEID_INDEX}
+          #  KeySchema:
+          #  - AttributeName: courseId
+          #    KeyType: HASH
+          #  Projection:
+          #    ProjectionType: ALL
+          - IndexName: ${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
+            KeySchema:
+            - AttributeName: instructorId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.COURSES_STUDENTID_INDEX}
+            KeySchema:
+            - AttributeName: studentId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.COURSES_TABLE}
+    AssignmentsDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: assignmentId
+            AttributeType: S
+          - AttributeName: courseId
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: assignmentId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          #- IndexName: ${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+          #  KeySchema:
+          #  - AttributeName: assignmentId
+          #    KeyType: HASH
+          #  Projection:
+          #    ProjectionType: ALL
+          - IndexName: ${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}
+            KeySchema:
+            - AttributeName: courseId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.ASSIGNMENTS_TABLE}
+    SubmissionsDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: submissionId
+            AttributeType: S
+          - AttributeName: assignmentId
+            AttributeType: S
+          - AttributeName: studentId
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: submissionId
+            KeyType: HASH
+          - AttributeName: createdAt
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: ${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
+            KeySchema:
+            - AttributeName: assignmentId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
+            KeySchema:
+            - AttributeName: studentId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.SUBMISSIONS_TABLE}
+    #RequestBodyValidator:
+    #  Type: AWS::ApiGateway::RequestValidator
+    #  Properties:
+    #    Name: 'request-body-validator'
+    #    RestApiId:
+    #      Ref: ApiGatewayRestApi
+    #    ValidateRequestBody: true
+    #    ValidateRequestParameters: false
