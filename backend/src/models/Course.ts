@@ -1,10 +1,10 @@
 export interface Course {
-
     courseId: string;
     instructorId: string;
-    studentId: string;
     createdAt: string;
 
-    courseIdAliasName: string;
+    year: number;
+    term: string;
+    courseName: string;
     description: String;
 }

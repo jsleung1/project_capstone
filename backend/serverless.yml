@@ -54,7 +54,6 @@ provider:
     COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
     #COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
-    COURSES_STUDENTID_INDEX: Courses_studentId_Index
 
     ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
     #ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
@@ -71,9 +70,34 @@ provider:
 functions:
   #Auth0:
   #  handler: src/lambda/auth/auth0Authorizer.handler
+  CreateCourse:
+    handler: src/lambda/http/course/createCourse.handler
+    events:
+      - http:
+          method: post
+          path: courses
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+     - Effect: Allow
+       Action:
+         - dynamodb:PutItem
+         - dynamodb:Query
+       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+     - Effect: Allow
+       Action:
+         - xray:PutTraceSegments
+         - xray:PutTelemetryRecords
+       Resource: "*"    
 
-  CreateTodo:
-    handler: src/lambda/http/createSubmission.handler
+  CreateSubmission:
+    handler: src/lambda/http/submissions/createSubmission.handler
     events:
       - http:
           method: post
@@ -162,8 +186,6 @@ resources:
             AttributeType: S
           - AttributeName: instructorId
             AttributeType: S
-          - AttributeName: studentId
-            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -181,12 +203,6 @@ resources:
           - IndexName: ${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
             KeySchema:
             - AttributeName: instructorId
-              KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-          - IndexName: ${self:provider.environment.COURSES_STUDENTID_INDEX}
-            KeySchema:
-            - AttributeName: studentId
               KeyType: HASH
             Projection:
               ProjectionType: ALL
