@@ -12,6 +12,7 @@ export interface Submission {
     similarityPercentage: number;
     reportStatus: string;
     
-    submissionFileUrl?: string;
+    fileName: string;
+    submissionFileUrl: string;
 }
   

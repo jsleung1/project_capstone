@@ -1,8 +1,7 @@
 export interface CreateCourseRequest {
-    year: number;
+    acadYear: number;
     term: string;
     courseName: string;
-    description: String;
-    instructorId: string;
+    courseDescription: String;
 }
   
