@@ -11,10 +11,14 @@ const logger = createLogger('courseService')
 const courseAccess = new CourseAccess()
 
 // get all todos only for that user Id
-export async function getAllCoursesForInstructor( jwtToken: string): Promise<TodoItem[]> {
-  const userId = parseUserId(jwtToken)
-  return courseAccess.getAllCoursesByInstructorId(userId);
+export async function getAllCoursesByInstructorId( instructorId: string ): Promise<Course[]> {
+  return courseAccess.getAllCoursesByInstructorId(instructorId);
 }
+
+export async function getAllCoursesByAcadYear( acadYear: number): Promise<Course[]> {
+  return courseAccess.getAllCoursesByAcadYear( acadYear );
+}
+
 
 export async function createCourse(
     createCourseRequest: CreateCourseRequest,
