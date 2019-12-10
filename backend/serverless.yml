@@ -50,14 +50,17 @@ provider:
     apiGateway: true
   environment:
     USERS_TABLE: VeriGuide-Users-${self:provider.stage}
+    USERS_USERID_INDEX: Users_userId_Index
+    USERS_EMAIL_INDEX: Users_email_Index
 
     COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
-    #COURSES_COURSEID_INDEX: Courses_courseId_Index
+    COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
     COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
+    COURSES_COURSENAME_INDEX: Courses_courseName_Index
 
     ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
-    #ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
+    ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
     ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
 
     SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
@@ -71,6 +74,54 @@ provider:
 functions:
   #Auth0:
   #  handler: src/lambda/auth/auth0Authorizer.handler
+
+  CreateUser:
+    handler: src/lambda/http/user/createUser.handler
+    events:
+      - http:
+          method: post
+          path: users
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_EMAIL_INDEX}      
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource: "*"   
+  GetUser:
+    handler: src/lambda/http/user/getUser.handler
+    events:
+      - http:
+          method: get
+          path: user
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource: "*"           
   CreateCourse:
     handler: src/lambda/http/course/createCourse.handler
     events:
@@ -86,23 +137,38 @@ functions:
           #  requestModels:
           #    'application/json': CreateTodoRequest
     iamRoleStatements:
-     - Effect: Allow
-       Action:
-         - dynamodb:PutItem
-         - dynamodb:Query
-       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
-     - Effect: Allow
-       Action:
-         - xray:PutTraceSegments
-         - xray:PutTelemetryRecords
-       Resource: "*"    
-
-  CreateSubmission:
-    handler: src/lambda/http/submissions/createSubmission.handler
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSENAME_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"    
+  GetCourses:
+    handler: src/lambda/http/course/getCourses.handler
     events:
       - http:
-          method: post
-          path: submissions
+          method: get
+          path: courses
+          cors: true
+      - http:
+          method: get
+          path: courses/{acadYear}
           cors: true
           #authorizer: Auth0
           #reqValidatorName: RequestBodyValidator
@@ -112,15 +178,31 @@ functions:
           #  requestModels:
           #    'application/json': CreateTodoRequest
     iamRoleStatements:
-    #  - Effect: Allow
-    #    Action:
-    #      - dynamodb:PutItem
-    #    Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
-     - Effect: Allow
-       Action:
-         - xray:PutTraceSegments
-         - xray:PutTelemetryRecords
-       Resource: "*"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_ACADYEAR_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*" 
 resources:
   Resources:
     GatewayResponseDefault4XX:
@@ -170,6 +252,8 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
+          - AttributeName: email
+            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -177,6 +261,19 @@ resources:
             KeyType: HASH
           - AttributeName: createdAt
             KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: ${self:provider.environment.USERS_USERID_INDEX}
+            KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.USERS_EMAIL_INDEX}
+            KeySchema:
+            - AttributeName: email
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.USERS_TABLE}
     CoursesDynamoDBTable:
@@ -189,6 +286,8 @@ resources:
             AttributeType: S
           - AttributeName: acadYear
             AttributeType: N
+          - AttributeName: courseName
+            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -197,12 +296,12 @@ resources:
           - AttributeName: createdAt
             KeyType: RANGE
         GlobalSecondaryIndexes:
-          #- IndexName: ${self:provider.environment.COURSES_COURSEID_INDEX}
-          #  KeySchema:
-          #  - AttributeName: courseId
-          #    KeyType: HASH
-          #  Projection:
-          #    ProjectionType: ALL
+          - IndexName: ${self:provider.environment.COURSES_COURSEID_INDEX}
+            KeySchema:
+            - AttributeName: courseId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
           - IndexName: ${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
             KeySchema:
             - AttributeName: instructorId
@@ -212,6 +311,12 @@ resources:
           - IndexName: ${self:provider.environment.COURSES_ACADYEAR_INDEX}
             KeySchema:
             - AttributeName: acadYear
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.COURSES_COURSENAME_INDEX}
+            KeySchema:
+            - AttributeName: courseName
               KeyType: HASH
             Projection:
               ProjectionType: ALL
@@ -233,12 +338,12 @@ resources:
           - AttributeName: createdAt
             KeyType: RANGE
         GlobalSecondaryIndexes:
-          #- IndexName: ${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
-          #  KeySchema:
-          #  - AttributeName: assignmentId
-          #    KeyType: HASH
-          #  Projection:
-          #    ProjectionType: ALL
+          - IndexName: ${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+            KeySchema:
+            - AttributeName: assignmentId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
           - IndexName: ${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}
             KeySchema:
             - AttributeName: courseId

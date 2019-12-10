@@ -12,6 +12,7 @@ export class AssignmentAccess {
     constructor(
         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
         private readonly assignmentsTable = process.env.ASSIGNMENTS_TABLE,
+        private readonly assigmentsAssigmentIdIndex = process.env.ASSIGNMENTS_ASSIGNMENTID_INDEX,
         private readonly assignmentsCourseIdIndex = process.env.ASSIGNMENTS_COURSEID_INDEX ) {
     }
 
@@ -37,7 +38,7 @@ export class AssignmentAccess {
         this.logger.info('getAssignment')
         const result = await this.docClient.query({
             TableName: this.assignmentsTable,
-            IndexName: this.assignmentsCourseIdIndex,
+            IndexName: this.assigmentsAssigmentIdIndex,
             KeyConditionExpression: 'assignmentId = :assignmentId',
             ExpressionAttributeValues: {
                 ':assignmentId': assignmentId

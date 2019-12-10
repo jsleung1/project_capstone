@@ -59,6 +59,7 @@ export class SubmissionAccess {
         return submission
     }
 
+    // may need to add submissionId to the GlobalSecondaryIndexes
     async updateSubmission(submission: Submission): Promise<Submission> {
 
         this.logger.info('updating Submission: ' + JSON.stringify(submission) )
