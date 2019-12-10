@@ -4,8 +4,18 @@ import { parseUserId } from '../auth/utils';
 import { createLogger } from '../utils/logger';
 import { CreateCourseRequest } from '../requests/course/CreateCourseRequest';
 import { Course } from '../models/Course';
+import { CourseAccess } from '../dataLayer/courseAccess';
 
 const logger = createLogger('courseService')
+
+const courseAccess = new CourseAccess()
+
+// get all todos only for that user Id
+export async function getAllTodos( jwtToken: string): Promise<TodoItem[]> {
+  const userId = parseUserId(jwtToken)
+
+  return courseAccess.getAllCourses(userId);
+}
 
 export async function createCourse(
     createCourseRequest: CreateCourseRequest,

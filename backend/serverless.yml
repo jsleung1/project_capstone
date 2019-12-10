@@ -54,6 +54,7 @@ provider:
     COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
     #COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
+    COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
 
     ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
     #ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
@@ -186,6 +187,8 @@ resources:
             AttributeType: S
           - AttributeName: instructorId
             AttributeType: S
+          - AttributeName: acadYear
+            AttributeType: N
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -203,6 +206,12 @@ resources:
           - IndexName: ${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
             KeySchema:
             - AttributeName: instructorId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.COURSES_ACADYEAR_INDEX}
+            KeySchema:
+            - AttributeName: acadYear
               KeyType: HASH
             Projection:
               ProjectionType: ALL

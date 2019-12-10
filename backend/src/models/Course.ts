@@ -3,8 +3,8 @@ export interface Course {
     instructorId: string;
     createdAt: string;
 
-    year: number;
+    acadYear: number;
     term: string;
     courseName: string;
-    description: String;
+    courseDescription: String;
 }

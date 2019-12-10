@@ -2,9 +2,11 @@ export interface Assignment {
 
     assignmentId: string;
     courseId: string;
+    courseName: string;
     createdAt: string;
     
-    assignmentNumber: number;
+    assignmentName: string;
+    assignmentDescription: string;
     dueDate: string
 
 }

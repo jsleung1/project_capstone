@@ -2,7 +2,9 @@ export interface User {
     userId: string;
     createdAt: string;
 
+    userType: string;
+
     email: string;
     name: string;
-    userType: string;
+    description: string;    
 }
