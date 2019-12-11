@@ -1,7 +1,7 @@
 import * as AWS  from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
-import { Submission } from '../models/Submission';
+import { Submission } from '../entities/Submission';
 
 export class SubmissionAccess {
 

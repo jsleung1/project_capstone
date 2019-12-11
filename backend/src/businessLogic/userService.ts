@@ -1,7 +1,7 @@
 import { createLogger } from '../utils/logger';
 
 import { UserAccess } from '../dataLayer/userAccess';
-import { User } from '../models/User';
+import { User } from '../entities/User';
 import { CreateUserRequest } from '../requests/user/CreateUserRequest';
 
 const logger = createLogger('userService')

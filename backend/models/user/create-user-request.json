@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "createUserRequest",
+    "type": "object",
+    "properties": {
+      "userType": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "userName": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "userType",
+      "email",
+      "userName"
+    ],
+    "additionalProperties": false
+}

@@ -1,7 +1,7 @@
 import * as AWS  from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
-import { Course } from '../models/Course';
+import { Course } from '../entities/Course';
 
 export class CourseAccess {
 

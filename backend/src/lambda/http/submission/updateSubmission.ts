@@ -21,10 +21,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const userId = parseUserId(jwtToken)
   
   let item = null
-
+  // need to do student or instructor update submission
   try {
     item = await updateSubmission( updateSubmissionRequest, submissionId, userId)
   } catch (e) {
+    logger.error(e.message)
     return {
       statusCode: 400,
       headers: {

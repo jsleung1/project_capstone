@@ -2,7 +2,7 @@ import * as uuid from 'uuid'
 
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { TodoAccess } from '../dataLayer/todoAccess'
-import { TodoItem } from '../models/TodoItem';
+import { TodoItem } from '../entities/TodoItem';
 import { parseUserId } from '../auth/utils';
 import { createLogger } from '../utils/logger';
 

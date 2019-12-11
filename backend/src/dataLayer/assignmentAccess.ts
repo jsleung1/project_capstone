@@ -1,7 +1,7 @@
 import * as AWS  from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
-import { Assignment } from '../models/Assignment';
+import { Assignment } from '../entities/Assignment';
 
 
 
@@ -74,7 +74,7 @@ export class AssignmentAccess {
         }
     }
 
-    async getAssignmentByAssigmentName(assignmentName: string): Promise<Assignment> {
+    async getAssignmentsByAssigmentName(assignmentName: string): Promise<Assignment[]> {
         
       this.logger.info('getAssignmentByAssigmentName')
       const result = await this.docClient.query({
@@ -86,12 +86,8 @@ export class AssignmentAccess {
           }      
       }).promise()
 
-      if (result.Count !== 0) { 
-          const item = result.Items[0]
-          return item as Assignment
-      } else {
-          return undefined
-      }
+      const items = result.Items
+      return items as Assignment[]
   }
 
     async createAssignment(assignment: Assignment): Promise<Assignment> {

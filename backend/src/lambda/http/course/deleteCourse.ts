@@ -13,7 +13,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   logger.info('Processing event: ', event)
   
-  const courseId = event.pathParameters.courseId
+  const courseId = event.pathParameters.queryId
 
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
@@ -23,6 +23,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   try {
     item = await deleteCourse( courseId, userId )
   } catch (e) {
+    logger.error(e.message)
     return {
       statusCode: 400,
       headers: {

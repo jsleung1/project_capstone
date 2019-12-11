@@ -7,7 +7,7 @@ import { UserAccess } from './../dataLayer/userAccess';
 import { AssignmentAccess } from './../dataLayer/assignmentAccess';
 
 import { createLogger } from '../utils/logger';
-import { Assignment } from '../models/Assignment';
+import { Assignment } from '../entities/Assignment';
 import { CreateAssignmentRequest } from '../requests/assignment/CreateAssignmentRequest';
 import { SubmissionAccess } from '../dataLayer/submissionAccess';
 
@@ -27,7 +27,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
 
     const course = await courseAccess.getCourseByCourseId( createAssignmentRequest.courseId )
     if ( !course ) {
-        throw new Error('Cannot find course to create assignment')
+        throw new Error('Cannot find the course to create assignment')
     }
     const instructorUser = await userAccess.getUserByUserId( instructorId )
     if ( !instructorUser ) {
@@ -38,8 +38,9 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
         throw new Error('Cannot create assignment because corresponding course does not belong to the instructor')
     }
 
-    const assignment = await assignmentAccess.getAssignmentByAssigmentName( createAssignmentRequest.assignmentName)
-    if ( assignment && assignment.courseId == course.courseId ) {
+    const assignments = await assignmentAccess.getAssignmentsByAssigmentName( createAssignmentRequest.assignmentName)
+    const assignment = assignments.find( s => s.courseId == course.courseId )
+    if ( assignment ) {
         throw new Error('Cannot create assignment because the assignment name already been used by existing assignment under the same course')   
     }
 

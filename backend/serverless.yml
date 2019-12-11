@@ -7,7 +7,7 @@ service:
 custom:
   dynamodb:
     stages:
-      - dev
+      - v1
     start:
       port: 8000
       inMemory: true
@@ -20,14 +20,29 @@ custom:
       info:
         version: v1.0.0
         title: VeriGuide API
-        description: Serverless application for VeriGuide, a plagiarism checker for checking student's submissions for The Chinese University Of Hong Kong
-#    models:
-#      - name: CreateTodoRequest
-#        contentType: application/json
-#        schema: ${file(models/create-todo-request.json)}
-#      - name: UpdateTodoRequest
-#        contentType: application/json
-#        schema: ${file(models/update-todo-request.json)}
+        description: Serverless application for VeriGuide, a plagiarism checker for managing student's submissions for The Chinese University Of Hong Kong
+    models:
+      - name: CreateUserRequest
+        contentType: application/json
+        schema: ${file(models/user/create-user-request.json)}
+      - name: CreateCourseRequest
+        contentType: application/json
+        schema: ${file(models/course/create-course-request.json)}
+      - name: UpdateCourseRequest
+        contentType: application/json
+        schema: ${file(models/course/update-course-request.json)}
+      - name: CreateAssigmentRequest
+        contentType: application/json
+        schema: ${file(models/assignment/create-assignment-request.json)}
+      - name: UpdateAssignmentRequest
+        contentType: application/json
+        schema: ${file(models/assignment/update-assignment-request.json)}
+      - name: CreateSubmissionRequest
+        contentType: application/json
+        schema: ${file(models/submission/create-submission-request.json)}
+      - name: UpdateSubmissionRequest
+        contentType: application/json
+        schema: ${file(models/submission/update-submission-request.json)}
 
 plugins:
   - serverless-webpack
@@ -43,7 +58,7 @@ provider:
   runtime: nodejs8.10
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'v1'}
   region: ${opt:region, 'us-east-1'}
   tracing:
     lambda: true
@@ -84,6 +99,12 @@ functions:
           method: post
           path: users
           cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new user
+            description: Register an user whether it is student or instructor
+            requestModels:
+              'application/json': CreateUserRequest
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -132,12 +153,12 @@ functions:
           path: courses
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new course
+            description: Create a new course for the instructor
+            requestModels:
+              'application/json': CreateCourseRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -170,7 +191,7 @@ functions:
           cors: true
       - http:
           method: get
-          path: courses/{acadYear}
+          path: courses/{queryId}
           cors: true
           #authorizer: Auth0
           #reqValidatorName: RequestBodyValidator
@@ -210,15 +231,15 @@ functions:
     events:
       - http:
           method: patch
-          path: courses/{courseId}
+          path: courses/{queryId}
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update the course
+            description: Update an existing course for the instructor
+            requestModels:
+              'application/json': UpdateCourseRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -239,15 +260,9 @@ functions:
     events:
       - http:
           method: delete
-          path: courses/{courseId}
+          path: courses/{queryId}
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -275,12 +290,12 @@ functions:
           path: assignments
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new assignment under the course of the instructor
+            description: Create a new assignment under the course of the instructor
+            requestModels:
+              'application/json': CreateAssigmentRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -320,12 +335,12 @@ functions:
           path: assignments/{assignmentId}
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update an existing assignment under the course of the instructor
+            description: Update an existing assignment under the course of the instructor
+            requestModels:
+              'application/json': UpdateAssignmentRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -342,7 +357,7 @@ functions:
         - xray:PutTelemetryRecords
       Resource: "*"  
   DeleteAssignment:
-    handler: src/lambda/http/assignment/updateAssignment.handler
+    handler: src/lambda/http/assignment/deleteAssignment.handler
     events:
       - http:
           method: delete
@@ -386,12 +401,12 @@ functions:
           path: submissions
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new submission for the student
+            description: Create a new submission for the student
+            requestModels:
+              'application/json': CreateSubmissionRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -415,6 +430,11 @@ functions:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
     - Effect: Allow
       Action:
+        - s3:PutObject
+        - s3:GetObject
+      Resource: arn:aws:s3:::${self:provider.environment.VG_SUBMISSIONS_FILES_S3_BUCKET}/*
+    - Effect: Allow
+      Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"  
@@ -426,12 +446,12 @@ functions:
           path: submissions/{submissionId}
           cors: true
           #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update existing submission of the student
+            description: Update existing submission of the student
+            requestModels:
+              'application/json': UpdateSubmissionRequest
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -642,11 +662,11 @@ resources:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.SUBMISSIONS_TABLE}
-    #RequestBodyValidator:
-    #  Type: AWS::ApiGateway::RequestValidator
-    #  Properties:
-    #    Name: 'request-body-validator'
-    #    RestApiId:
-    #      Ref: ApiGatewayRestApi
-    #    ValidateRequestBody: true
-    #    ValidateRequestParameters: false
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false

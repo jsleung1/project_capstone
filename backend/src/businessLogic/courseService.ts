@@ -3,7 +3,7 @@ import * as uuid from 'uuid'
 
 import { createLogger } from '../utils/logger';
 import { CreateCourseRequest } from '../requests/course/CreateCourseRequest';
-import { Course } from '../models/Course';
+import { Course } from '../entities/Course';
 import { CourseAccess } from '../dataLayer/courseAccess';
 import { UserAccess } from '../dataLayer/userAccess';
 import { UpdateCourseRequest } from '../requests/course/UpdateCourseRequest';
@@ -14,18 +14,8 @@ const courseAccess = new CourseAccess()
 const assignmentAccess = new AssignmentAccess()
 const userAccess = new UserAccess()
 
-// get courses created by the instructor
-export async function getAllCoursesByInstructorId( instructorId: string ): Promise<Course[]> {
-  return await courseAccess.getAllCoursesByInstructorId(instructorId);
-}
-
-// get courses for the acadYear term for the students
-export async function getAllCourses( acadYear: number): Promise<Course[]> {
-  return await courseAccess.getAllCoursesByAcadYear( acadYear );
-}
-
 // get Courses for instructor, or for student (which use acadYear to query for student courses)
-export async function getCoursesForInstructorOrStudent(instructorId: string, acadYear: string) {
+export async function getCoursesForInstructorOrStudent(instructorId: string, acadYear: string): Promise<Course[]> {
   const user = await userAccess.getUserByUserId(instructorId)
   if ( !user ) {
     throw new Error(`Cannot find user to return the corresponding courses`)
@@ -36,11 +26,11 @@ export async function getCoursesForInstructorOrStudent(instructorId: string, aca
       throw new Error(`Cannot get courses for student with missing parameter for acadYear`)
     } 
 
-    return courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
+    return await courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
   }
   
   if ( user.userType === 'instructor') {
-    return courseAccess.getAllCoursesByInstructorId(instructorId);
+    return await courseAccess.getAllCoursesByInstructorId(instructorId);
   }
   throw new Error(`Cannot find courses with invalid userType`) 
 }
@@ -52,7 +42,7 @@ export async function createCourse( createCourseRequest: CreateCourseRequest, in
   const existCourseInAcadYear = existingCourses.find( s => s.acadYear == createCourseRequest.acadYear)
 
   if ( existCourseInAcadYear ) {
-    throw new Error(`A course with the same name: ${createCourseRequest.courseName} under the same term: ${createCourseRequest.acadYear} already exists!`)
+    throw new Error(`A course with the same name (${createCourseRequest.courseName}) under the same term (${createCourseRequest.acadYear}) already exists!`)
   }
 
   const instructorUser = await userAccess.getUserByUserId(instructorId)

@@ -2,7 +2,7 @@ import * as AWS from 'aws-sdk';
 import * as AWSXRay from 'aws-xray-sdk'
 import * as uuid from 'uuid'
 
-import { Submission } from '../models/Submission';
+import { Submission } from '../entities/Submission';
 
 import { UserAccess } from './../dataLayer/userAccess';
 import { AssignmentAccess } from './../dataLayer/assignmentAccess';

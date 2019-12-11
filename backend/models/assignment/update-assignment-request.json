@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "updateAssignmentRequest",
+    "type": "object",
+    "properties": {
+      "assignmentDescription": {
+        "type": "string"
+      },
+      "dueDate": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "assignmentDescription",
+      "dueDate"
+    ],
+    "additionalProperties": false
+}

@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "updateSubmissionRequest",
+    "type": "object",
+    "properties": {
+      "instructorComments": {
+        "type": "string"
+      },
+      "studentScore": {
+        "type": "number"
+      },
+      "similarityPercentage": {
+        "type": "number"
+      },
+      "reportStatus": {
+        "type": "string"
+      },
+      "studentRemarks": {
+        "type": "string"
+      }      
+    },
+    "required": [
+        "instructorComments",
+        "studentScore",
+        "similarityPercentage",
+        "reportStatus",
+        "studentRemarks"
+    ],
+    "additionalProperties": false
+}

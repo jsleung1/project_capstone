@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "createAssignmentRequest",
+    "type": "object",
+    "properties": {
+      "courseId": {
+        "type": "string"
+      },
+      "assignmentName": {
+        "type": "string"
+      },
+      "assignmentDescription": {
+        "type": "string"
+      },
+      "dueDate": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "courseId",
+      "assignmentName",
+      "assignmentDescription",
+      "dueDate"
+    ],
+    "additionalProperties": false
+}

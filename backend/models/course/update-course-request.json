@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "updateCourseRequest",
+    "type": "object",
+    "properties": {
+      "courseDescription": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "courseDescription"
+    ],
+    "additionalProperties": false
+}

@@ -18,14 +18,17 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
  
   let acadYear = undefined
   if ( event.pathParameters ) {
-    acadYear = event.pathParameters.acadYear
+    acadYear = event.pathParameters.queryId
   } 
 
+  logger.info('userId = ' + userId)
+  
   let courses = []
 
   try {
     courses = await getCoursesForInstructorOrStudent(userId, acadYear)
   } catch (e) {
+    logger.error(e.message)
     return {
       statusCode: 400,
       headers: {

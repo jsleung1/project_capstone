@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "createCourseRequest",
+    "type": "object",
+    "properties": {
+      "acadYear": {
+        "type": "number"
+      },
+      "courseName": {
+        "type": "string"
+      },
+      "courseDescription": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "acadYear",
+      "courseName",
+      "courseDescription"
+    ],
+    "additionalProperties": false
+}

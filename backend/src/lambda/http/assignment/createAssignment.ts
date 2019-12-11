@@ -23,6 +23,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   try {
     item = await createAssignment(createCourseRequest, userId)
   } catch (e) {
+    logger.error(e.message)
     return {
       statusCode: 400,
       headers: {

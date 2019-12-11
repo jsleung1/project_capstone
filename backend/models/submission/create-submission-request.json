@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "createSubmissionRequest",
+    "type": "object",
+    "properties": {
+      "assignmentId": {
+        "type": "string"
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "studentRemarks": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "assignmentId",
+      "fileName",
+      "studentRemarks"
+    ],
+    "additionalProperties": false
+}
