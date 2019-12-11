@@ -13,11 +13,12 @@ export class AssignmentAccess {
         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
         private readonly assignmentsTable = process.env.ASSIGNMENTS_TABLE,
         private readonly assigmentsAssigmentIdIndex = process.env.ASSIGNMENTS_ASSIGNMENTID_INDEX,
-        private readonly assignmentsCourseIdIndex = process.env.ASSIGNMENTS_COURSEID_INDEX ) {
+        private readonly assignmentsCourseIdIndex = process.env.ASSIGNMENTS_COURSEID_INDEX,
+        private readonly assignmentsAssignmentNameIndex = process.env.ASSIGNMENTS_ASSIGNMENTNAME_INDEX ) {
     }
 
-    async getAllAssignments(courseId: string): Promise<Assignment[]> {
-        this.logger.info('getAllAssignments')
+    async getAllAssignmentsByCourseId(courseId: string): Promise<Assignment[]> {
+        this.logger.info('getAllAssignmentsByCourseId')
     
         const result = await this.docClient.query({
           TableName: this.assignmentsTable,
@@ -33,9 +34,29 @@ export class AssignmentAccess {
     }
     
 
-    async getAssignment(assignmentId: string): Promise<Assignment> {
+    async getAssignmentByAssignmentId(assignmentId: string): Promise<Assignment> {
         
-        this.logger.info('getAssignment')
+      this.logger.info('getAssignmentByAssignmentId')
+      const result = await this.docClient.query({
+          TableName: this.assignmentsTable,
+          IndexName: this.assigmentsAssigmentIdIndex,
+          KeyConditionExpression: 'assignmentId = :assignmentId',
+          ExpressionAttributeValues: {
+              ':assignmentId': assignmentId
+          }      
+      }).promise()
+
+      if (result.Count !== 0) { 
+          const item = result.Items[0]
+          return item as Assignment
+      } else {
+          return undefined
+      }
+    }
+
+    async getAssignmentByAssigmentId(assignmentId: string): Promise<Assignment> {
+        
+        this.logger.info('getAssignmentByAssigmentId')
         const result = await this.docClient.query({
             TableName: this.assignmentsTable,
             IndexName: this.assigmentsAssigmentIdIndex,
@@ -52,6 +73,26 @@ export class AssignmentAccess {
             return undefined
         }
     }
+
+    async getAssignmentByAssigmentName(assignmentName: string): Promise<Assignment> {
+        
+      this.logger.info('getAssignmentByAssigmentName')
+      const result = await this.docClient.query({
+          TableName: this.assignmentsTable,
+          IndexName: this.assignmentsAssignmentNameIndex,
+          KeyConditionExpression: 'assignmentName = :assignmentName',
+          ExpressionAttributeValues: {
+              ':assignmentName': assignmentName
+          }      
+      }).promise()
+
+      if (result.Count !== 0) { 
+          const item = result.Items[0]
+          return item as Assignment
+      } else {
+          return undefined
+      }
+  }
 
     async createAssignment(assignment: Assignment): Promise<Assignment> {
 
@@ -74,9 +115,8 @@ export class AssignmentAccess {
             assignmentId: assignment.assignmentId,
             createdAt: assignment.createdAt
           },         
-          UpdateExpression: 'set assignmentName = :assignmentName, assignmentDescription = :assignmentDescription, dueDate = :dueDate',
+          UpdateExpression: 'set assignmentDescription = :assignmentDescription, dueDate = :dueDate',
           ExpressionAttributeValues: {
-            ':assignmentName': assignment.assignmentName,
             ':assignmentDescription': assignment.assignmentDescription,
             ':dueDate': assignment.dueDate
           }

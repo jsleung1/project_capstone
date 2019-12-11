@@ -3,16 +3,21 @@ export interface Submission {
     assignmentId: string;
     createdAt: string;
 
+    assignmentName: string;
     studentId: string;
     studentName: string;
     studentEmail: string;    
-   
+    fileName: string;
+    instructorId: string;
+    instructorName: string;
+
     instructorComments: string;
     studentScore: number;
     similarityPercentage: number;
     reportStatus: string;
+    studentRemarks: string;
     
-    fileName: string;
     submissionFileUrl: string;
+    submissionUploadUrl: string;
 }
   

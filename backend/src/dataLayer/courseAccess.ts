@@ -17,7 +17,7 @@ export class CourseAccess {
       ) {
     }
 
-    async getAllCourses(acadYear: number): Promise<Course[]> {
+    async getAllCoursesByAcadYear(acadYear: number): Promise<Course[]> {
       this.logger.info('getAllCoursesByAcadYear')
   
       const result = await this.docClient.query({
@@ -106,10 +106,8 @@ export class CourseAccess {
             courseId: course.courseId,
             createdAt: course.createdAt
           },         
-          UpdateExpression: 'set acadYear = :acadYear, courseName = :courseName, courseDescription = :courseDescription',
+          UpdateExpression: 'set courseDescription = :courseDescription',
           ExpressionAttributeValues: {
-            ':acadYear': course.acadYear,
-            ':courseName': course.courseName,
             ':courseDescription': course.courseDescription
           }
         }).promise()

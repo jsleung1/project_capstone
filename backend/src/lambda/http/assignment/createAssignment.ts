@@ -5,26 +5,23 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { getCoursesForInstructorOrStudent } from '../../../businessLogic/courseService'
+import { CreateAssignmentRequest } from '../../../requests/assignment/CreateAssignmentRequest';
+import { createAssignment } from '../../../businessLogic/assignmentService';
 
-const logger = createLogger('getCoursesHandler')
+const logger = createLogger('createAssignmentHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
   
+  const createCourseRequest: CreateAssignmentRequest = JSON.parse(event.body)
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
- 
-  let acadYear = undefined
-  if ( event.pathParameters ) {
-    acadYear = event.pathParameters.acadYear
-  } 
-
-  let courses = []
+  
+  let item = null
 
   try {
-    courses = await getCoursesForInstructorOrStudent(userId, acadYear)
+    item = await createAssignment(createCourseRequest, userId)
   } catch (e) {
     return {
       statusCode: 400,
@@ -36,14 +33,14 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       })
     }
   }
-  
+
   return {
-    statusCode: 200,
+    statusCode: 201,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      items: courses
+      item
     })
   }
 }

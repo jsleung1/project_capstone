@@ -1,3 +1,4 @@
+import { AssignmentAccess } from './../dataLayer/assignmentAccess';
 import * as uuid from 'uuid'
 
 import { createLogger } from '../utils/logger';
@@ -5,45 +6,46 @@ import { CreateCourseRequest } from '../requests/course/CreateCourseRequest';
 import { Course } from '../models/Course';
 import { CourseAccess } from '../dataLayer/courseAccess';
 import { UserAccess } from '../dataLayer/userAccess';
+import { UpdateCourseRequest } from '../requests/course/UpdateCourseRequest';
 
 const logger = createLogger('courseService')
 
 const courseAccess = new CourseAccess()
+const assignmentAccess = new AssignmentAccess()
 const userAccess = new UserAccess()
 
-// get all todos only for that user Id
+// get courses created by the instructor
 export async function getAllCoursesByInstructorId( instructorId: string ): Promise<Course[]> {
   return await courseAccess.getAllCoursesByInstructorId(instructorId);
 }
 
+// get courses for the acadYear term for the students
 export async function getAllCourses( acadYear: number): Promise<Course[]> {
-  return await courseAccess.getAllCourses( acadYear );
+  return await courseAccess.getAllCoursesByAcadYear( acadYear );
 }
 
-export async function getCourses(userId: string, acadYear: string) {
-  const user = await userAccess.getUserByUserId(userId)
+// get Courses for instructor, or for student (which use acadYear to query for student courses)
+export async function getCoursesForInstructorOrStudent(instructorId: string, acadYear: string) {
+  const user = await userAccess.getUserByUserId(instructorId)
   if ( !user ) {
     throw new Error(`Cannot find user to return the corresponding courses`)
   }
 
   if ( user.userType === 'student') {
     if ( !acadYear) {
-      throw new Error(`Cannot get all courses for student with invalid parameter for acadYear`)
+      throw new Error(`Cannot get courses for student with missing parameter for acadYear`)
     } 
 
-    return courseAccess.getAllCourses( Number(acadYear) );
+    return courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
   }
   
   if ( user.userType === 'instructor') {
-    return courseAccess.getAllCoursesByInstructorId(userId);
+    return courseAccess.getAllCoursesByInstructorId(instructorId);
   }
-  throw new Error(`Cannot find courses for invalid userType`) 
+  throw new Error(`Cannot find courses with invalid userType`) 
 }
 
-export async function createCourse(
-    createCourseRequest: CreateCourseRequest,
-    instructorId: string
-  ): Promise<Course> {
+export async function createCourse( createCourseRequest: CreateCourseRequest, instructorId: string): Promise<Course> {
   
   const existingCourses = await courseAccess.getCoursesByCourseName( createCourseRequest.courseName)
 
@@ -60,7 +62,7 @@ export async function createCourse(
 
   const courseId: string = uuid.v4()
 
-  const savedCourse = courseAccess.createCourse({
+  const savedCourse = await courseAccess.createCourse({
     courseId,
     instructorId,
     createdAt: new Date().toISOString(),
@@ -70,8 +72,43 @@ export async function createCourse(
     instructorName: instructorUser.userName
   })
 
-  logger.info('Create courses successful:' + JSON.stringify( savedCourse ))
+  logger.info('Create course successful:' + JSON.stringify( savedCourse ))
   return savedCourse;
    
 }
   
+export async function updateCourse( updateCourseRequest: UpdateCourseRequest, courseId: string, instructorId: string  ) : Promise<Course> {
+
+  const course = await courseAccess.getCourseByCourseId( courseId )
+  if ( !course) {
+      throw new Error('Cannot find course to update')
+  }
+
+  if ( course.instructorId !== instructorId) {
+      throw new Error('Cannot update the course because it belongs to another instructor')
+  }
+
+  course.courseDescription = updateCourseRequest.courseDescription;
+  const updatedCourse = await courseAccess.updateCourse( course )
+  return updatedCourse;
+}
+
+export async function deleteCourse( courseId: string, instructorId: string ): Promise<Course> {
+
+  const course = await courseAccess.getCourseByCourseId( courseId )
+  if ( !course) {
+      throw new Error('Cannot find course to delete')
+  }
+
+  if ( course.instructorId !== instructorId) {
+      throw new Error('Cannot delete the course because it belongs to another instructor')
+  }
+
+  const assignmentsInCourse = await assignmentAccess.getAllAssignmentsByCourseId( courseId )
+  if ( assignmentsInCourse.length > 0) {
+      throw new Error('Cannot delete the course because there are existing assigments in the course')
+  }
+
+  const deletedCourse = await courseAccess.deleteCourse( course )
+  return deletedCourse
+}

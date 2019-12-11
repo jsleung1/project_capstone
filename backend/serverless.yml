@@ -62,8 +62,10 @@ provider:
     ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
     ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
     ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
+    ASSIGNMENTS_ASSIGNMENTNAME_INDEX: Assignments_assignmentName_Index
 
     SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
+    #SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
 
@@ -203,6 +205,248 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*" 
+  UpdateCourse:
+    handler: src/lambda/http/course/updateCourse.handler
+    events:
+      - http:
+          method: patch
+          path: courses/{courseId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSEID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*" 
+  DeleteCourse:
+    handler: src/lambda/http/course/deleteCourse.handler
+    events:
+      - http:
+          method: delete
+          path: courses/{courseId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSEID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}   
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*" 
+  CreateAssignment:
+    handler: src/lambda/http/assignment/createAssignment.handler
+    events:
+      - http:
+          method: post
+          path: assignments
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSEID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:PutItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_ASSIGNMENTNAME_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"  
+  UpdateAssignment:
+    handler: src/lambda/http/assignment/updateAssignment.handler
+    events:
+      - http:
+          method: patch
+          path: assignments/{assignmentId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"  
+  DeleteAssignment:
+    handler: src/lambda/http/assignment/updateAssignment.handler
+    events:
+      - http:
+          method: delete
+          path: assignments/{assignmentId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+  CreateSubmission:
+    handler: src/lambda/http/submission/createSubmission.handler
+    events:
+      - http:
+          method: post
+          path: submissions
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"  
+  UpdateSubmission:
+    handler: src/lambda/http/submission/updateSubmission.handler
+    events:
+      - http:
+          method: patch
+          path: submissions/{submissionId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:UpdateItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"  
 resources:
   Resources:
     GatewayResponseDefault4XX:
@@ -330,6 +574,8 @@ resources:
             AttributeType: S
           - AttributeName: courseId
             AttributeType: S
+          - AttributeName: assignmentName
+            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -347,6 +593,12 @@ resources:
           - IndexName: ${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}
             KeySchema:
             - AttributeName: courseId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.ASSIGNMENTS_ASSIGNMENTNAME_INDEX}
+            KeySchema:
+            - AttributeName: assignmentName
               KeyType: HASH
             Projection:
               ProjectionType: ALL
@@ -370,6 +622,12 @@ resources:
           - AttributeName: createdAt
             KeyType: RANGE
         GlobalSecondaryIndexes:
+          #- IndexName: ${self:provider.environment.SUBMISSIONS_SUBMISSIONID_INDEX}
+          #  KeySchema:
+          #  - AttributeName: submissionId
+          #    KeyType: HASH
+          #  Projection:
+          #    ProjectionType: ALL
           - IndexName: ${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
             KeySchema:
             - AttributeName: assignmentId

@@ -10,8 +10,9 @@ export class SubmissionAccess {
     constructor(
         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
         private readonly submissionsTable = process.env.SUBMISSIONS_TABLE,
+        // private readonly submissionsSubmissionIdIndex = process.env.SUBMISSIONS_SUBMISSIONID_INDEX,
         private readonly submissionsAssignmentIdIndex = process.env.SUBMISSIONS_ASSIGNMENTID_INDEX,
-        private readonly submissionsstudentIdIndex = process.env.SUBMISSIONS_STUDENTID_INDEX,
+        private readonly submissionsStudentIdIndex = process.env.SUBMISSIONS_STUDENTID_INDEX,
         ) {
     }
 
@@ -37,7 +38,7 @@ export class SubmissionAccess {
     
         const result = await this.docClient.query({
           TableName: this.submissionsTable,
-          IndexName: this.submissionsstudentIdIndex,
+          IndexName: this.submissionsStudentIdIndex,
           KeyConditionExpression: 'studentId = :studentId',
           ExpressionAttributeValues: {
               ':studentId': studentId
@@ -70,19 +71,20 @@ export class SubmissionAccess {
             submissionId: submission.submissionId,
             createdAt: submission.createdAt
           },         
-          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, similarityPercentage = :similarityPercentage, reportStatus = :reportStatus, submissionFileUrl = :submissionFileUrl',
+          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, similarityPercentage = :similarityPercentage, reportStatus = :reportStatus, studentRemarks = :studentRemarks',
           ExpressionAttributeValues: {
             ':instructorComments': submission.instructorComments,
             ':studentScore': submission.studentScore,
             ':similarityPercentage': submission.similarityPercentage,
             ':reportStatus': submission.reportStatus,  
-            ':submissionFileUrl': submission.submissionFileUrl
+            ':studentRemarks': submission.studentRemarks
           }
         }).promise()
     
         return submission
     }
 
+    // may need to add submissionId to the GlobalSecondaryIndexes
     async deleteSubmission(submission: Submission ): Promise<Submission> {
 
         this.logger.info(`deleteSubmission with submissionId:${submission.submissionId}`)
