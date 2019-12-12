@@ -2,28 +2,26 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 
-import { parseUserId } from '../../../auth/utils'
-import { getJwtToken } from '../../utils'
-import { createLogger } from '../../../utils/logger'
-import { getCoursesForInstructorOrStudent } from '../../../businessLogic/courseService'
+import { createLogger } from '../../../utils/logger';
+import { getJwtToken } from '../../utils';
+import { parseUserId } from '../../../auth/utils';
+import { deleteSubmission } from '../../../businessLogic/submissionService';
 
-const logger = createLogger('getCoursesHandler')
+const logger = createLogger('deleteSubmissionHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
   
+  const submissionId = event.pathParameters.submissionId
+
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
- 
-  let acadYear = undefined
-  if ( event.pathParameters ) {
-    acadYear = event.pathParameters.queryId
-  } 
+  
+  let item = null
 
-  let courses = []
   try {
-    courses = await getCoursesForInstructorOrStudent(userId, acadYear)
+    item = await deleteSubmission( submissionId, userId )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -36,14 +34,14 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       })
     }
   }
-  
+
   return {
-    statusCode: 200,
+    statusCode: 201,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      items: courses
+      item
     })
   }
 }

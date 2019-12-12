@@ -19,8 +19,23 @@ const submissionAccess = new SubmissionAccess()
 const userAccess = new UserAccess()
 
 // get all submissions uploaded to the Assigment Id
-export async function getAllAssignmentsByCourseId( courseId: string ): Promise<Assignment[]> {
-    return await assignmentAccess.getAllAssignmentsByCourseId( courseId );
+export async function getAssignmentsForInstructorOrStudent( courseId: string, userId: string ): Promise<Assignment[]> {
+    
+    const user = await userAccess.getUserByUserId(userId)
+    if ( !user ) {
+      throw new Error(`Cannot find user to return the corresponding assignments`)
+    }
+
+    const allAssignments = await assignmentAccess.getAllAssignmentsByCourseId( courseId );
+    if ( user.userType === 'student') {
+        return allAssignments
+    }
+
+    if ( user.userType === 'instructor') {
+        const instructorAssignments = allAssignments.filter( s => s.instructorId === user.userId )
+        return instructorAssignments
+    }
+    throw new Error(`Cannot find assignments with invalid userType`) 
 }
 
 export async function createAssignment( createAssignmentRequest: CreateAssignmentRequest, instructorId: string ) : Promise<Assignment> {
@@ -29,9 +44,10 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
     if ( !course ) {
         throw new Error('Cannot find the course to create assignment')
     }
-    const instructorUser = await userAccess.getUserByUserId( instructorId )
+
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
     if ( !instructorUser ) {
-        throw new Error('Cannot find the registered instructor to create the assignment')
+      throw new Error(`Invalid user to create the assignment`)
     }
 
     if ( course.instructorId !== instructorUser.userId ) {
@@ -39,7 +55,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
     }
 
     const assignments = await assignmentAccess.getAssignmentsByAssigmentName( createAssignmentRequest.assignmentName)
-    const assignment = assignments.find( s => s.courseId == course.courseId )
+    const assignment = assignments.find( s => s.courseId === course.courseId )
     if ( assignment ) {
         throw new Error('Cannot create assignment because the assignment name already been used by existing assignment under the same course')   
     }
@@ -53,6 +69,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
 
         courseName: course.courseName,
         instructorId: instructorUser.userId,
+        instructorName: instructorUser.userName,
         assignmentName: createAssignmentRequest.assignmentName,
         assignmentDescription: createAssignmentRequest.assignmentDescription,
         dueDate: createAssignmentRequest.dueDate
@@ -63,6 +80,11 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
 }
 
 export async function updateAssignment( updateAssignmentRequest: UpdateAssignmentRequest, assigmentId: string, instructorId: string  ) : Promise<Assignment> {
+
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+    if ( !instructorUser ) {
+      throw new Error(`Invalid user to update the assignment`)
+    }
 
     const assignment = await assignmentAccess.getAssignmentByAssigmentId( assigmentId)
     if ( !assignment) {
@@ -81,6 +103,11 @@ export async function updateAssignment( updateAssignmentRequest: UpdateAssignmen
 }
 
 export async function deleteAssignment( assignmentId: string, instructorId: string ): Promise<Assignment> {
+
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+    if ( !instructorUser ) {
+      throw new Error(`Invalid user to delete the assignment`)
+    }
 
     const assignment = await assignmentAccess.getAssignmentByAssigmentId( assignmentId )
     if ( !assignment) {

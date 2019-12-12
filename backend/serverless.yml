@@ -83,6 +83,7 @@ provider:
     #SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
+    SUBMISSIONS_INSTRUCTORID_INDEX: Submissions_instructorId_Index
 
     VG_SUBMISSIONS_FILES_S3_BUCKET: veriguide-submissions-files-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
@@ -244,6 +245,14 @@ functions:
     - Effect: Allow
       Action:
         - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
         - dynamodb:UpdateItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
     - Effect: Allow
@@ -264,6 +273,14 @@ functions:
           cors: true
           #authorizer: Auth0
     iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -327,6 +344,36 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"  
+  GetAssignments:
+    handler: src/lambda/http/assignment/getAssignments.handler
+    events:
+      - http:
+          method: get
+          path: assignments/{courseId}
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"  
   UpdateAssignment:
     handler: src/lambda/http/assignment/updateAssignment.handler
     events:
@@ -342,6 +389,14 @@ functions:
             requestModels:
               'application/json': UpdateAssignmentRequest
     iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -371,6 +426,14 @@ functions:
           #  requestModels:
           #    'application/json': CreateTodoRequest
     iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -437,6 +500,36 @@ functions:
       Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
+      Resource: "*"
+  GetSubmissions:
+    handler: src/lambda/http/submission/getSubmissions.handler
+    events:
+      - http:
+          method: get
+          path: submissions/{assignmentId}
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}  
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
       Resource: "*"  
   UpdateSubmission:
     handler: src/lambda/http/submission/updateSubmission.handler
@@ -456,6 +549,14 @@ functions:
     - Effect: Allow
       Action:
         - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
         - dynamodb:UpdateItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
     - Effect: Allow
@@ -464,9 +565,48 @@ functions:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
     - Effect: Allow
       Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_INSTRUCTORID_INDEX}
+    - Effect: Allow
+      Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
-      Resource: "*"  
+      Resource: "*" 
+  DeleteSubmission:
+    handler: src/lambda/http/submission/deleteSubmission.handler
+    events:
+      - http:
+          method: delete
+          path: submissions/{submissionId}
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_INSTRUCTORID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
 resources:
   Resources:
     GatewayResponseDefault4XX:
@@ -634,6 +774,8 @@ resources:
             AttributeType: S
           - AttributeName: studentId
             AttributeType: S
+          - AttributeName: instructorId
+            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -657,6 +799,12 @@ resources:
           - IndexName: ${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
             KeySchema:
             - AttributeName: studentId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.SUBMISSIONS_INSTRUCTORID_INDEX}
+            KeySchema:
+            - AttributeName: instructorId
               KeyType: HASH
             Projection:
               ProjectionType: ALL

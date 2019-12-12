@@ -6,7 +6,7 @@ import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
 import { UpdateSubmissionRequest } from '../../../requests/submission/UpdateSubmissionRequest';
-import { updateSubmission } from '../../../businessLogic/submissionService';
+import { updateSubmissionForInstructorOrStudent } from '../../../businessLogic/submissionService';
 
 const logger = createLogger('updateSubmissionHandler')
 
@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   let item = null
   // need to do student or instructor update submission
   try {
-    item = await updateSubmission( updateSubmissionRequest, submissionId, userId)
+    item = await updateSubmissionForInstructorOrStudent( updateSubmissionRequest, submissionId, userId)
   } catch (e) {
     logger.error(e.message)
     return {

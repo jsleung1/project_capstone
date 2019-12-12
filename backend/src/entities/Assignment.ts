@@ -7,6 +7,7 @@ export interface Assignment {
     
     courseName: string;
     instructorId: string;
+    instructorName: string;
     assignmentDescription: string;
     dueDate: string;
 }

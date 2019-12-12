@@ -13,6 +13,7 @@ export class SubmissionAccess {
         // private readonly submissionsSubmissionIdIndex = process.env.SUBMISSIONS_SUBMISSIONID_INDEX,
         private readonly submissionsAssignmentIdIndex = process.env.SUBMISSIONS_ASSIGNMENTID_INDEX,
         private readonly submissionsStudentIdIndex = process.env.SUBMISSIONS_STUDENTID_INDEX,
+        private readonly submissionsInstructorIdIndex = process.env.SUBMISSIONS_INSTRUCTORID_INDEX,
         ) {
     }
 
@@ -48,6 +49,22 @@ export class SubmissionAccess {
         const items = result.Items
         return items as Submission[]
     }
+
+    async getAllSubmissionsByInstructorId(instructorId: string): Promise<Submission[]> {
+      this.logger.info('getAllSubmissionsByInstructorId')
+  
+      const result = await this.docClient.query({
+        TableName: this.submissionsTable,
+        IndexName: this.submissionsInstructorIdIndex,
+        KeyConditionExpression: 'instructorId = :instructorId',
+        ExpressionAttributeValues: {
+            ':instructorId': instructorId
+        }      
+      }).promise()
+  
+      const items = result.Items
+      return items as Submission[]
+  }
 
     async createSubmission(submission: Submission): Promise<Submission> {
 

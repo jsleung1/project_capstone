@@ -5,9 +5,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { getCoursesForInstructorOrStudent } from '../../../businessLogic/courseService'
+import { getSubmissionsForInstructorOrStudent } from '../../../businessLogic/submissionService';
 
-const logger = createLogger('getCoursesHandler')
+const logger = createLogger('getSubmissionsHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
@@ -16,14 +16,11 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
  
-  let acadYear = undefined
-  if ( event.pathParameters ) {
-    acadYear = event.pathParameters.queryId
-  } 
+  let assignmentId = event.pathParameters.assignmentId  
+  let assignments = []
 
-  let courses = []
   try {
-    courses = await getCoursesForInstructorOrStudent(userId, acadYear)
+    assignments = await getSubmissionsForInstructorOrStudent( assignmentId, userId )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -43,7 +40,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
-      items: courses
+      items: assignments
     })
   }
 }

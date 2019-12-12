@@ -26,10 +26,33 @@ export class UserAccess {
               ':userId': userId
           }      
         }).promise()
-        console.log('count=' + result.Count)
         if (result.Count !== 0) { 
             const item = result.Items[0]
             return item as User
+        } else {
+            return undefined
+        }
+    }
+
+    async getUserByUserIdAndUserType(userId: string, userType: string): Promise<User> {
+        this.logger.info('getUser')
+    
+        const result = await this.docClient.query({
+          TableName: this.usersTable,
+          IndexName: this.usersUserIdIndex,
+          KeyConditionExpression: 'userId = :userId',
+          ExpressionAttributeValues: {
+              ':userId': userId
+          }      
+        }).promise()
+
+        if (result.Count == 0) { 
+            return undefined
+        }
+
+        const user = result.Items[0] as User
+        if ( user.userType === userType ) {
+            return user
         } else {
             return undefined
         }

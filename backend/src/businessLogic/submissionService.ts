@@ -27,30 +27,41 @@ const s3 = new XAWS.S3({
   signatureVersion: 'v4'
 })
 
-// get all submissions uploaded to the Assigment Id
-export async function getAllSubmissionsByAssignmentId( assignmentId: string ): Promise<Submission[]> {
-    return await submissionAccess.getAllSubmissionsByAssignmentId(assignmentId);
-}
+export async function getSubmissionsForInstructorOrStudent(assigmentId: string, userId: string): Promise<Submission[]> {
+    const user = await userAccess.getUserByUserId(userId)
+    if ( !user ) {
+      throw new Error(`Cannot find user to return the corresponding submissions`)
+    }
+    const submissions = await submissionAccess.getAllSubmissionsByAssignmentId( assigmentId )   
 
-// get submissions uploaded by the student Id
-export async function getAllSubmissionsByStudentId( studentId: string ): Promise<Submission[]> {
-    return await submissionAccess.getAllSubmissionsByStudentId( studentId );
-}
+    if ( user.userType === 'student') {
+        const studentSubmissions = submissions.filter( s => s.studentId === userId )
+        return studentSubmissions
+    }
+      
+    if ( user.userType === 'instructor') {
+        const instructorSubmissions = submissions.filter( s => s.instructorId === userId )
+        return instructorSubmissions
+    }
+
+    throw new Error(`Cannot get the submissions with invalid userType`) 
+  }
 
 export async function createSubmission( createSubmissionRequest: CreateSubmissionRequest, studentId: string ) : Promise<Submission> {
 
+    const studentUser = await userAccess.getUserByUserIdAndUserType(studentId, 'student')
+    if ( !studentUser ) {
+      throw new Error(`Invalid user to create the submission`)
+    }
+
     const assignment = await assignmentAccess.getAssignmentByAssigmentId( createSubmissionRequest.assignmentId )
     if ( !assignment ) {
-        throw new Error('Cannot find assignment to upload submission')
-    }
-    const studentUser = await userAccess.getUserByUserId( studentId )
-    if ( !studentUser ) {
-        throw new Error('Cannot find the registered student to upload submission')
+        throw new Error('Cannot find assignment to upload the submission')
     }
 
     const instructorUser = await userAccess.getUserByUserId( assignment.instructorId )
     if ( !instructorUser ) {
-        throw new Error('Cannot find the registered instructor to receive the submission upload')
+        throw new Error('Cannot find the instructor to receive the submission upload')
     }
 
     const submissionId: string = uuid.v4()
@@ -82,38 +93,79 @@ export async function createSubmission( createSubmissionRequest: CreateSubmissio
 }
 
 // only update the student remarks for the submission
-export async function updateSubmission( updateSubmissionRequest: UpdateSubmissionRequest, submissionId: string, studentId: string ) : Promise<Submission> {
+export async function updateSubmissionForInstructorOrStudent( updateSubmissionRequest: UpdateSubmissionRequest, submissionId: string, userId: string ) : Promise<Submission> {
 
-    const studentSubmissions = await submissionAccess.getAllSubmissionsByStudentId( studentId )
-    if ( studentSubmissions.length == 0 ) {
-        throw new Error('Student has no submission to update')
+    const user = await userAccess.getUserByUserId( userId )
+    if ( !user ) {
+        throw new Error('Cannot find the user to update the submission')
+    }
+    if ( user.userType === 'student') {
+        const studentSubmissions = await submissionAccess.getAllSubmissionsByStudentId( userId )
+        if ( studentSubmissions.length == 0 ) {
+            throw new Error('Student has no submission to update')
+        }
+    
+        const submissionToUpdate = studentSubmissions.find( s => s.submissionId === submissionId )
+        if ( !submissionToUpdate ) {
+            throw new Error('Cannot find the submission to update as an student')
+        }
+    
+        // only student can update the remarks of the submission
+        submissionToUpdate.studentRemarks = updateSubmissionRequest.studentRemarks;
+    
+        const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
+        return submissionUpdated;
+    
+    }
+      
+    if ( user.userType === 'instructor') {
+        const instructorSubmissions = await submissionAccess.getAllSubmissionsByInstructorId( userId )
+        if ( instructorSubmissions.length == 0 ) {
+            throw new Error('Instructor has no submission to update')
+        }
+
+        const submissionToUpdate = instructorSubmissions.find( s => s.submissionId === submissionId )
+        if ( !submissionToUpdate ) {
+            throw new Error('Cannot find the submission to update as an instructor')
+        }
+
+        // instructor can update comments, student score etc. for the submission
+        submissionToUpdate.instructorComments = updateSubmissionRequest.instructorComments
+        submissionToUpdate.studentScore = updateSubmissionRequest.studentScore
+        submissionToUpdate.similarityPercentage = updateSubmissionRequest.similarityPercentage
+        submissionToUpdate.reportStatus = updateSubmissionRequest.reportStatus
+
+        const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
+        return submissionUpdated;
+
     }
 
-    const submissionToUpdate = studentSubmissions.find( s => s.submissionId == submissionId )
-    if ( !submissionToUpdate ) {
-        throw new Error('Cannot find the student submission to update')
-    }
+    throw new Error(`Cannot update the submission with invalid userType`) 
 
-    submissionToUpdate.instructorComments = updateSubmissionRequest.instructorComments
-    submissionToUpdate.studentScore = updateSubmissionRequest.studentScore
-    submissionToUpdate.similarityPercentage = updateSubmissionRequest.similarityPercentage
-    submissionToUpdate.reportStatus = updateSubmissionRequest.reportStatus
-    submissionToUpdate.studentRemarks = updateSubmissionRequest.studentRemarks;
-
-    const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
-    return submissionUpdated;
 }
 
-export async function deleteSubmission( submissionId: string, studentId: string ): Promise<Submission> {
+export async function deleteSubmission( submissionId: string, userId: string ): Promise<Submission> {
 
-    const studentSubmissions = await submissionAccess.getAllSubmissionsByStudentId( studentId )
-    if ( studentSubmissions.length == 0 ) {
-        throw new Error('Student has no submission to delete')
+    const user = await userAccess.getUserByUserId( userId )
+    if ( !user ) {
+        throw new Error('Cannot find the user to delete the submission')
+    }
+    
+    if ( user.userType !== 'student' && user.userType !== 'instructor') {
+        throw new Error(`Cannot delete the submission with invalid userType`) 
     }
 
-    const submissionToDelete = studentSubmissions.find( s => s.submissionId == submissionId )
+    let submissionsToDelete = []
+    if ( user.userType === 'student') {
+        submissionsToDelete = await submissionAccess.getAllSubmissionsByStudentId( userId )
+    }
+    if ( user.userType === 'instructor') {
+        submissionsToDelete = await submissionAccess.getAllSubmissionsByInstructorId( userId )
+    }
+    
+    const submissionToDelete = submissionsToDelete.find( s => s.submissionId === submissionId )
     if ( !submissionToDelete ) {
-        throw new Error('Cannot find the student submission to delete')
+        throw new Error('Cannot find the submission to delete')
     }
 
     const deletedSubmission = await submissionAccess.deleteSubmission( submissionToDelete )

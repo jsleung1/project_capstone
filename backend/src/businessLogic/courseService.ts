@@ -15,8 +15,8 @@ const assignmentAccess = new AssignmentAccess()
 const userAccess = new UserAccess()
 
 // get Courses for instructor, or for student (which use acadYear to query for student courses)
-export async function getCoursesForInstructorOrStudent(instructorId: string, acadYear: string): Promise<Course[]> {
-  const user = await userAccess.getUserByUserId(instructorId)
+export async function getCoursesForInstructorOrStudent(userId: string, acadYear: string): Promise<Course[]> {
+  const user = await userAccess.getUserByUserId(userId)
   if ( !user ) {
     throw new Error(`Cannot find user to return the corresponding courses`)
   }
@@ -25,29 +25,27 @@ export async function getCoursesForInstructorOrStudent(instructorId: string, aca
     if ( !acadYear) {
       throw new Error(`Cannot get courses for student with missing parameter for acadYear`)
     } 
-
     return await courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
   }
   
   if ( user.userType === 'instructor') {
-    return await courseAccess.getAllCoursesByInstructorId(instructorId);
+    return await courseAccess.getAllCoursesByInstructorId(userId);
   }
-  throw new Error(`Cannot find courses with invalid userType`) 
+  throw new Error(`Cannot get the courses with invalid userType`) 
 }
 
 export async function createCourse( createCourseRequest: CreateCourseRequest, instructorId: string): Promise<Course> {
   
-  const existingCourses = await courseAccess.getCoursesByCourseName( createCourseRequest.courseName)
+  const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  if ( !instructorUser ) {
+    throw new Error(`Invalid user to create the course`)
+  }
 
-  const existCourseInAcadYear = existingCourses.find( s => s.acadYear == createCourseRequest.acadYear)
+  const existingCourses = await courseAccess.getCoursesByCourseName( createCourseRequest.courseName)
+  const existCourseInAcadYear = existingCourses.find( s => s.acadYear === createCourseRequest.acadYear)
 
   if ( existCourseInAcadYear ) {
     throw new Error(`A course with the same name (${createCourseRequest.courseName}) under the same term (${createCourseRequest.acadYear}) already exists!`)
-  }
-
-  const instructorUser = await userAccess.getUserByUserId(instructorId)
-  if ( !instructorUser ) {
-    throw new Error(`Cannot find instructor to create the course`)
   }
 
   const courseId: string = uuid.v4()
@@ -69,6 +67,11 @@ export async function createCourse( createCourseRequest: CreateCourseRequest, in
   
 export async function updateCourse( updateCourseRequest: UpdateCourseRequest, courseId: string, instructorId: string  ) : Promise<Course> {
 
+  const user = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  if ( !user ) {
+    throw new Error(`Invalid user to update the course`)
+  }
+
   const course = await courseAccess.getCourseByCourseId( courseId )
   if ( !course) {
       throw new Error('Cannot find course to update')
@@ -84,6 +87,11 @@ export async function updateCourse( updateCourseRequest: UpdateCourseRequest, co
 }
 
 export async function deleteCourse( courseId: string, instructorId: string ): Promise<Course> {
+
+  const user = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  if ( !user ) {
+    throw new Error(`Invalid user to delete the course`)
+  }
 
   const course = await courseAccess.getCourseByCourseId( courseId )
   if ( !course) {
