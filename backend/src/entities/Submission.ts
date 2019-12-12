@@ -13,11 +13,13 @@ export interface Submission {
 
     instructorComments: string;
     studentScore: number;
-    similarityPercentage: number;
-    reportStatus: string;
     studentRemarks: string;
     
     submissionFileUrl: string;
     submissionUploadUrl: string;
+
+    similarityPercentage: number;
+    reportStatus: string;
+    reportCreateTime: string;
 }
   

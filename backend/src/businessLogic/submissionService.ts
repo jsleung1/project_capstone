@@ -81,11 +81,12 @@ export async function createSubmission( createSubmissionRequest: CreateSubmissio
         instructorName: instructorUser.userName,
         instructorComments: null,
         studentScore: null,
-        similarityPercentage: null,
-        reportStatus: null,
         studentRemarks: createSubmissionRequest.studentRemarks,
         submissionFileUrl,
-        submissionUploadUrl
+        submissionUploadUrl,
+        similarityPercentage: null,
+        reportStatus: null,
+        reportCreateTime: null
     })
 
     logger.info('Create submission successful:' + JSON.stringify( savedSubmission ))
