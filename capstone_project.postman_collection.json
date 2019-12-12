@@ -9,7 +9,7 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "Create User",
+					"name": "Create user",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -27,7 +27,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userType\": \"student\",\n    \"email\": \"jsleung106@gmail.com\",\n    \"userName\": \"jsleung106 name\"\n}"
+							"raw": "{\n    \"userType\": \"student\",\n    \"email\": \"jsleung206@gmail.com\",\n    \"userName\": \"Mary Lee\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/users",
@@ -48,7 +48,7 @@
 					"response": []
 				},
 				{
-					"name": "Get User",
+					"name": "Get user",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -83,7 +83,7 @@
 			"name": "Courses",
 			"item": [
 				{
-					"name": "Create Course",
+					"name": "Create course",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -101,7 +101,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"acadYear\": 2019,\n    \"courseName\": \"2019 Term 1 ELTU-1001\",\n    \"courseDescription\": \"English Skills I\"\n}"
+							"raw": "{\n    \"acadYear\": 2019,\n    \"courseName\": \"2019 Term 1 ACCT-3001\",\n    \"courseDescription\": \"Accounting III: Advanced Accounting Skills\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses",
@@ -122,7 +122,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Course",
+					"name": "Update course",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -173,7 +173,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses/2019",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -184,7 +184,8 @@
 							],
 							"path": [
 								"{{env}}",
-								"courses"
+								"courses",
+								"2019"
 							]
 						}
 					},
@@ -220,7 +221,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Course",
+					"name": "Delete course",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -235,7 +236,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses/d24ea489-809d-4438-be51-698fa1e48101",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses/84b62a24-1900-49f6-8851-744fc7bff045",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -247,7 +248,7 @@
 							"path": [
 								"{{env}}",
 								"courses",
-								"d24ea489-809d-4438-be51-698fa1e48101"
+								"84b62a24-1900-49f6-8851-744fc7bff045"
 							]
 						}
 					},
@@ -282,7 +283,7 @@
 			"name": "Assignments",
 			"item": [
 				{
-					"name": "Create Assignment",
+					"name": "Create assignment",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -300,7 +301,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"courseId\": \"f4c26fd1-fd17-4e85-a146-6dbe3c987a39\",\n    \"assignmentName\": \"Assignment 2\",\n    \"assignmentDescription\": \"Accounting Assignment 2\",\n    \"dueDate\": \"2020-01-15T00:00:00.000Z\"\n}"
+							"raw": "{\n    \"courseId\": \"d3ceb528-e85c-4de3-ab60-56fd114351d0\",\n    \"assignmentName\": \"Advanced Accounting III: Assignment 1\",\n    \"assignmentDescription\": \"Advanced Accounting Assignment 1: Here are the instructions, please follow!\",\n    \"dueDate\": \"2020-01-15T00:00:00.000Z\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments",
@@ -321,7 +322,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Assigment",
+					"name": "Update assigment",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -339,10 +340,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"assignmentDescription\": \"English Language Assignment 2 description - more explanation\",\n    \"dueDate\": \"2020-02-01\"\n}"
+							"raw": "{\n    \"assignmentDescription\": \"Assignment 2: Here are the instructions\",\n    \"dueDate\": \"2020-02-01\"\n}"
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/0cde0857-d01f-4f9c-b2cd-42829c2f55ce",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/2093233c-cce6-4895-8c5e-10867779451d",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -354,14 +355,14 @@
 							"path": [
 								"{{env}}",
 								"assignments",
-								"0cde0857-d01f-4f9c-b2cd-42829c2f55ce"
+								"2093233c-cce6-4895-8c5e-10867779451d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Assignment",
+					"name": "Delete assignment",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -383,7 +384,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/deb6747e-aa8e-4639-8eb6-93f445c89a32",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/2093233c-cce6-4895-8c5e-10867779451d",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -395,7 +396,37 @@
 							"path": [
 								"{{env}}",
 								"assignments",
-								"deb6747e-aa8e-4639-8eb6-93f445c89a32"
+								"2093233c-cce6-4895-8c5e-10867779451d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get assignments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/d3ceb528-e85c-4de3-ab60-56fd114351d0",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"assignments",
+								"d3ceb528-e85c-4de3-ab60-56fd114351d0"
 							]
 						}
 					},
@@ -408,7 +439,7 @@
 			"name": "Submissions",
 			"item": [
 				{
-					"name": "Create Submission",
+					"name": "Create submission",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -446,7 +477,37 @@
 					"response": []
 				},
 				{
-					"name": "Update Submission",
+					"name": "Get submissions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/submissions/1234",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"submissions",
+								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update submission",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -485,7 +546,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Submission",
+					"name": "Delete submission",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -541,19 +602,19 @@
 	],
 	"variable": [
 		{
-			"id": "e63c3581-ebc7-4a40-b503-21b2fff41bd6",
+			"id": "ffd2a9bc-9417-46e2-bb87-7e12c3cff421",
 			"key": "apiId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "dbf3b5fe-9138-441d-bb1b-d7062bfed0eb",
+			"id": "fd62080d-3a72-437b-81b1-bd154d697f28",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "cb9b875f-ec0d-4211-92c9-7eee25ab17a3",
+			"id": "562ce6b8-57d6-4597-8504-f09306671c67",
 			"key": "env",
 			"value": "",
 			"type": "string"

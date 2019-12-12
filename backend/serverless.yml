@@ -64,22 +64,22 @@ provider:
     lambda: true
     apiGateway: true
   environment:
-    USERS_TABLE: VeriGuide-Users-${self:provider.stage}
+    USERS_TABLE: VeriGuide-Users1-${self:provider.stage}
     USERS_USERID_INDEX: Users_userId_Index
     USERS_EMAIL_INDEX: Users_email_Index
 
-    COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
+    COURSES_TABLE: VeriGuide-Courses1-${self:provider.stage}
     COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
     COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
     COURSES_COURSENAME_INDEX: Courses_courseName_Index
 
-    ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
+    ASSIGNMENTS_TABLE: VeriGuide-Assignments1-${self:provider.stage}
     ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
     ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
     ASSIGNMENTS_ASSIGNMENTNAME_INDEX: Assignments_assignmentName_Index
 
-    SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
+    SUBMISSIONS_TABLE: VeriGuide-Submissions1-${self:provider.stage}
     #SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
@@ -349,7 +349,7 @@ functions:
     events:
       - http:
           method: get
-          path: assignments/{courseId}
+          path: assignments/{queryId}
           cors: true
           #authorizer: Auth0
     iamRoleStatements:
@@ -379,7 +379,7 @@ functions:
     events:
       - http:
           method: patch
-          path: assignments/{assignmentId}
+          path: assignments/{queryId}
           cors: true
           #authorizer: Auth0
           reqValidatorName: RequestBodyValidator
@@ -416,7 +416,7 @@ functions:
     events:
       - http:
           method: delete
-          path: assignments/{assignmentId}
+          path: assignments/{queryId}
           cors: true
           #authorizer: Auth0
           #reqValidatorName: RequestBodyValidator
@@ -506,7 +506,7 @@ functions:
     events:
       - http:
           method: get
-          path: submissions/{assignmentId}
+          path: submissions/{queryId}
           cors: true
           #authorizer: Auth0
     iamRoleStatements:
@@ -536,7 +536,7 @@ functions:
     events:
       - http:
           method: patch
-          path: submissions/{submissionId}
+          path: submissions/{queryId}
           cors: true
           #authorizer: Auth0
           reqValidatorName: RequestBodyValidator
@@ -577,7 +577,7 @@ functions:
     events:
       - http:
           method: delete
-          path: submissions/{submissionId}
+          path: submissions/{queryId}
           cors: true
           #authorizer: Auth0
     iamRoleStatements:

@@ -79,6 +79,7 @@ export async function createSubmission( createSubmissionRequest: CreateSubmissio
         fileName: createSubmissionRequest.fileName,
         instructorId: assignment.instructorId,
         instructorName: instructorUser.userName,
+        instructorEmail: instructorUser.email,
         instructorComments: null,
         studentScore: null,
         studentRemarks: createSubmissionRequest.studentRemarks,

@@ -36,6 +36,6 @@ export async function createUser(
    
 }
 
-export async function getUser(userId: string): Promise<User> {
-    return await userAccess.getUserByUserId(userId);
+export async function getUserOrEmptyUser(userId: string): Promise<User> {
+    return await userAccess.getUserByUserIdOrEmptyUser(userId);
 }

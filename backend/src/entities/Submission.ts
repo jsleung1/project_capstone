@@ -10,7 +10,8 @@ export interface Submission {
     fileName: string;
     instructorId: string;
     instructorName: string;
-
+    instructorEmail: string;
+    
     instructorComments: string;
     studentScore: number;
     studentRemarks: string;

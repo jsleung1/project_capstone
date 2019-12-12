@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
  
-  let courseId = event.pathParameters.courseId  
+  let courseId = event.pathParameters.queryId  
   logger.info('courseId = ' + courseId)
 
   let assignments = []

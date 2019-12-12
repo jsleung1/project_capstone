@@ -34,6 +34,31 @@ export class UserAccess {
         }
     }
 
+    async getUserByUserIdOrEmptyUser(userId: string): Promise<User> {
+        this.logger.info('getUser')
+    
+        const result = await this.docClient.query({
+          TableName: this.usersTable,
+          IndexName: this.usersUserIdIndex,
+          KeyConditionExpression: 'userId = :userId',
+          ExpressionAttributeValues: {
+              ':userId': userId
+          }      
+        }).promise()
+        if (result.Count !== 0) { 
+            const item = result.Items[0]
+            return item as User
+        } else {
+            return {
+                userId: null,
+                createdAt: null,
+                userType: null,
+                email: null,
+                userName: null
+            }
+        }
+    }
+
     async getUserByUserIdAndUserType(userId: string, userType: string): Promise<User> {
         this.logger.info('getUser')
     

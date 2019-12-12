@@ -14,7 +14,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   logger.info('Processing event: ', event)
   
-  const submissionId = event.pathParameters.submissionId
+  const submissionId = event.pathParameters.queryId
 
   const updateSubmissionRequest: UpdateSubmissionRequest = JSON.parse(event.body)
   const jwtToken = getJwtToken( event.headers.Authorization )
