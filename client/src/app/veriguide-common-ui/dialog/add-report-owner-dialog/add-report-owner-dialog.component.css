@@ -1,0 +1,177 @@
+.add-report-owner-dialog-container {
+    margin-left: 0px;
+    margin-right: 20px;
+    padding-left: 15px;
+    padding-right: 4px;
+    margin-bottom: 10px;
+}
+.add-report-owner-header {
+    border-bottom:1px solid #C6DCF1;
+    color:#385C69; 
+    font-size: 18px;
+}
+.div-additional-report-owners{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+.div-spacing {
+    padding-top: 10px;
+}
+.add-roles-bar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.row-spacing {
+    padding-left: 20px;
+}
+.padding-top-0px {
+    padding-top: 0px;
+}
+.div-add-report-owners {
+    padding-top: 0px;
+    margin-top: 0px;
+    padding-bottom: 3px;
+    
+    padding-right: 0px;
+    margin-right: 0px;
+}
+.add-report-owner-font {
+    font-size: 14px;
+}
+.formCell {
+	line-height:30px;
+	border:none;
+	padding-bottom:0px;
+}
+.formInputHeight {
+    height: 30px;
+}
+.add-sharee-button {
+    height: 30px;
+    margin-top: 0px;
+    padding-top: 3px;
+    display: inline-block;
+}
+.button-spacing-p2 {
+    width:2px; 
+    display: inline-block;
+}
+.add-report-owners-container {
+    max-height: 20vh; 
+    overflow-y: scroll; 
+    overflow: auto;
+}
+.add-report-owners-border {
+    border: 1px solid #c0c0c0;
+    margin-left:3px;
+    border-radius: 6px 6px 6px 6px;
+}
+.cols-report-owners-container {
+    margin-top:0px;
+    margin-bottom: 5px;
+    padding-top: 10px;
+}
+.login-type-selection-text {
+    font-size: 13px;  
+    color:#385C69; 
+}
+.btn-info:disabled,
+.btn-info[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+.share-report-error {
+    font-size: 14px;
+    color: #ff0000;    
+}
+.red-text {
+    color: #ff0000;     
+}
+.red-border {
+    border-color: #ff0000;    
+}
+.red-text-border {
+    color: #ff0000;    
+    border-color: #ff0000;   
+}
+.title-font-style {
+    color:#385C69; 
+    font-size: 16px;
+}
+.radio-font-style {
+    color:#385C69; 
+    font-size: 14px;
+}
+.endorsed-by-div {
+    padding-top: 12px;
+}
+.error-message {
+   padding-top: 5px;
+   font-size: 14px;  
+   font-weight: bold;
+}
+.radio-button {
+    margin-top: -1px; 
+    vertical-align: middle;    
+}
+.margin-left-5px {
+    padding-left: 0px;
+    margin-left: 5px;
+}
+@media screen and (max-width: 767px) {
+    .md-report-owners {
+        padding-top: 0px;
+        padding-bottom: 5px;
+        margin-bottom: 0px;
+    }
+    .md-label-div-padding {
+        padding-bottom: 3px;
+        margin-bottom: 0px;
+    }
+    .md-label-text {
+        font-weight: normal;
+        font-size: 14px;
+        float: left;
+        display: block; 
+        line-height: 20px;
+      
+        padding-top: 5px;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+    .sm-spacing {
+        padding-top: 5px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .md-report-owners {
+        color:#385C69; 
+        font-size: 16px;
+        padding-top: 0px;
+        padding-bottom: 10px;
+        margin-bottom: 0px;
+    }
+    .md-label-text {
+        font-weight: normal;
+        font-size: 14px;
+        float: right;
+        display: block; 
+        line-height: 30px;
+
+        padding-right: 0px;
+        margin-right: 0px; 
+    }
+    .md-div-padding-right {
+        padding-right: 0px;
+        margin-right: 2px;  
+    }
+    .md-div-padding-left {
+        padding-left: 0px;
+        margin-left: 12px;
+    }
+}

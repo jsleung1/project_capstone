@@ -1,0 +1,18 @@
+<!--beta version: for CUHK only-->
+<form role="form" (submit)="login()">
+  <div class="row row-spacing">
+    <div class="col-md-12 login-form-border">
+      <h2 style="padding-top: 10px;" >Overview: VeriGuide</h2>
+      <p style="padding-top: 10px;">This is a new front-end for VeriGuide, a system to check similarities on documents from different sources to uphold academic honesty. Using this site, students could turn in their course assignments, and course lecturers could check the submission status.</p>
+      <p>This site currently supports <strong>Google Chrome</strong>, <strong>Mozilla Firefox</strong>, <strong>Safari</strong>, <strong>Internet Explorer (9, 10 11)</strong>, and <strong>Microsoft Edge</strong></p>
+      <p style="padding-bottom: 15px;">As part of the process of educating students about academic honesty and proper referencing, CUHK provides the following support.&nbsp;&nbsp;Please visit <a href='http://www.cuhk.edu.hk/policy/academichonesty/index.htm' target='_blank' >Honesty in Academic</a> Work website for more information on academic honesty policy.</p>
+    </div>
+  </div>
+  <div class="row row-spacing-10px">
+    <div class="col-md-12 login-form-border" >
+      <button type="button" class="form-control btn submit-btn margin-top-bottom-10px" (click)="auth0Login()">
+        Login with <span style="color:#2e6e9e;font-weight:bold;">Auth0</span>
+      </button>
+    </div>
+  </div>
+</form>

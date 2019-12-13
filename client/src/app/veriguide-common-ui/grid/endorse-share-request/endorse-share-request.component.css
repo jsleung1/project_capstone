@@ -1,0 +1,65 @@
+.course-info-text {
+    color: #1D5987;
+    background-color:#C6DCF1;
+}
+.row-details {
+    margin-top: 3px;
+    margin-left: 0px;
+    height: 54px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+.inner-green-field {
+    background-color: #e2f9e3; 
+    border-style: solid;
+    border-color: #0b8a00;
+    border-width: 1px;
+}
+.inner-red-field {
+    background-color: #ffe4e1; 
+    border-style: solid;
+    border-color: #e17009;
+    border-width: 1px;    
+}
+.button-spacing-p {
+    width:10px; 
+    display: inline-block;
+}
+.label-spacing-p {
+    width: 7px; 
+    display: inline-block;
+}
+.confirm-button-left-padding {
+    padding-left: 40px;
+}
+.button-approve-selected {
+    border-style: solid;
+    border-color: #00ff00;
+    background-color: #1fbb1f;
+    border-width: 4px;
+}
+.button-reject-selected {
+    border-style: solid;
+    border-color: #ff0000;
+    background-color: #cc4949;
+    border-width: 4px;
+}
+.button-not-selected {
+    background-color: #f0f8fd;
+    border-width: 1px;
+    border-color: #a5adb3;
+}
+.additional-info {
+    background-color: #ffffff;
+    border: 1px solid #2e6e9e;
+}
+.button-confirm-font {
+    font-size: 12px;
+}
+.border-bottom {
+    border-bottom: 1px solid #a5adb3;
+}
+.endorse-details-text {
+    color: #1D5987;
+    font-weight: bold;
+}

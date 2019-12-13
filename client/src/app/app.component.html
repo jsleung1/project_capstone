@@ -1,0 +1,71 @@
+<div class="container">
+  <!-- <div class="row  header-height margin-top-10px"> -->
+  <div class="row page-header">
+    <div class="col-md-12">
+      <!--header start-->
+      <div class="row margin-top-10px">
+        <div class="logo-container logo-header col-md-7 col-xs-12"  >
+            <a href="./" class="logo"></a>
+        </div>
+        <div class="col-md-5 col-xs-12 no-padding padding-left-small-scrn-12px" >
+
+          <div *ngIf="isAuthenticated()" class="row">
+            <div class="col-md-12 col-xs-12">
+              <label class="no-padding user-info-font bold ">{{loggedInUser.userName}}</label>
+            </div>
+          </div>
+          <div *ngIf="isAuthenticated()" class="row">
+            <div class="col-md-12 col-xs-12">
+              <a class="no-padding user-info-font " href="mailto:{{loggedInUser.email}}">{{loggedInUser.email}}</a>
+            </div>
+          </div>
+          <div *ngIf="isAuthenticated()" class="row">
+            <div class="col-md-12 col-xs-12">
+              <label class="no-padding user-info-font ">User logged in as: {{loggedInUser.userType}}</label>
+            </div>
+          </div>
+          <!--
+          <div class="row">
+              <div class="col-md-12 col-xs-12">
+                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('zh_Hans')">[简体中文]</button>
+                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('zh_Hant')"> [繁體中文]</button>
+                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('en')">[English]</button>
+              </div>
+          </div>
+          -->
+        </div>
+      </div>
+      <!--header end-->
+      <!--navigation bar start-->
+      <div class="row">
+        <div id="topbar" class="col-md-12 top-nav-bar-margin" [ngClass]="{
+            'top-nav-bar-logged-in': isAuthenticated(),
+            'top-nav-bar': !isAuthenticated() }" >
+          <a class="top-nav-bar-menu-item" *ngIf="topMenuItems.length > 0" [routerLink]="['']" ><img src="assets/images/app/nav-home-icon.png"></a>
+          <a class="top-nav-bar-menu-item" *ngFor="let topMenuItem of topMenuItems" routerLink="{{topMenuItem.url}}" routerLinkActive="active">
+            {{ topMenuItem.name | translate }}
+            <span id="alert_count" class="alert_count" *ngIf="topMenuItem.alertOn===true">
+            {{ topMenuItem.numOfAlerts }}
+            </span>
+          </a>
+          <a class="top-nav-bar-menu-item logout"  *ngIf="isAuthenticated()" [routerLink]="['']" (click)="logout()" >{{'topmenu.logout'| translate }}</a>
+          <!--
+          <a class="top-nav-bar-menu-item logout"  *ngIf="isAuthenticated()" href="http://www.cuhk.edu.hk" >{{'topmenu.cuhk'|translate}}</a>
+          -->
+        </div>
+      </div>
+      <!--navigation bar end-->
+    </div>
+  </div>
+  <ngx-spinner bdOpacity = 0.1 bdColor = "rgba(51,51,51,0.51)" size="medium" color="#383838" type = "ball-spin" [fullScreen] = "true">
+      <p style="color:#ffffff;" >Loading, please wait ... </p>
+  </ngx-spinner>
+  <!--routed content start-->
+  <div class="row router-outlet-vh">
+    <div class="col-md-12 padding-left-22px">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!--routed content end-->
+  <div class="row page-footer"></div>
+</div>

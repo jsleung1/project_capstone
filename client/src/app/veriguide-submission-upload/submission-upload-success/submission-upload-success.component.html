@@ -1,0 +1,34 @@
+<div class="submission-upload-success-container">
+  <div class="row success-heading">
+    <h1 class="col-sm-12 col-md-12">
+      {{ 'assignmentUploadSuccess.head' | translate }}
+    </h1>
+  </div>
+  <div class="row success-message">
+    <div class="col-sm-auto col-md-auto">
+      <img src="../../../assets/images/veriguide-submission-upload/success.png" alt="Success" class="left-inner-picture" />
+    </div>
+    <div class="col-sm-auto col-md-auto right-inner-text">
+      <h4>{{ 'assignmentUploadSuccess.success' | translate }}</h4>
+      <p [innerHTML]="'assignmentUploadSuccess.success.01' | translate"></p>
+      <p>{{ 'assignmentUploadSuccess.success.02' | translate }}&nbsp;<strong id="refID">{{ objReceived.submissionId }}</strong></p>
+      <!--<jsp:scriptlet> request.getSession().setAttribute("canRemoveVgsRef", true); </jsp:scriptlet>-->
+    </div>
+  </div>
+  <div class="row success-details">
+    <div class="col-sm-12 col-md-12">
+      <p>
+        {{ 'assignmentUploadSuccess.success.03' | translate }}&nbsp;<strong>{{ objSubmitted.assignmentNum.assignmentNum }}</strong>&nbsp;
+        {{ 'assignmentUploadSuccess.success.04' | translate }}&nbsp;<strong>{{ pfDate.format(objSubmitted.assignmentDeadline) }}</strong>&nbsp;
+        {{ 'assignmentUploadSuccess.success.05' | translate }}&nbsp;<strong>{{ objSubmitted.courseChoice.yearTermCourseCodeSection }},&nbsp;{{ objSubmitted.courseChoice.courseTitle }}</strong>&nbsp;
+        <!--{{ 'assignmentUploadSuccess.success.06' | translate }}&nbsp;<strong>{{ objSubmitted.submissionTime | date: 'yyyy-MM-dd HH:mm:ss' }}</strong>&nbsp;-->
+        {{ 'assignmentUploadSuccess.success.06' | translate }}&nbsp;<strong>{{ objReceived.submissionDateTime }}</strong>&nbsp;
+        {{ 'assignmentUploadSuccess.success.07' | translate }}&nbsp;<strong>{{ sUploadService.getBasename(objSubmitted.assignmentFile) }}</strong>&nbsp;
+        {{ 'assignmentUploadSuccess.success.08' | translate }}&nbsp;<a [routerLink]='sUploadService.urlPathConfig.userAssignmentSubmissionHistory.fullPath'>{{ 'contentMenu.submissionHistory' | translate }}</a>&nbsp;{{ 'assignmentUploadSuccess.success.09' | translate }}
+      </p>
+      <p>
+        {{ 'assignmentUploadSuccess.success.final' | translate }}
+      </p>
+    </div>
+  </div>
+</div>

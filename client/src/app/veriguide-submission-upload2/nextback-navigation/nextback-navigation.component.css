@@ -1,0 +1,6 @@
+@media screen and (min-width: 768px) {
+    .button-spacing-p {
+        width:10px; 
+        display: inline-block;
+    }
+}

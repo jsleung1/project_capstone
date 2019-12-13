@@ -1,0 +1,50 @@
+<div class="form-course-information-container form-part" id="courseSelecting" [formGroup]="fg">
+  <h3>{{ 'assignmentUpload.course.info' | translate }}</h3>
+  <div class="form-course-information-notice-container notice-message" [hidden]="!sUploadService.isCourseSelected()">
+    <h3>{{ 'assignmentUpload.selectedCourse' | translate }}</h3>
+    <div class="pl-4">
+      <b>{{ 'assignmentUpload.year' | translate }}</b>:&nbsp;{{ this.selectedAcadYear ? this.selectedAcadYear.name : '' }}&nbsp;<br />
+      <b>{{ 'assignmentUpload.term' | translate }}</b>:&nbsp;{{ this.selectedTerm ? this.selectedTerm.term : '' }}&nbsp;<br />
+      <b>{{ 'assignmentUpload.course' | translate }}</b>:&nbsp;{{ this.selectedCourse ? this.selectedCourse.yearTermCourseCodeSection : '' }}:&nbsp;
+      <b>{{ this.selectedCourse ? this.selectedCourse.courseTitle : '' }}</b><br />
+      <a href="javascript:void(0)" (click)="onClickSelectCourseAgain($event)" [hidden]="sUploadService.isAssignmentSelected()">{{ 'assignmentUpload.anotherCourse' | translate }}</a>
+    </div>
+  </div>
+  <!--More field items may be required-->
+  <div class="form-course-information-input-container" [hidden]="sUploadService.isCourseSelected()">
+    <div class="form-row form-field">
+      <label for="yearList" class="col-sm-12 col-md-4 fielddesc">{{ 'assignmentUpload.acad.year' | translate }}</label>
+      <select id="yearList" name="acadYear" class="col-sm-12 col-md-5 form-control custom-select field"
+              [(ngModel)]="selectedAcadYear" [ngModelOptions]="{standalone: true}" (ngModelChange)="onAcadYearSelectionChange($event)">
+         <option *ngFor="let itemYear of acadYearDTOs" [ngValue]="itemYear">{{ itemYear.name }}</option>
+      </select>
+    </div>
+    <div class="form-row form-field">
+      <label for="termList" class="col-sm-12 col-md-4 fielddesc">{{ 'assignmentUpload.acad.term' | translate }}</label>
+      <select id="termList" name="currTerm" class="col-col-sm-12 col-md-5 form-control custom-select field"
+              [(ngModel)]="selectedTerm" [ngModelOptions]="{standalone: true}" (ngModelChange)="onTermSelectionChange($event)" [disabled]="selectedAcadYear == null">
+        <option *ngFor="let itemTerm of termDTOs" [ngValue]="itemTerm">{{ itemTerm.name }}</option>
+      </select>
+    </div>
+    <div class="form-row form-field">
+      <label for="courseList" class="col-sm-12 col-md-4 fielddesc">{{ 'assignmentUpload.choose' | translate }}</label>
+      <select id="courseList" name="currCourse" class="col-sm-12 col-md-5 form-control custom-select field"
+              [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}" (ngModelChange)="onCourseSelectedFromList($event)"
+              [disabled]="selectedAcadYear == null || selectedTerm == null">
+        <option *ngFor="let itemCourse of courseDTOs" [ngValue]="itemCourse">{{ itemCourse.name }}</option>
+      </select>
+    </div>
+    <div class="form-row form-field" id="courseCode" *ngIf="sUploadService.schoolId !== 2">
+      <label for="courseSelect" class="col-sm-12 col-md-4 fielddesc">{{ 'assignmentUpload.type' | translate }}</label>
+      <input name="courseSelect" id="courseSelect"  type="text" class="col-sm-12 col-md-5 form-control form-control-plaintext field"
+             [(ngModel)]="strInputCourseSelect" [ngModelOptions]="{standalone: true}" (selectItem)="onCourseSelectedFromType($event)"
+             [ngbTypeahead]="searchCourse" [focusFirst]="true" [editable]="true" [placeholder]="'assignmentUpload.type.placeholder' | translate"
+             [inputFormatter]="fmtCourse" [resultFormatter]="fmtCourse"
+             [class.is-invalid]="isCourseSearchFailed" [disabled]="selectedAcadYear == null || selectedTerm == null"  />
+      <div class="col-sm-12 col-md-3 fieldsearch" *ngIf="isCourseSearching || isCourseSearchFailed">
+        {{ getCourseSearchMessage() | translate }}
+      </div>
+    </div>
+    <input [hidden]="true" formControlName="courseChoice" required>
+  </div>
+</div>

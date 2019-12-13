@@ -1,0 +1,41 @@
+
+$color-button-calender: #E9ECEF;
+
+.labelText {
+	font-weight:normal;
+  font-size: 15px;
+  height: 32px;
+  margin-top:0px;
+  padding-top:5px;
+  margin-bottom:0px;
+  padding-bottom:5px;
+}
+.radio-button {
+  margin-top: -1px; 
+  vertical-align: middle;    
+}
+.formInputHeight {
+  height: 34px;
+}
+button {
+    &.calendar, &.calendar:active {
+        width: 2.5rem;
+        height: 2.25em;
+        background-color: $color-button-calender;
+        background-image: url('src/assets/images/veriguide-common-control/datepicker-button-logo.png') !important;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        background-position: center;
+    }
+}
+.formInputCalendar {
+    display: flex; 
+    width: 100%;
+}
+.datePickerInputHeight {
+    height: 36px;
+}
+.fileSelectionInputHeight {
+    height: 40px !important;
+}
+  

@@ -1,0 +1,22 @@
+<div class="assignment-deadline-creation-form-container">
+  <form role="form" enctype="multipart/form-data" class="form-frame needs-validation" [formGroup]="fg" (ngSubmit)="onSubmitDeadlineCreationForm()" novalidate>
+    <div class="form-row" id="alert">
+      <ngb-alert dismissible="true" type="danger" role="alert" id="assignmentUploadAlert" class="form-alert col-sm-12 col-md-12 alert alert-danger"
+                 *ngIf="objAlertMessages != null" [dismissible]="false" [innerHTML]="objAlertMessages.message | translate:objAlertMessages.param">
+      </ngb-alert>
+    </div>
+    <app-form-assignment-details [fg]="fg"></app-form-assignment-details>
+    <app-form-course-selection [fg]="fg"></app-form-course-selection>
+    <!--buttons start-->
+    <div class="form-row buttons" id="buttons">
+      <div class="col-sm-6 col-md-4">
+        <button type="button" id="buttonBack" class="btn btn-default" (click)="onClickBack($event)" [disabled]="isBlockBackButton"> {{ 'assignmentUpload.back' | translate }} </button>
+      </div>
+      <div class="col-sm-6 col-md-6">
+        <button type="submit" id="buttonNext" class="btn btn-primary" [disabled]="isBlockSubmitButton"> {{ 'assignmentUpload.next' | translate }} </button>
+      </div>
+      <input [hidden]="true" formControlName="submissionTime">
+    </div>
+    <!--buttons end-->
+  </form>
+</div>

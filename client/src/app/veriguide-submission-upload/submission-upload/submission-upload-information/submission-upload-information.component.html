@@ -1,0 +1,29 @@
+<h3>{{ 'assignmentUpload.precaution' | translate }}</h3>
+{{ 'assignmentUpload.precaution.desc' | translate }}
+<ul>
+  <li>{{ 'assignmentUpload.precaution.supportFormat' | translate }}</li>
+  <li>{{ 'assignmentUpload.precaution.corrupted' | translate }}</li>
+  <li>{{ 'assignmentUpload.precaution.pwd' | translate }}</li>
+  <li>{{ 'assignmentUpload.precaution.blank' | translate }}</li>
+  <li>{{ 'assignmentUpload.precaution.fileSize' | translate }}</li>
+</ul>
+<p>{{ 'assignmentUpload.precaution.persist' | translate }}</p>
+<h3>{{ 'assignmentUploadInformation.format' | translate }}</h3>
+<ul>
+  <li>{{ 'assignmentUploadInformation.pdf' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.html' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.word' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.excel' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.ppt' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.odf' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.txt' | translate }}</li>
+  <li>{{ 'assignmentUploadInformation.zip' | translate }}</li>
+</ul>
+<h3>{{ 'assignmentUploadInformation.size' | translate }}</h3>
+<ul>
+  <li>{{ 'assignmentUploadInformation.limit' | translate }}</li>
+</ul>
+<div *ngIf="sUploadService.isCUHK()">
+  <h3>{{ 'assignmentUploadInformation.masking' | translate }}</h3>
+  <div [innerHTML]="'assignmentUploadInformation.maskingContent' | translate"></div>
+</div>

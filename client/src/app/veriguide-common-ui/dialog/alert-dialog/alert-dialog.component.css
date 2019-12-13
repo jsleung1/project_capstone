@@ -1,0 +1,84 @@
+.alert-top-close-btn {
+    padding-left:10px;
+    padding-right: 0px;
+    padding-bottom: 5px; 
+    
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    padding-top: 5px;
+    padding-bottom: 0px;
+
+    float: right; 
+    font-size: 20pt;
+
+    border: none;
+    cursor: pointer;
+}
+.alert-top-close-btn:hover {
+    font-weight: bold;
+}
+.alert-dialog-footer {
+    text-align:center;
+    padding-top: 5px;
+    padding-bottom: 7px;
+}
+.alert-dialog-close-btn {
+    font-size: 12pt;
+    box-shadow: none !important;
+}
+.veriguide-logo-small {
+	height: 58px;
+	overflow: hidden;
+	text-indent: -9999px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	display: block;
+	background-image: url('../../../../assets/images/veriguide-common-ui/veriguidLogoForAlertBox.jpg');
+}
+.alert-dialog-header-label {
+    padding-top: 10px;
+    font-size: 14pt;
+}
+@media screen and (max-width: 767px) {
+    .xs-text-align-center {
+        text-align: center;
+    }
+}
+.padding-left-12px {
+    padding-left: 12px;
+}
+.alert-dialog-container {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow:hidden;
+}
+.align-middle {
+    vertical-align: middle;
+}
+.alert-dialog-icon {
+    height: 30px;
+}
+.alert-dialog-message-div {
+    padding-top: 5px;
+    padding-left:15px; 
+    padding-right: 10px;
+
+    border-top:1px solid #000000;
+    border-bottom:1px solid #000000;
+    border-left:0px solid #000000;
+    border-right:0px solid #000000;
+    
+
+    overflow-y:scroll;
+    min-height: 50px;
+}
+.alert-dialog-message {
+    font-size: 12pt;
+}
+.button-spacing-p {
+    width:10px; 
+    display: inline-block;
+}

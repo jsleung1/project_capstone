@@ -1,0 +1,72 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+@import "src/assets/css/veriguide-heading.scss";
+
+.margin-padding-right-0px {
+  margin-right: 0px; 
+  padding-right: 0px;
+}
+.no-border-radius-left-side {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.no-border-radius-right-side {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.margin-left-5px {
+  padding-left: 0px;
+  margin-left: 5px;
+}
+@mixin label-common {
+  font-family: "Myriad Pro", Arial, Helvetica, sans-serif;
+  color: $color-text-label;
+  font-size: 17px;
+  text-align: right;
+  @include media-breakpoint-down(md) {
+    text-align: left;
+  };
+  font-weight: normal;
+  display: block;   
+}
+
+@media screen and (max-width: 767px) {
+
+  .md-label-text {
+    @include label-common;
+    float: left;
+    line-height: 20px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .md-padding-top {
+    padding-top: 12px;
+  }
+
+  .section-top-padding {
+    padding-top: 28px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+
+  .md-label-text {
+    @include label-common;
+    float: right;
+    line-height: 30px;
+    padding-right: 5px;
+    margin-right: 0px; 
+    padding-top: 2px;
+  }
+
+  .md-padding-top {
+    padding-top: 10px;
+  }
+
+  .section-top-padding {
+    padding-top: 25px;
+  }
+}

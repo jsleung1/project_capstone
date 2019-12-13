@@ -1,0 +1,57 @@
+.login-form-margin {
+    margin: 0px 15px 15px 15px;
+}
+h2, h3 {
+    font-size: 1.5 em;
+    font-family: "myriad pro","trebuchet ms","helvetica neue",helvetica,arial,sans-serif;
+    font-weight: normal;
+    color: #385C69;
+}
+.login-type-description {
+	font-size:14px;
+    color:#999; 
+}
+.login-type-background {
+    border-radius: 5px; 
+    border-style:solid; 
+    border-color:#C0C0C0;
+    border-width: 1px;
+    background: #e6f0f8;
+    padding: 5px 5px 5px 5px;
+}
+.login-failure-message {
+	background: #FFEDEF none repeat scroll 0 0;
+	border: 1px solid #FFC5CC;
+	padding: 10px;
+    margin: 0 0 10px 0;
+    border-radius: 5px; 
+}
+.login-failure-message h4 {
+	color: #CF8790;
+	margin: 0;
+}
+.row-spacing {
+    padding-top: 20px;
+}
+.row-spacing-10px {
+    padding-top: 10px;
+}
+.login-buttons-spacing {
+    padding-top: 8px;
+}
+.margin-top-10px {
+    margin-top: 10px;
+}
+.cuhk-login-button {
+    background: #710AA1 !important;
+    color: #FFFFFF;
+    border: none !important;
+}
+.cuhk-login-button:hover {
+    background: #8D3BB4 !important;
+    border: none !important;
+}
+.margin-top-bottom-10px {
+    margin-top:10px; 
+    margin-bottom:10px;   
+}

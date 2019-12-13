@@ -1,0 +1,49 @@
+<div class="submission-upload-container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <app-dynamic-component-container>
+                    </app-dynamic-component-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 padding-top-25px">
+                    <app-nextback-bar></app-nextback-bar>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 sm-padding-top-15px">
+            <div class="panel panel-default blue-box">
+                <h3 >{{ 'assignmentUpload.precaution' | translate }}</h3>
+                <p>{{ 'assignmentUpload.precaution.desc' | translate }}</p>
+                <ul>
+                    <li>{{ 'assignmentUpload.precaution.supportFormat' | translate }}</li>
+                    <li>{{ 'assignmentUpload.precaution.corrupted' | translate }}</li>
+                    <li>{{ 'assignmentUpload.precaution.pwd' | translate }}</li>
+                    <li>{{ 'assignmentUpload.precaution.blank' | translate }}</li>
+                    <li>{{ 'assignmentUpload.precaution.fileSize' | translate }}</li>
+                </ul>
+                <p>{{ 'assignmentUpload.precaution.persist' | translate }}</p>
+                <h3>{{ 'assignmentUploadInformation.format' | translate }}</h3>
+                <ul>
+                    <li>{{ 'assignmentUploadInformation.pdf' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.html' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.word' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.excel' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.ppt' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.odf' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.txt' | translate }}</li>
+                    <li>{{ 'assignmentUploadInformation.zip' | translate }}</li>
+                </ul>
+                <h3>{{ 'assignmentUploadInformation.size' | translate }}</h3>
+                <ul>
+                    <li>{{ 'assignmentUploadInformation.limit' | translate }}</li>
+                </ul>
+                <h3>{{ 'assignmentUploadInformation.masking' | translate }}</h3>
+                <div [innerHTML]="'assignmentUploadInformation.maskingContent' | translate"></div>
+            </div>
+        </div>
+    </div>
+</div>
+      

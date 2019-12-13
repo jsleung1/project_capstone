@@ -1,0 +1,62 @@
+<div class=" padding-right-small-scrn-8px">
+    <div class="row gridSearchBar padding-right-small-scrn-10px upper-border " *ngIf="showSearchBar">
+        <div class="col-5 col-md-3 gridSearchBar-content-padding" *ngIf="showPaginationDropDownButton" >
+            Show
+            <div ngbDropdown class="d-inline-block mobile-width-and-padding">
+                <button class="btn btn-outline-primary btn-sm dropDownSelect" id="itemsPerPageDropDown"
+                    ngbDropdownToggle>{{paginationPageSize}}</button>
+                <div ngbDropdownMenu aria-labelledby="itemsPerPageDropDown">
+                    <button ngbDropdownItem class="dropDownItem" *ngFor="let pageSizeItem of pageSizeItems"
+                        (click)="onPageSizeSelection( pageSizeItem )">
+                        {{ pageSizeItem }}
+                    </button>
+                </div>
+            </div>
+            entries
+        </div>
+        <div class="col-5 col-md-3 gridSearchBar-content-padding" *ngIf="!showPaginationDropDownButton" >
+        </div>
+        <div class="col-7 col-md-9 gridSearchBar-content-padding gradSearchBar-text-align-right mobile-width-and-padding mobile-padding-right">
+            <label>Search:</label>&nbsp;
+            <input type="text"  (input)="onSearchChange($event.target.value)" />
+        </div>
+    </div>
+    <div class="row ">
+        <ag-grid-angular translate #agGrid class="ag-theme-balham content user-record-grid "
+            [rowData]="records"
+            [columnDefs]="columnDefs"
+            [rowSelection]="rowSelection"
+            [enableRangeSelection]="false"
+            [paginationAutoPageSize]="false"
+            [pagination]="true"
+            [suppressPaginationPanel]="true"
+            [suppressScrollOnNewData]="true"
+            [getRowStyle]="rowStyle.getRowStyle"
+            [enableCellTextSelection]="true"
+            [defaultColDef]="defaultColDef"
+            [getRowHeight]="boundGetRowHeightFunction"
+            [overlayNoRowsTemplate]="noRowsTemplate"
+            (gridReady)="onGridReady($event)"
+            (sortChanged)="onSortChanged($event)"
+            (selectionChanged)="onSelectionChanged($event)">
+        </ag-grid-angular>
+    </div>
+    <div class="row gridSearchBar padding-right-small-scrn-10px lower-border-with-radius" *ngIf="!showAllItemsInOnePage"
+        [ngClass]="{'lower-border-with-radius': showSearchBar===true, 'lower-border-no-radius': showSearchBar===false}">
+        <div class="col-md-4">
+            <label class="showing-to-no-of-entires">Showing <b>{{ fromRecordNo }}</b> to <b>{{ toRecordNo }}</b> of <b>{{ records.length }}</b> entries</label>
+        </div>
+        <div class="col-md-8 no-padding">
+          <ngb-pagination [collectionSize]="records.length"  [(pageSize)]="paginationPageSize" [maxSize]="5"
+                [boundaryLinks]="true" aria-label="Custom pagination"
+                class="d-flex justify-content-end pagination-buttons-padding"
+                (pageChange)="gotoPage($event)">
+                <ng-template ngbPaginationFirst>First</ng-template>
+                <ng-template ngbPaginationPrevious>Prev</ng-template>
+                <ng-template ngbPaginationNext>Next</ng-template>
+                <ng-template ngbPaginationLast>Last</ng-template>
+            </ngb-pagination>
+        </div>
+    </div>
+
+</div>

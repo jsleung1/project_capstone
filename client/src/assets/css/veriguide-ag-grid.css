@@ -1,0 +1,42 @@
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+.ag-header-cell-label {
+    font-size: 13px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Arial", "Verdana", sans-serif;
+    color: #2e6e9e;
+}
+.ag-header-cell {
+    background-color: #dfeffc;
+} 
+.ag-cell {
+    font-size: 13px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Arial", "Verdana", sans-serif;
+    padding-top: 4px;    
+}
+
+.ag-paging-panel {
+    background-color: #5c9ccc;
+}
+
+.ag-paging-row-summary-panel {
+    font-size: 14px;
+    color: #ffffff;
+}
+.ag-paging-page-summary-panel {
+    font-size: 14px;
+    color: #ffffff;
+}
+.ag-icon {
+    color: #ffffff !important;
+}
+.ag-header-cell-label .ag-icon {
+    color: #2e6e9e !important;
+}
+.ag-theme-balham .ag-row-selected {
+    background-color: #91d5ff !important;
+}
+
+.ag-theme-balham .ag-ltr .ag-cell-focus {
+    border: 1px solid #91d5ff !important;
+}

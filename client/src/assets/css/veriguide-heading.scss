@@ -1,0 +1,27 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+$color-text-header: #385C69;
+$color-text-label: #385C69;
+$color-border: #C6DCF1;
+$color-button-submit-bg: #DFEFFC;
+$color-button-submit-font: #2B2F37;
+$color-button-submit-bg-hover: #EFF8FF;
+$color-button-submit-font-hover: #000000;
+$color-button-bg-disabled: #E9ECEF;
+$color-button-font-disabled: #000000;
+$color-button-border-disabled: #CCCCCC;
+$color-input-disable: #E9ECEF;
+$color-error: #8A0000;
+$color-error-bg: #FFEDEF;
+$color-notice-bg: #FFFECC;
+$color-notice-border: #FAECB5;
+$color-notice-header: #BBAB67;
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "myriad pro","trebuchet ms","helvetica neue",helvetica,arial,sans-serif;
+    font-weight: normal;
+    color: $color-text-header;
+}
+h3 {font-size: 1.4em;}

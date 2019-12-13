@@ -1,0 +1,80 @@
+$color-text-header: #385C69;
+$color-border-heading: #E6E6E6;
+$color-text-shadow-heading: #F3F3F3;
+$color-bg-success: #E2F9E3;
+$color-border-success: #9ECE9E;
+$color-header-success: #579157;
+
+// tags
+a img {
+  border: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "myriad pro","trebuchet ms","helvetica neue",helvetica,arial,sans-serif;
+  font-weight: normal;
+  color: $color-text-header;
+}
+
+h1 {font-size: 36px; letter-spacing: 2px;}
+
+h2 {font-size: 24px; letter-spacing: 1px;}
+
+h3 {font-size: 1.5em;}
+
+h4 {font-size: 1.4em;}
+
+p {margin-bottom: 1em;}
+
+strong {font-weight: bold;}
+
+%div-spacing {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+// sections
+.success-heading {
+  @extend %div-spacing;
+
+  h1 {
+    text-shadow: $color-text-shadow-heading 2px 2px 0px;
+  }
+}
+
+.success-message {
+  @extend %div-spacing;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background: $color-bg-success none repeat scroll 0 0;
+  border: $color-border-success 1px solid;
+  border-radius: 10px;
+
+  h4 {
+    color: $color-header-success;
+    margin: 10px 0 25px 0;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .left-inner-picture {
+    height: 128px;
+    width: 128px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .right-inner-textbox {
+    text-align: left;
+    vertical-align: middle;
+  }
+}
+
+.success-details {
+  @extend %div-spacing;
+}

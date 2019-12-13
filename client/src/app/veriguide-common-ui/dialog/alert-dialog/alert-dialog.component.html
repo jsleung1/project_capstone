@@ -1,0 +1,22 @@
+<div class="alert-dialog-container" >
+    <div>
+        <img class="alert-dialog-icon" src="../../../assets/images/veriguide-common-ui/veriguidLogoForAlertBox.jpg"/>
+        <label class="alert-dialog-header-label padding-left-12px">{{title}}</label>
+        <a class="btn btn-default alert-top-close-btn "  aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true" >&times;</span>
+        </a>
+    </div>
+    <div class="row white" >
+        <div class="col-md-12 alert-dialog-message-div" >
+            <label class="alert-dialog-message" >{{ message }}</label>
+        </div>
+    </div>
+    <div *ngIf="dialogType==='OKDialog'" class="alert-dialog-footer">
+        <button type="button" class="btn btn-default btn-outline-dark alert-dialog-close-btn" (click)="activeModal.close('OK')">OK</button>
+    </div>
+    <div *ngIf="dialogType==='YesNoDialog'" class="alert-dialog-footer">
+        <button type="button" class="btn btn-default btn-outline-dark alert-dialog-close-btn" (click)="activeModal.close('YES')">Yes</button>
+        <p class="button-spacing-p"></p>
+        <button type="button" class="btn btn-default btn-outline-dark alert-dialog-close-btn" (click)="activeModal.close('NO')">No</button>
+    </div>
+</div>

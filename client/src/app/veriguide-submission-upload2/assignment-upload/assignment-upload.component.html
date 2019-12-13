@@ -1,0 +1,88 @@
+<div class="form-part">
+    <h3 style="padding-top: 10px;">Assigment Submission</h3>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+          <label class="md-label-text" >{{ 'assignmentUpload.acad.year' | translate }}</label>
+        </div>
+        <div class="col-md-6">
+          <select class="form-control formInputHeight">
+            <option *ngFor="let itemYear of acadYearDTOs" [ngValue]="itemYear">{{ itemYear.name }}</option>
+          </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >{{ 'assignmentUpload.choose' | translate }}</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight">
+                <option *ngFor="let itemCourse of courseDTOs" [ngValue]="itemCourse">{{ itemCourse.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Course Description</label>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="4" [(ngModel)]="testValue" [disabled]="true"></textarea>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Select an assigment</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight">
+                <option *ngFor="let itemCourse of courseDTOs" [ngValue]="itemCourse">{{ itemCourse.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Assignment Description</label>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="4" [(ngModel)]="testValue" [disabled]="true"></textarea>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text">Instructor</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight">
+                <option *ngFor="let assignmentMarker of assignmentMarkerDTOs" [ngValue]="assignmentMarker">{{ assignmentMarker.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text">{{ 'assignmentUpload.deadline' | translate }}</label>
+        </div>
+        <div class="col-md-6 formInputCalendar" >
+            <input class="form-control datePickerInputHeight no-border-radius-right-side" ngbDatepicker #dp="ngbDatepicker" >
+            <span class="input-group-addon no-padding">
+                <button class="btn btn-outline-secondary calendar no-border-radius-left-side" (click)="dp.toggle();" type="button"></button>
+            </span>            
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" style="padding-top: 4px;">
+            <label class="md-label-text">{{ 'assignmentUpload.file' | translate }}</label>
+        </div>
+        <div class="col-md-6">
+            <input type="file" class="file labelText form-control fileSelectionInputHeight"
+             id="assignmentFile" name="assignmentFile" (change)="onChangeFileValue($event)" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+        </div>
+        <div class="col-md-6" >
+            <button type="button" class="btn btn-primary col-md-12" (click)="onUploadSubmission($event)">
+                Upload Submission
+            </button>
+        </div>
+    </div>
+</div>

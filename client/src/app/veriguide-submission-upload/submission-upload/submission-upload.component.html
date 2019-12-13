@@ -1,0 +1,12 @@
+<div class="submission-upload-container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <app-submission-upload-form *ngIf="sUploadService.isStarted()"></app-submission-upload-form>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <div class="panel panel-default blue-box">
+        <app-submission-upload-information *ngIf="sUploadService.isStarted()"></app-submission-upload-information>
+      </div>
+    </div>
+  </div>
+</div>
