@@ -17,10 +17,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const userId = parseUserId(jwtToken)
  
   let assignmentId = event.pathParameters.queryId  
-  let assignments = []
+  let submissions = []
 
   try {
-    assignments = await getSubmissionsForInstructorOrStudent( assignmentId, userId )
+    submissions = await getSubmissionsForInstructorOrStudent( assignmentId, userId )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -28,9 +28,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({
-        error: e.message
-      })
+      body: e.message
     }
   }
   
@@ -39,8 +37,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({
-      items: assignments
-    })
+    body: JSON.stringify( submissions )
   }
 }

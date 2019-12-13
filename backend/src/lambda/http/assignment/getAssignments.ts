@@ -30,9 +30,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({
-        error: e.message
-      })
+      body: e.message
     }
   }
   
@@ -41,8 +39,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({
-      items: assignments
-    })
+    body: JSON.stringify(assignments)
   }
 }

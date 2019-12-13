@@ -20,10 +20,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
   
-  let item = null
+  let updatedAssignment = null
 
   try {
-    item = await updateAssignment( updateAssignmentRequest, assignmentId, userId)
+    updatedAssignment = await updateAssignment( updateAssignmentRequest, assignmentId, userId)
   } catch (e) {
     logger.error(e.message)
     return {
@@ -31,9 +31,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({
-        error: e.message
-      })
+      body: e.message
     }
   }
 
@@ -42,8 +40,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify({
-      item
-    })
+    body: JSON.stringify(updatedAssignment)
   }
 }
