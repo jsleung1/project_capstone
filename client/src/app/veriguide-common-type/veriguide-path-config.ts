@@ -5,17 +5,21 @@ export const VeriguidePathConfig: UrlPathConfig = {
         fullPath: '/school',
         relativePath: 'login'
     },
+    userAuth0CallBackPath: {
+        fullPath: '/school/main/auth0',
+        relativePath: 'auth0'
+    },
+    userRegistrationPage: {
+        fullPath: '/school/registration',
+        relativePath: 'registration'
+    },
     userMainPage : {
         fullPath: '/school/main',
         relativePath: 'main'
     },
-    userSubmissionUploadMain: {
-        fullPath: '/school/main/submissionSelect',
-        relativePath: 'submissionSelect'
-    },
-    userAssignmentSubmissionUpload : {
-        fullPath: '/school/main/submissionSelect/assignmentUpload',
-        relativePath: 'assignmentUpload'
+    userSubmissionUpload: {
+        fullPath: '/school/main/submissionUpload',
+        relativePath: 'submissionUpload'
     },
     userAssignmentSubmissionUploadSuccess : {
         fullPath: '/school/main/submissionSelect/uploadSuccess',
@@ -57,29 +61,9 @@ export const VeriguidePathConfig: UrlPathConfig = {
         fullPath: '/school/main/share',
         relativePath: 'share'
     },
-    userReportCase : {
-        fullPath: '/school/main/reportCase',
-        relativePath: 'reportCase'
-    },
     userPersonnel : {
         fullPath: '/school/main/personnel',
         relativePath: 'personnel'
-    },
-    userErrorSubmission : {
-        fullPath: '/school/main/errorSubmission',
-        relativePath: 'errorSubmission'
-    },
-    userReportToDC : {
-        fullPath: '/school/main/reportToDC',
-        relativePath: 'reportToDC'
-    },
-    userThesis : {
-        fullPath: '/school/main/thesis',
-        relativePath: 'thesis'
-    },
-    userResource : {
-        fullPath: '/school/main/resource',
-        relativePath: 'resource'
     },
 };
 

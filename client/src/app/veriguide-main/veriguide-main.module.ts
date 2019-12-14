@@ -6,12 +6,13 @@ import { VeriguideMainRoutingModule } from './veriguide-main-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpLoaderFactory } from '../veriguide-common-type/common-factory';
+import { UserRegistrationComponent } from '../veriguide-common-ui/component/user-registration/user-registration.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 @NgModule({
   imports: [
     CommonModule,
     VeriguideMainRoutingModule,
-    VeriguideCommonUiModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -19,6 +20,7 @@ import { HttpLoaderFactory } from '../veriguide-common-type/common-factory';
         deps: [HttpClient]
       }
     })
-  ]
+  ],
+  declarations: [MainMenuComponent]
 })
 export class VeriguideMainModule { }

@@ -1,4 +1,4 @@
-import { MainMenuComponent } from './../veriguide-common-ui/component/main-menu/main-menu.component';
+import { MainMenuComponent } from '../veriguide-main/main-menu/main-menu.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
@@ -15,14 +15,6 @@ const routes: Routes = [
     path: '',
     component: MainMenuComponent,
     canActivate: [ GotoUrlAuthGuard ]
-  },
-  {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionUpload.relativePath,
-    component: SubmissionUploadComponent,
-    canActivate: [ GotoUrlAuthGuard, VeriguideSubmissionUploadGuard ],
-    data: {
-      uploadCondRedirectUrl: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionUploadFailed.fullPath
-    }
   },
   {
     path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionUploadSuccess.relativePath,

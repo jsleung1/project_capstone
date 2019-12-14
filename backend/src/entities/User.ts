@@ -7,3 +7,6 @@ export interface User {
     email: string;
     userName: string;  
 }
+
+export const Instructor = 'Instructor'
+export const Student = 'Student'

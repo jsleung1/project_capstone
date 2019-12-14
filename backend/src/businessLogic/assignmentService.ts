@@ -10,6 +10,7 @@ import { createLogger } from '../utils/logger';
 import { Assignment } from '../entities/Assignment';
 import { CreateAssignmentRequest } from '../requests/assignment/CreateAssignmentRequest';
 import { SubmissionAccess } from '../dataLayer/submissionAccess';
+import { Instructor, Student } from '../entities/User';
 
 const logger = createLogger('assigmentService')
 
@@ -27,11 +28,11 @@ export async function getAssignmentsForInstructorOrStudent( courseId: string, us
     }
 
     const allAssignments = await assignmentAccess.getAllAssignmentsByCourseId( courseId );
-    if ( user.userType === 'student') {
+    if ( user.userType === Student) {
         return allAssignments
     }
 
-    if ( user.userType === 'instructor') {
+    if ( user.userType === Instructor ) {
         const instructorAssignments = allAssignments.filter( s => s.instructorId === user.userId )
         return instructorAssignments
     }
@@ -45,7 +46,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
         throw new Error('Cannot find the course to create assignment')
     }
 
-    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
     if ( !instructorUser ) {
       throw new Error(`Invalid user to create the assignment`)
     }
@@ -81,7 +82,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
 
 export async function updateAssignment( updateAssignmentRequest: UpdateAssignmentRequest, assigmentId: string, instructorId: string  ) : Promise<Assignment> {
 
-    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
     if ( !instructorUser ) {
       throw new Error(`Invalid user to update the assignment`)
     }
@@ -104,7 +105,7 @@ export async function updateAssignment( updateAssignmentRequest: UpdateAssignmen
 
 export async function deleteAssignment( assignmentId: string, instructorId: string ): Promise<Assignment> {
 
-    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+    const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
     if ( !instructorUser ) {
       throw new Error(`Invalid user to delete the assignment`)
     }

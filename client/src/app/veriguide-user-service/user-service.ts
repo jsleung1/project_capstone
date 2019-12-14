@@ -2,8 +2,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/models';
-import { CUHK_LOGIN_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
-import { UserLoginConfig } from '../veriguide-common-type/user-login-config';
+import { User } from '../veriguide-model/rest-api-response/User';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +15,16 @@ export class UserService {
         authenticationState: AuthenticationStateEnum.NeedToLogin,
         idToken: ''
     } );
+
+    private registrationUserObservable = new BehaviorSubject<LoggedInUser>({
+        authenticationState: AuthenticationStateEnum.NeedToLogin,
+        idToken: '',
+        accessToken: '',
+        userId: null,
+        userType: '',
+        email: '',
+        userName: ''
+    });
 
     constructor( private cookieService: CookieService ) {
     }
@@ -44,6 +53,14 @@ export class UserService {
         console.log('alreadyLoggedInUserStr=' + alreadyLoggedInUserStr);
 
         this.loggedInUserObservable.next( loggedInUser );
+    }
+
+    setRegistrationUser(registrationUser: LoggedInUser ) {
+        this.registrationUserObservable.next( registrationUser );
+    }
+
+    getRegistrationUser(): BehaviorSubject<LoggedInUser> {
+        return this.registrationUserObservable;
     }
 
     deleteLoggedInUserCookie() {

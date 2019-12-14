@@ -20,7 +20,7 @@ export async function createUser(
 
   const existingUserWithSameEmail = await userAccess.getUserByEmail( createUserRequest.email )
   if ( existingUserWithSameEmail ) {
-    throw new Error('An existing user already registered with the same email')
+    throw new Error('A user is already registered with the same Email')
   }
 
   const savedUser = userAccess.createUser({

@@ -6,7 +6,7 @@ export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com
 
 export const authConfig = {
   domain: 'dev-clq116aa.auth0.com',
-  clientId: '4sEZn6wm2j16hPYQvwlqcXxyZGy5w7Iz',
+  clientId: 'm5kcfvSg0i5ZTY2ei8uOM6mb2Z1TrzGS',
   callbackUrl: 'http://localhost:4200/school/main/auth0'
 }
 

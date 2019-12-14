@@ -12,6 +12,7 @@ import { UpdateSubmissionRequest } from '../requests/submission/UpdateSubmission
 import { CreateSubmissionRequest } from '../requests/submission/CreateSubmissionRequest';
 
 import { createLogger } from '../utils/logger';
+import { Instructor, Student } from '../entities/User';
 
 const logger = createLogger('submissionService')
 
@@ -34,12 +35,12 @@ export async function getSubmissionsForInstructorOrStudent(assigmentId: string, 
     }
     const submissions = await submissionAccess.getAllSubmissionsByAssignmentId( assigmentId )   
 
-    if ( user.userType === 'student') {
+    if ( user.userType === Student) {
         const studentSubmissions = submissions.filter( s => s.studentId === userId )
         return studentSubmissions
     }
       
-    if ( user.userType === 'instructor') {
+    if ( user.userType === Instructor) {
         const instructorSubmissions = submissions.filter( s => s.instructorId === userId )
         return instructorSubmissions
     }
@@ -49,7 +50,7 @@ export async function getSubmissionsForInstructorOrStudent(assigmentId: string, 
 
 export async function createSubmission( createSubmissionRequest: CreateSubmissionRequest, studentId: string ) : Promise<Submission> {
 
-    const studentUser = await userAccess.getUserByUserIdAndUserType(studentId, 'student')
+    const studentUser = await userAccess.getUserByUserIdAndUserType(studentId, Student)
     if ( !studentUser ) {
       throw new Error(`Invalid user to create the submission`)
     }
@@ -101,7 +102,7 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
     if ( !user ) {
         throw new Error('Cannot find the user to update the submission')
     }
-    if ( user.userType === 'student') {
+    if ( user.userType === Student) {
         const studentSubmissions = await submissionAccess.getAllSubmissionsByStudentId( userId )
         if ( studentSubmissions.length == 0 ) {
             throw new Error('Student has no submission to update')
@@ -120,7 +121,7 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
     
     }
       
-    if ( user.userType === 'instructor') {
+    if ( user.userType === Instructor) {
         const instructorSubmissions = await submissionAccess.getAllSubmissionsByInstructorId( userId )
         if ( instructorSubmissions.length == 0 ) {
             throw new Error('Instructor has no submission to update')
@@ -153,15 +154,15 @@ export async function deleteSubmission( submissionId: string, userId: string ): 
         throw new Error('Cannot find the user to delete the submission')
     }
     
-    if ( user.userType !== 'student' && user.userType !== 'instructor') {
+    if ( user.userType !== Student && user.userType !== Instructor) {
         throw new Error(`Cannot delete the submission with invalid userType`) 
     }
 
     let submissionsToDelete = []
-    if ( user.userType === 'student') {
+    if ( user.userType === Student) {
         submissionsToDelete = await submissionAccess.getAllSubmissionsByStudentId( userId )
     }
-    if ( user.userType === 'instructor') {
+    if ( user.userType === Instructor) {
         submissionsToDelete = await submissionAccess.getAllSubmissionsByInstructorId( userId )
     }
     

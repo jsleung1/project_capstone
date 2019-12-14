@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentMenuItem } from '../../../veriguide-common-type/content-menu-item';
-import { MenuBuilderService } from '../../../veriguide-user-service/menu-builder-service';
+import { ContentMenuItem } from '../../veriguide-common-type/content-menu-item';
+import { MenuBuilderService } from '../../veriguide-user-service/menu-builder-service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

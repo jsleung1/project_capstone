@@ -7,6 +7,7 @@ import { Course } from '../entities/Course';
 import { CourseAccess } from '../dataLayer/courseAccess';
 import { UserAccess } from '../dataLayer/userAccess';
 import { UpdateCourseRequest } from '../requests/course/UpdateCourseRequest';
+import { Instructor, Student } from '../entities/User';
 
 const logger = createLogger('courseService')
 
@@ -21,14 +22,14 @@ export async function getCoursesForInstructorOrStudent(userId: string, acadYear:
     throw new Error(`Cannot find user to return the corresponding courses`)
   }
 
-  if ( user.userType === 'student') {
+  if ( user.userType === Student) {
     if ( !acadYear) {
       throw new Error(`Cannot get courses for student with missing parameter for acadYear`)
     } 
     return await courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
   }
   
-  if ( user.userType === 'instructor') {
+  if ( user.userType === Instructor) {
     return await courseAccess.getAllCoursesByInstructorId(userId);
   }
   throw new Error(`Cannot get the courses with invalid userType`) 
@@ -36,7 +37,7 @@ export async function getCoursesForInstructorOrStudent(userId: string, acadYear:
 
 export async function createCourse( createCourseRequest: CreateCourseRequest, instructorId: string): Promise<Course> {
   
-  const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  const instructorUser = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
   if ( !instructorUser ) {
     throw new Error(`Invalid user to create the course`)
   }
@@ -67,7 +68,7 @@ export async function createCourse( createCourseRequest: CreateCourseRequest, in
   
 export async function updateCourse( updateCourseRequest: UpdateCourseRequest, courseId: string, instructorId: string  ) : Promise<Course> {
 
-  const user = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  const user = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
   if ( !user ) {
     throw new Error(`Invalid user to update the course`)
   }
@@ -88,7 +89,7 @@ export async function updateCourse( updateCourseRequest: UpdateCourseRequest, co
 
 export async function deleteCourse( courseId: string, instructorId: string ): Promise<Course> {
 
-  const user = await userAccess.getUserByUserIdAndUserType(instructorId, 'instructor')
+  const user = await userAccess.getUserByUserIdAndUserType(instructorId, Instructor)
   if ( !user ) {
     throw new Error(`Invalid user to delete the course`)
   }

@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
 
 import { DownloadCellGridComponent, ActionCellGridComponent, AddReportOwnerDialogComponent,
   ListCellGridComponent, VeriguideGridComponent, AlertDialogComponent,
-  LabelurlCellGridComponent, ReportLinkCellGridComponent, VeriguideCourseInfoComponent, LoadingDialogComponent, EndorseShareRequestComponent, MainMenuComponent } from './common-ui';
+  LabelurlCellGridComponent, ReportLinkCellGridComponent, VeriguideCourseInfoComponent, LoadingDialogComponent, EndorseShareRequestComponent } from './common-ui';
+import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,7 @@ import { DownloadCellGridComponent, ActionCellGridComponent, AddReportOwnerDialo
     ListCellGridComponent,
     VeriguideCourseInfoComponent,
     EndorseShareRequestComponent,
-    MainMenuComponent,
+    UserRegistrationComponent 
   ]
 })
 export class VeriguideCommonUiModule { }

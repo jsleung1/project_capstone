@@ -40,7 +40,7 @@ export class MenuBuilderService implements OnDestroy {
       const topMenuItems: TopMenuItem[] = new Array();
       topMenuItems.push({
         name: 'menu.submission',
-        url: this.urlPathConfig.userSubmissionUploadMain.fullPath
+        url: this.urlPathConfig.userSubmissionUpload.fullPath
       });
     
       topMenuItems.push({
@@ -69,7 +69,7 @@ export class MenuBuilderService implements OnDestroy {
         name: 'contentMenu.assignmentSubmission',
         iconPath: 'assets/images/veriguide-main/upload_2.png',
         description: 'contentMenu.assignmentSubmission.desc',
-        url: this.urlPathConfig.userAssignmentSubmissionUpload.fullPath
+        url: this.urlPathConfig.userSubmissionUpload.fullPath
       });
 
       contentMenuItems.push({
@@ -91,13 +91,6 @@ export class MenuBuilderService implements OnDestroy {
         iconPath: 'assets/images/veriguide-main/deadline.png',
         description: 'contentMenu.assignmentDeadline.desc',
         url: this.urlPathConfig.userAssignmentDeadline.fullPath
-      } );
-
-      contentMenuItems.push({
-        name: 'contentMenu.thesis',
-        iconPath: 'assets/images/veriguide-main/manage.png',
-        description: 'contentMenu.thesis.desc',
-        url: this.urlPathConfig.userThesis.fullPath
       } );
 
       contentMenuItems.push({

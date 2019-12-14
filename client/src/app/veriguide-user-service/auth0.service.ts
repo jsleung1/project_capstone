@@ -4,10 +4,8 @@ import { Injectable } from '@angular/core';
 import { authConfig } from '../config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user-service';
-import { User } from '../veriguide-model/rest-api-types/User';
+import { User } from '../veriguide-model/rest-api-response/User';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '../veriguide-rest-service/login-service';
 import { UrlPathConfig } from '../veriguide-common-type/url-path-config';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
 import { AuthenticationStateEnum } from '../veriguide-model/models';
@@ -54,14 +52,12 @@ export class Auth0Service {
         console.log('id token: ', authResult.idToken );       
         try {
           this.spinner.show();
-          
-          const user = await this.http.get<User>('user',
-          {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              Authorization: `Bearer ${authResult.idToken}`
-            })
-          }).toPromise();
+          const headers = new HttpHeaders({
+            'Content-Type':  'application/json',
+            Authorization: `Bearer ${authResult.idToken}`
+          });
+
+          const user = await this.http.get<User>('user', { headers }).toPromise();
           this.spinner.hide();
 
           console.log(user);
@@ -72,7 +68,7 @@ export class Auth0Service {
               authenticationState: AuthenticationStateEnum.Authenticated,
               userName: user.userName,
               email: user.email,
-              userType: user.userType.charAt(0).toUpperCase() + user.userType.slice(1),
+              userType: user.userType,
               accessToken: authResult.accessToken,
               idToken: authResult.idToken
             });
@@ -81,6 +77,16 @@ export class Auth0Service {
             this.router.navigate( [ this.urlPathConfig.userMainPage.fullPath ] );
           } else {
             // navgiate to register new user
+            this.userService.setRegistrationUser({
+              authenticationState: AuthenticationStateEnum.NeedToCreate,
+              idToken: authResult.idToken,
+              accessToken: authResult.accessToken,
+              userId: null,
+              userType: '',
+              email: '',
+              userName: ''              
+            });
+            this.router.navigate( [ this.urlPathConfig.userRegistrationPage.fullPath ] );
           }
 
         } catch (e) {

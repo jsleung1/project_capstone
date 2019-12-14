@@ -1,11 +1,13 @@
 import { UrlPathInfo } from './url-path-info';
 export interface UrlPathConfig {
     userLoginPage: UrlPathInfo;
+    userAuth0CallBackPath: UrlPathInfo;
+    userRegistrationPage: UrlPathInfo;
+
     userMainPage: UrlPathInfo;
 
-    userSubmissionUploadMain: UrlPathInfo;
+    userSubmissionUpload: UrlPathInfo;
 
-    userAssignmentSubmissionUpload: UrlPathInfo;
     userAssignmentSubmissionUploadSuccess: UrlPathInfo;
     userAssignmentSubmissionUploadFailed: UrlPathInfo;
     userAssignmentSubmissionHistory: UrlPathInfo;
@@ -21,10 +23,6 @@ export interface UrlPathConfig {
     userSubmissions: UrlPathInfo;
 
     userShareRequestEndorsement: UrlPathInfo;
-    userReportCase: UrlPathInfo;
+
     userPersonnel: UrlPathInfo;
-    userErrorSubmission: UrlPathInfo;
-    userReportToDC: UrlPathInfo;
-    userThesis: UrlPathInfo;
-    userResource: UrlPathInfo;
 }

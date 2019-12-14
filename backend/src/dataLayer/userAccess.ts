@@ -52,9 +52,9 @@ export class UserAccess {
             return {
                 userId: null,
                 createdAt: null,
-                userType: null,
-                email: null,
-                userName: null
+                userType: '',
+                email: '',
+                userName: ''
             }
         }
     }

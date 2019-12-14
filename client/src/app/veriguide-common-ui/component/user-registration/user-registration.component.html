@@ -1,0 +1,39 @@
+<div class="form-part">
+    <h3 style="padding-top:10px;">{{ title }}</h3>
+    <div class="form-row" style="padding-top: 20px;">
+        <div class="col-md-4 margin-padding-right-0px" >
+          <label class="md-label-text" >User name</label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control formInputHeight"  type="text" [(ngModel)]="registerUser.userName" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Email</label>
+          </div>
+          <div class="col-md-6">
+              <input class="form-control formInputHeight"  type="text" [(ngModel)]="registerUser.email" >
+          </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Select a role</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight" [(ngModel)]="registerUser.userType">
+                <option *ngFor="let userType of userTypes" [ngValue]="userType">{{ userType }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+        </div>
+        <div class="col-md-6" >
+            <button type="button" class="btn btn-primary col-md-12" (click)="onCreateOrUpdateUser()" 
+            [disabled]="isEnableUpdateUserButton()===false" >
+               {{ buttonTitle }}
+            </button>
+        </div>
+    </div>
+</div>
