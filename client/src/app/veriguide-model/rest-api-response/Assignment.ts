@@ -1,13 +1,14 @@
 export interface Assignment {
 
-    assignmentId: string;
-    courseId: string;
-    createdAt: string;
-    assignmentName: string;
+    assignmentId?: string;
+    courseId?: string;
+    createdAt?: string;
     
-    courseName: string;
-    instructorId: string;
-    instructorName: string;
+    courseName?: string;
+    instructorId?: string;
+    instructorName?: string;
+
+    assignmentName: string;
     assignmentDescription: string;
     dueDate: string;
 }

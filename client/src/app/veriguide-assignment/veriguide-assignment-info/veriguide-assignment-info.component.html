@@ -6,8 +6,8 @@
 </div>
 -->
 <div class="form-row top-function-bar">
-    <div class="col-md-4 margin-padding-right-0px" style="padding-top:0px;" >
-        <button type="button" class="btn btn-primary col-md-12" style="margin-bottom:0px;margin-left:5px;padding-left:10px;" (click)="onCreateCourse()">
+    <div class="col-md-12 margin-padding-right-0px" style="padding-top:0px;" >
+        <button type="button" class="btn btn-primary" style="margin-bottom:0px;margin-left:5px;padding-left:10px;" (click)="onCreateAssignment()">
             <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Click [here] to create a New Assignment
         </button>
     </div>    
@@ -33,7 +33,7 @@
                 <ngb-timepicker [(ngModel)]="assignmentInfo.ngbTimeStruct"></ngb-timepicker>            
             </span>
             <span class="input-group-addon no-padding" style="padding-left:10px;padding-top:2px;">
-                <button type="button" class="btn btn-primary" style="font-size:13px;margin-right:5px;" (click)="openAssigment(assignmentInfo)">
+                <button type="button" class="btn btn-primary" style="font-size:13px;margin-right:5px;" (click)="onViewAssigmentSubmissions(assignmentInfo)">
                     View Student Submissions
                 </button>
             </span>

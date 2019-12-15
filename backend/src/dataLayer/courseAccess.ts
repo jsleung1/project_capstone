@@ -69,6 +69,7 @@ export class CourseAccess {
             return undefined
         }
     }
+    
     async getCoursesByCourseName(courseName: string): Promise<Course[]> {
         
       this.logger.info('getCourseByCourseName')

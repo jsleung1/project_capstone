@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SchoolLoginComponent } from './school-login/school-login.component';
-import { GotoUrlAuthGuard } from '../veriguide-common-type/guard/goto-url-auth.guard';
+import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import { AuthenticationStateEnum } from '../veriguide-model/models';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { UserRegistrationComponent } from '../veriguide-common-ui/component/user-registration/user-registration.component';

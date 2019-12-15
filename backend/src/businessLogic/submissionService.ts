@@ -28,6 +28,11 @@ const s3 = new XAWS.S3({
   signatureVersion: 'v4'
 })
 
+// get Submission by submission Id (work for all users of instructor or student, no need to check for userType)
+export async function getSubmissionBySubmissionId( submissionId: string ): Promise<Submission> {
+    return await submissionAccess.getSubmissionBySubmissionId( submissionId )
+}
+
 export async function getSubmissionsForInstructorOrStudent(assigmentId: string, userId: string): Promise<Submission[]> {
     const user = await userAccess.getUserByUserId(userId)
     if ( !user ) {

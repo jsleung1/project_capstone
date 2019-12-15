@@ -15,6 +15,11 @@ const courseAccess = new CourseAccess()
 const assignmentAccess = new AssignmentAccess()
 const userAccess = new UserAccess()
 
+// get Course by course Id (work for all users of instructor or student, no need to check for userType)
+export async function getCourseByCourseId( courseId: string ): Promise<Course> {
+  return await courseAccess.getCourseByCourseId(courseId)
+}
+
 // get Courses for instructor, or for student (which use acadYear to query for student courses)
 export async function getCoursesForInstructorOrStudent(userId: string, acadYear: string): Promise<Course[]> {
   const user = await userAccess.getUserByUserId(userId)

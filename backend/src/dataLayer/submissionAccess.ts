@@ -10,7 +10,7 @@ export class SubmissionAccess {
     constructor(
         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
         private readonly submissionsTable = process.env.SUBMISSIONS_TABLE,
-        // private readonly submissionsSubmissionIdIndex = process.env.SUBMISSIONS_SUBMISSIONID_INDEX,
+        private readonly submissionsSubmissionIdIndex = process.env.SUBMISSIONS_SUBMISSIONID_INDEX,
         private readonly submissionsAssignmentIdIndex = process.env.SUBMISSIONS_ASSIGNMENTID_INDEX,
         private readonly submissionsStudentIdIndex = process.env.SUBMISSIONS_STUDENTID_INDEX,
         private readonly submissionsInstructorIdIndex = process.env.SUBMISSIONS_INSTRUCTORID_INDEX,
@@ -64,7 +64,27 @@ export class SubmissionAccess {
   
       const items = result.Items
       return items as Submission[]
-  }
+    }
+
+    async getSubmissionBySubmissionId( submissionId: string ) : Promise<Submission> {
+
+      this.logger.info('getSubmissionBySubmissionId')
+      const result = await this.docClient.query({
+        TableName: this.submissionsTable,
+        IndexName: this.submissionsSubmissionIdIndex,
+        KeyConditionExpression: 'submissionId = :submissionId',
+        ExpressionAttributeValues: {
+            ':submissionId': submissionId
+        }      
+      }).promise()
+  
+      if (result.Count !== 0) { 
+        const item = result.Items[0]
+        return item as Submission
+      } else {
+          return undefined
+      }
+    }
 
     async createSubmission(submission: Submission): Promise<Submission> {
 

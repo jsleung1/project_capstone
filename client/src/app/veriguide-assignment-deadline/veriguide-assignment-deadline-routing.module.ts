@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {GotoUrlAuthGuard} from '../veriguide-common-type/guard/goto-url-auth.guard';
+import {GotoUrlAuthGuard} from '../veriguide-user-service/guard/goto-url-auth.guard';
 import {VeriguideAssignmentDeadlineResolverService} from './veriguide-assignment-deadline-resolver.service';
 import {VeriguideAssignmentDeadlineService} from './veriguide-assignment-deadline.service';
 import {

@@ -37,6 +37,10 @@ export const VeriguidePathConfig: UrlPathConfig = {
         fullPath: ':courseId/assignments',
         relativePath: 'assignments'
     },
+    userCreateAssignment: {
+        fullPath: ':courseId/assignments/createAssignment',
+        relativePath: 'createAssignment'
+    },
     userThesisSubmissionUpload: {
         fullPath: '/school/main/thesisSubmissionUpload',
         relativePath: 'thesisSubmissionUpload'
@@ -46,8 +50,8 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'courses'
     },
     userCreateCourse: {
-        fullPath: '/school/main/courses/createCourse',
-        relativePath: 'createCourse'
+        fullPath: '/school/main/courses/createCourse/:acadYear',
+        relativePath: 'createCourse/:acadYear'
     },
     userAssignmentDeadline : {
         fullPath: '/school/main/assignmentDeadline',

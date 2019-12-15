@@ -3,18 +3,7 @@
 @import "node_modules/bootstrap/scss/mixins/_breakpoints";
 @import "src/assets/css/veriguide-heading.scss";
 
-.no-border-radius-left-side {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-.no-border-radius-right-side {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-.margin-left-5px {
-  padding-left: 0px;
-  margin-left: 5px;
-}
+
 @mixin label-common {
   font-family: "Myriad Pro", Arial, Helvetica, sans-serif;
   color: $color-text-label;

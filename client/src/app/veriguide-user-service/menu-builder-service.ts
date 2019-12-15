@@ -45,7 +45,8 @@ export class MenuBuilderService implements OnDestroy {
           url: this.urlPathConfig.userCourses.fullPath
         });
       }
-      
+
+      /*
       topMenuItems.push({
         name: 'menu.submission',
         url: this.urlPathConfig.userSubmissionUpload.fullPath
@@ -60,6 +61,7 @@ export class MenuBuilderService implements OnDestroy {
         name: 'topmenu.assignmentDeadline',
         url: this.urlPathConfig.userAssignmentDeadline.fullPath
       });
+      */ 
 
       return topMenuItems;
     }
@@ -75,6 +77,7 @@ export class MenuBuilderService implements OnDestroy {
           url: this.urlPathConfig.userCourses.fullPath
         } );        
       }
+      /*
       contentMenuItems.push( {
         name: 'contentMenu.assignmentSubmission',
         iconPath: 'assets/images/veriguide-main/upload_2.png',
@@ -109,7 +112,7 @@ export class MenuBuilderService implements OnDestroy {
         description: 'contentMenu.personnel.desc',
         url: this.urlPathConfig.userPersonnel.fullPath
        } );
-
+      */
       return contentMenuItems;
     }
 

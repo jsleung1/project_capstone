@@ -18,6 +18,8 @@ export interface UrlPathConfig {
     userCreateCourse: UrlPathInfo;
 
     userAssignments: UrlPathInfo;
+    userCreateAssignment: UrlPathInfo;
+
     userAssignmentDeadline: UrlPathInfo;
     userAssignmentDeadlineCreate: UrlPathInfo;
 

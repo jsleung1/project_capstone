@@ -80,7 +80,7 @@ provider:
     ASSIGNMENTS_ASSIGNMENTNAME_INDEX: Assignments_assignmentName_Index
 
     SUBMISSIONS_TABLE: VeriGuide-Submissions1-${self:provider.stage}
-    #SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
+    SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
     SUBMISSIONS_INSTRUCTORID_INDEX: Submissions_instructorId_Index
@@ -227,6 +227,34 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*" 
+  GetCourse:
+    handler: src/lambda/http/course/getCourse.handler
+    events:
+      - http:
+          method: get
+          path: course/{queryId}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSEID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
   UpdateCourse:
     handler: src/lambda/http/course/updateCourse.handler
     events:
@@ -373,7 +401,29 @@ functions:
       Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
-      Resource: "*"  
+      Resource: "*" 
+  GetAssignment:
+    handler: src/lambda/http/assignment/getAssignment.handler
+    events:
+      - http:
+          method: get
+          path: assignment/{queryId}
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ASSIGNMENTS_TABLE}/index/${self:provider.environment.ASSIGNMENTS_ASSIGNMENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
   UpdateAssignment:
     handler: src/lambda/http/assignment/updateAssignment.handler
     events:
@@ -530,7 +580,29 @@ functions:
       Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
-      Resource: "*"  
+      Resource: "*" 
+  GetSubmission:
+    handler: src/lambda/http/submission/getSubmission.handler
+    events:
+      - http:
+          method: get
+          path: submission/{queryId}
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_SUBMISSIONID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
   UpdateSubmission:
     handler: src/lambda/http/submission/updateSubmission.handler
     events:
@@ -784,12 +856,12 @@ resources:
           - AttributeName: createdAt
             KeyType: RANGE
         GlobalSecondaryIndexes:
-          #- IndexName: ${self:provider.environment.SUBMISSIONS_SUBMISSIONID_INDEX}
-          #  KeySchema:
-          #  - AttributeName: submissionId
-          #    KeyType: HASH
-          #  Projection:
-          #    ProjectionType: ALL
+          - IndexName: ${self:provider.environment.SUBMISSIONS_SUBMISSIONID_INDEX}
+            KeySchema:
+            - AttributeName: submissionId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
           - IndexName: ${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
             KeySchema:
             - AttributeName: assignmentId

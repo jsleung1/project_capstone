@@ -4,7 +4,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree, Router, CanActivate, Route } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { LoggedInUser,  } from '../../veriguide-model/models';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from '../../veriguide-common-type/veriguide-injectors';
 
 @Injectable({
   providedIn: 'root'

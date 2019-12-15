@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GotoUrlAuthGuard } from '../veriguide-common-type/guard/goto-url-auth.guard';
+import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { MainMenuComponent } from '../veriguide-common-ui/common-ui';
 import { Auth0ResolverService } from '../veriguide-user-service/auth0-resolver.service';

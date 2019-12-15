@@ -119,10 +119,6 @@
     margin-top: -1px; 
     vertical-align: middle;    
 }
-.margin-left-5px {
-    padding-left: 0px;
-    margin-left: 5px;
-}
 @media screen and (max-width: 767px) {
     .md-report-owners {
         padding-top: 0px;

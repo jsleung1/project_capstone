@@ -6,8 +6,9 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbDatepickerI18n, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDatepickerI18n } from 'src/app/veriguide-common-type/custom-datepicker';
-import { AssignmentInfo } from './assignment-info';
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
+import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
+import { AssignmentInfo } from '../assignment-info';
 
 @Component({
   selector: 'app-veriguide-assignment-info',
@@ -31,11 +32,10 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     private router: Router,
     private config: NgbTimepickerConfig  ) {
 
-    config.spinners = false;
-
+    this.config.spinners = false;
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.activatedRoute.data.subscribe( data => {
-      const assignments: Array<Assignment> = data["userResolverService"];
+      const assignments: Array<Assignment> = data["resolverService"];
       this.addToAssignmentInfos(assignments);
     })
   }
@@ -119,13 +119,23 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     }
   } 
 
-  ngOnInit() {
-  }
-
+  
   async reloadAssignments() {
    
     const assignments = await this.veriguideHttpClient.get<Array<Assignment>>(`assignments/${this.courseId}`).toPromise();
     this.assignmentInfos = [];
     this.addToAssignmentInfos(assignments);
+  }
+
+  onViewAssigmentSubmissions(assignmentInfo: AssignmentInfo) {
+
+  }
+
+  onCreateAssignment() {
+    const url =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
+    this.router.navigate( [ url ], { relativeTo: this.route } );
+  }
+  
+  ngOnInit() {
   }
 }

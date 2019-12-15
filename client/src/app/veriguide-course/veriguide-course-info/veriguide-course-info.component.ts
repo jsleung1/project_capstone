@@ -29,7 +29,7 @@ export class VeriguideCourseInfoComponent implements OnInit {
                private router: Router  ) {
 
     this.activatedRoute.data.subscribe( data => {
-      this.courses =  data["userResolverService"];
+      this.courses =  data["resolverService"];
       this.filterCourse();
     })
   }
@@ -42,7 +42,11 @@ export class VeriguideCourseInfoComponent implements OnInit {
   }
 
   onCreateCourse() {
-    this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userCreateCourse.fullPath ] );
+
+    const acadYearToUse = this.selectedAcadYear === 'All' ? '2019' : this.selectedAcadYear;
+    let url = veriguideInjectors.get(URL_PATH_CONFIG).userCreateCourse.fullPath;
+    url = url.replace(':acadYear', acadYearToUse )
+    this.router.navigate( [ url ] );
   }
 
   openCourse(course: Course) {  
@@ -72,10 +76,6 @@ export class VeriguideCourseInfoComponent implements OnInit {
       console.error(err);
     }
 
-  }
-
-  onCourseCreateAssignment(course: Course) {
-    console.log(course);
   }
 
   async onDeleteCourse(course: Course) {

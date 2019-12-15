@@ -19,6 +19,11 @@ const assignmentAccess = new AssignmentAccess()
 const submissionAccess = new SubmissionAccess()
 const userAccess = new UserAccess()
 
+// get Assignment by assignment Id (work for all users of instructor or student, no need to check for userType)
+export async function getAssignmentByAssigmentId( assignmentId: string ): Promise<Assignment> {
+    return await assignmentAccess.getAssignmentByAssigmentId( assignmentId )
+}
+
 // get all submissions uploaded to the Assigment Id
 export async function getAssignmentsForInstructorOrStudent( courseId: string, userId: string ): Promise<Assignment[]> {
     

@@ -1,0 +1,70 @@
+<div class="form-part">
+    <h3 style="padding-top:10px;">Create a New Assignment</h3>
+    <div class="form-row" style="padding-top: 20px;">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Course name</label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control formInputHeight"  type="text" [(ngModel)]="course.courseName" [disabled]="true" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Course description</label>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3"  [(ngModel)]="course.courseDescription" [disabled]="true"></textarea>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Instructor name</label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control formInputHeight"  type="text" [(ngModel)]="course.instructorName" [disabled]="true" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Assignment name</label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control formInputHeight"  type="text" [(ngModel)]="assignmentInfo.assignment.assignmentName" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Assignment description</label>
+            </div>
+            <div class="col-md-6">
+                <textarea class="form-control" rows="5"  [(ngModel)]="assignmentInfo.assignment.assignmentDescription"></textarea>
+            </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Assignment due date</label>
+        </div>
+        <div class="col-md-6">
+            <div class="formInputCalendar" >
+                <input class="form-control datePickerInputHeight no-border-radius-right-side" style="width:30%;" 
+                    ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="assignmentInfo.ngbDateStruct" >
+                <span class="input-group-addon no-padding">
+                    <button class="btn btn-outline-secondary calendar no-border-radius-left-side" (click)="dp.toggle();" type="button"></button>
+                </span>
+                <span class="input-group-addon no-padding" style="padding-left:10px;">
+                    <ngb-timepicker [(ngModel)]="assignmentInfo.ngbTimeStruct"></ngb-timepicker>            
+                </span>
+            </div> 
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+        </div>
+        <div class="col-md-6" >
+            <button type="button" class="btn btn-primary col-md-12" (click)="onCreateNewAssignment()" 
+            [disabled]="isEnableCreateAssignmentButton()===false" >
+               Create New Assignment
+            </button>
+        </div>
+    </div>
+</div>

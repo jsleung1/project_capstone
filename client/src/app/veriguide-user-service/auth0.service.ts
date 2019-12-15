@@ -16,8 +16,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   providedIn: 'root'
 })
 export class Auth0Service {
-
-  private urlPathConfig: UrlPathConfig;
   
   auth0 = new auth0.WebAuth({
     domain: authConfig.domain,
@@ -31,7 +29,6 @@ export class Auth0Service {
                private userService: UserService,
                private router: Router,
                private spinner: NgxSpinnerService ) {
-    this.urlPathConfig = veriguideInjectors.get(URL_PATH_CONFIG);
   }
 
   login() {
@@ -41,7 +38,7 @@ export class Auth0Service {
   logout() {
     this.userService.deleteLoggedInUserCookie();
     this.auth0.logout({
-      return_to: this.urlPathConfig.userLoginPage.fullPath
+      return_to: veriguideInjectors.get(URL_PATH_CONFIG).userLoginPage.fullPath
     });
   }
 
@@ -74,7 +71,7 @@ export class Auth0Service {
             });
 
             // navigate to the user main page
-            this.router.navigate( [ this.urlPathConfig.userMainPage.fullPath ] );
+            this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
           } else {
             // navgiate to register new user
             this.userService.setRegistrationUser({
@@ -86,7 +83,7 @@ export class Auth0Service {
               email: '',
               userName: ''              
             });
-            this.router.navigate( [ this.urlPathConfig.userRegistrationPage.fullPath ] );
+            this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath ] );
           }
 
         } catch (e) {

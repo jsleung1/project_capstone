@@ -6,6 +6,7 @@ import { VeriguideAssignmentRoutingModule } from './veriguide-assignment-routing
 import { VeriguideAssignmentInfoComponent } from './veriguide-assignment-info/veriguide-assignment-info.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +15,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     VeriguideAssignmentRoutingModule,
     VeriguideCommonUiModule
   ],
-  declarations: [VeriguideAssignmentInfoComponent]
+  declarations: [VeriguideAssignmentInfoComponent, CreateAssignmentComponent]
 })
 export class VeriguideAssignmentModule { }

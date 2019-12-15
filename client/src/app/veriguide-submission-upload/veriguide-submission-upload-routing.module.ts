@@ -2,7 +2,7 @@ import { MainMenuComponent } from '../veriguide-main/main-menu/main-menu.compone
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
-import { GotoUrlAuthGuard } from '../veriguide-common-type/guard/goto-url-auth.guard';
+import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import {
   SubmissionUploadComponent,
   SubmissionUploadFailedComponent,
