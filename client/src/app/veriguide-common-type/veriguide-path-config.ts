@@ -6,7 +6,7 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'login'
     },
     userAuth0CallBackPath: {
-        fullPath: '/school/main/auth0',
+        fullPath: '/school/auth0',
         relativePath: 'auth0'
     },
     userRegistrationPage: {
@@ -34,7 +34,7 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'submissionHistory'
     },
     userAssignments: {
-        fullPath: ':yearTermCourseCodeSection/assignments',
+        fullPath: ':courseId/assignments',
         relativePath: 'assignments'
     },
     userThesisSubmissionUpload: {
@@ -44,6 +44,10 @@ export const VeriguidePathConfig: UrlPathConfig = {
     userCourses : {
         fullPath: '/school/main/courses',
         relativePath: 'courses'
+    },
+    userCreateCourse: {
+        fullPath: '/school/main/courses/createCourse',
+        relativePath: 'createCourse'
     },
     userAssignmentDeadline : {
         fullPath: '/school/main/assignmentDeadline',

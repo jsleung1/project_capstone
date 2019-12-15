@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UrlPathConfig } from '../../../veriguide-common-type/url-path-config';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../../../veriguide-common-type/veriguide-injectors';
+import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 
 @Component({
   selector: 'app-user-registration',
@@ -21,15 +22,13 @@ export class UserRegistrationComponent implements OnInit {
   private title = '';
   private buttonTitle = ''
   private userTypes = [ Instructor, Student]
-  private urlPathConfig: UrlPathConfig;
 
   constructor(private userService: UserService,
               private http: HttpClient,
               private router: Router,
-              private spinner: NgxSpinnerService ) { 
+              private spinner: NgxSpinnerService,
+              private alertDialogService: AlertDialogService ) { 
                 
-    this.urlPathConfig = veriguideInjectors.get(URL_PATH_CONFIG);
-
     this.userService.getRegistrationUser().subscribe( registerUser => {
       this.registerUser = registerUser;
       if ( this.registerUser.userId == null) {
@@ -44,11 +43,9 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
   }
 
   isEnableUpdateUserButton () {
-
     return ! UtilService.isStringEmpty( this.registerUser.userName )
       && ! UtilService.isStringEmpty( this.registerUser.email )
       && ! UtilService.isStringEmpty( this.registerUser.userType )
@@ -71,6 +68,7 @@ export class UserRegistrationComponent implements OnInit {
     try {
       const user = await this.http.post( 'users', createUserRequest, { headers } ).toPromise() as User;
       this.spinner.hide();
+      
       // for create new user when login to auth0, set the newly created user as our logged in user and create the session cookie
       if ( this.registerUser.authenticationState === AuthenticationStateEnum.NeedToCreate ) {
         this.userService.setLoggedInUser({
@@ -82,11 +80,15 @@ export class UserRegistrationComponent implements OnInit {
           idToken: this.registerUser.idToken
         });
 
+        this.alertDialogService.openDialog({
+          title: 'Register New User',
+          message: 'Successfully register the new user.',
+          dialogType: 'OKDialog'
+        }).then( res => {
+          // navigate to the user main page
+          this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+        });
       } 
-
-      // navigate to the user main page
-      this.router.navigate( [ this.urlPathConfig.userMainPage.fullPath ] );
-
     } catch (e) {
       this.spinner.hide();
       console.log(e);

@@ -16,21 +16,3 @@
     border-radius: 5px;
     display: block;
 }
-.contentMenuItemText 
-{
-    font-family: "myriad pro","trebuchet ms","helvetica neue",helvetica,arial,sans-serif;
-	font-weight: normal;
-	color: #385C69;
-    font-size:15pt;
-}
-.menu-item-container {
-	margin-bottom: 10px;
-	padding: 10px;
-    border: #c6dcf1 1px solid;
-    border-radius: 10px;
-	background-color: #FFF;
-}
-.menu-item-container:hover {
-	background: #c6dcf1;
-	cursor: pointer;
-}

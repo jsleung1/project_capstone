@@ -21,7 +21,7 @@
             <label class="md-label-text" >Select a role</label>
         </div>
         <div class="col-md-6">
-            <select class="form-control formInputHeight" [(ngModel)]="registerUser.userType">
+            <select class="form-control formInputHeight postSelectionText" [(ngModel)]="registerUser.userType">
                 <option *ngFor="let userType of userTypes" [ngValue]="userType">{{ userType }}</option>
             </select>
         </div>

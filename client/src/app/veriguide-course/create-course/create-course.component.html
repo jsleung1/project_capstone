@@ -1,0 +1,40 @@
+<div class="form-part">
+    <h3 style="padding-top:10px;">Create a New Course</h3>
+    <div class="form-row" style="padding-top: 20px;">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Course name</label>
+        </div>
+        <div class="col-md-6">
+            <input class="form-control formInputHeight"  type="text" [(ngModel)]="course.courseName" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Course description</label>
+            </div>
+            <div class="col-md-6">
+                <textarea class="form-control" rows="5"  [(ngModel)]="course.courseDescription"></textarea>
+            </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Academic Year</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight postSelectionText" [(ngModel)]="course.acadYear"
+                (click)="onAcadYearSelection(acadYear)">
+            <option *ngFor="let acadYear of acadYears" [ngValue]="acadYear">{{ acadYear }}</option>
+            </select>  
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+        </div>
+        <div class="col-md-6" >
+            <button type="button" class="btn btn-primary col-md-12" (click)="onCreateNewCourse()" 
+            [disabled]="isEnableCreateCourseButton()===false" >
+               Create New Course
+            </button>
+        </div>
+    </div>
+</div>

@@ -112,7 +112,7 @@ export async function deleteAssignment( assignmentId: string, instructorId: stri
 
     const assignment = await assignmentAccess.getAssignmentByAssigmentId( assignmentId )
     if ( !assignment) {
-        throw new Error('Cannot find assignment to delete')
+        throw new Error('Cannot find the assignment to delete')
     }
 
     if ( assignment.instructorId !== instructorId) {

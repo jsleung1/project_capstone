@@ -1,0 +1,65 @@
+<!--
+<div class="menu-item-container" *ngFor="let course of courses" (click)="openCourse(course)">
+    <img class="linkicon"  src="assets/images/veriguide-main/admin.png" alt="Course" />
+    <h3 class="contentMenuItemText">{{ course.courseName }}</h3>
+    {{ course.courseDescription }}
+</div>
+-->
+<div class="form-row top-function-bar">
+    <div class="col-md-4 margin-padding-right-0px" style="padding-top:0px;" >
+        <button type="button" class="btn btn-primary col-md-12" style="margin-bottom:0px;margin-left:5px;padding-left:10px;" (click)="onCreateCourse()">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Click [here] to create a New Assignment
+        </button>
+    </div>    
+</div>
+<div class="form-row menu-item-container" *ngFor="let assignmentInfo of assignmentInfos" style="margin-top:20px;" >
+    <div class="col-md-12">
+        <img class="linkicon"  src="assets/images/veriguide-main/deadline.png" alt="Assignment" />
+        <h3 class="contentMenuItemText">{{ assignmentInfo.assignment.assignmentName }}</h3>
+    </div>
+    <div class="col-md-12" style="padding-top:10px;">
+        <label style="font-size:14px;">Assignment Description:</label>
+        <textarea class="form-control" rows="5"  [(ngModel)]="assignmentInfo.assignment.assignmentDescription"></textarea>
+    </div>
+    <div class="col-md-12" style="padding-top:10px;">
+        <label style="font-size:14px;">Assignment Due Date:</label>
+        <div class="formInputCalendar" >
+            <input class="form-control datePickerInputHeight no-border-radius-right-side" style="width:30%;" 
+                ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="assignmentInfo.ngbDateStruct" >
+            <span class="input-group-addon no-padding">
+                <button class="btn btn-outline-secondary calendar no-border-radius-left-side" (click)="dp.toggle();" type="button"></button>
+            </span>
+            <span class="input-group-addon no-padding" style="padding-left:10px;">
+                <ngb-timepicker [(ngModel)]="assignmentInfo.ngbTimeStruct"></ngb-timepicker>            
+            </span>
+            <span class="input-group-addon no-padding" style="padding-left:10px;padding-top:2px;">
+                <button type="button" class="btn btn-primary" style="font-size:13px;margin-right:5px;" (click)="openAssigment(assignmentInfo)">
+                    View Student Submissions
+                </button>
+            </span>
+            <span class="input-group-addon no-padding" style="padding-left:10px;padding-top:2px;">
+                <button type="button" class="btn btn-info" style="font-size:13px;margin-right:5px;" (click)="onUpdateAssignment(assignmentInfo)">
+                    Update Assignment
+                </button>
+            </span>
+            <span class="input-group-addon no-padding" style="padding-left:10px;padding-top:2px;">
+                <button type="button" class="btn btn-danger" style="font-size:13px;" (click)="onDeleteAssigment(assignmentInfo)">
+                    Delete Assignment
+                </button>
+            </span>
+        </div>
+    </div>
+    <!--
+    <div class="col-md-8" style="padding-top:15px;text-align:center;">
+        <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openAssigment(assignmentInfo)">
+            View Submissions
+        </button>
+        <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateAssignment(assignmentInfo)">
+            Update Assignment
+        </button>
+        <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteAssigment(assignmentInfo)">
+            Delete Assignment
+        </button>
+    </div>
+    -->
+</div>

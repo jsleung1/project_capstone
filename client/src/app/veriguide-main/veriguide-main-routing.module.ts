@@ -12,6 +12,7 @@ const routes: Routes = [
     component: MainMenuComponent,
     canActivate: [ GotoUrlAuthGuard ]
   },
+  /*
   {
     // https://lms.veriguide.org:4400/school/main/auth0
     path: veriguideInjectors.get(URL_PATH_CONFIG).userAuth0CallBackPath.relativePath,
@@ -20,10 +21,7 @@ const routes: Routes = [
       auth0ResolverService: Auth0ResolverService
     },
   },
-  {
-    path: 'assignmentDeadline',
-    loadChildren: () => import('../veriguide-assignment-deadline/veriguide-assignment-deadline.module').then(mod => mod.VeriguideAssignmentDeadlineModule)
-  },
+  */
   {
     path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.relativePath,
     loadChildren: () => import('../veriguide-submission-history/veriguide-submission-history.module').then(mod => mod.VeriguideSubmissionHistoryModule)
@@ -31,6 +29,10 @@ const routes: Routes = [
   {
     path: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.relativePath,
     loadChildren: () => import('../veriguide-submission-upload2/veriguide-submission-upload2.module').then(mod => mod.VeriguideSubmissionUpload2Module)
+  },
+  {
+    path: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.relativePath,
+    loadChildren: () => import('../veriguide-course/veriguide-course.module').then(mod => mod.VeriguideCourseModule)
   }
 ];
 

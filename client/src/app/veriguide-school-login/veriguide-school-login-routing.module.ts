@@ -5,6 +5,7 @@ import { GotoUrlAuthGuard } from '../veriguide-common-type/guard/goto-url-auth.g
 import { AuthenticationStateEnum } from '../veriguide-model/models';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { UserRegistrationComponent } from '../veriguide-common-ui/component/user-registration/user-registration.component';
+import { Auth0ResolverService } from '../veriguide-user-service/auth0-resolver.service';
 
 const routes: Routes = [
   {
@@ -17,6 +18,14 @@ const routes: Routes = [
         authCondProceedOrigLink: false,
         authCondRedirectUrl: veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath,
       }
+    },
+  },
+  {
+    // https://lms.veriguide.org:4400/school/auth0
+    path: veriguideInjectors.get(URL_PATH_CONFIG).userAuth0CallBackPath.relativePath,
+    // component: MainMenuComponent,
+    resolve: {
+      auth0ResolverService: Auth0ResolverService
     },
   },
   {

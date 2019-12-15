@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DownloadCellGridComponent, ActionCellGridComponent, AddReportOwnerDialogComponent,
   ListCellGridComponent, VeriguideGridComponent, AlertDialogComponent,
-  LabelurlCellGridComponent, ReportLinkCellGridComponent, VeriguideCourseInfoComponent, LoadingDialogComponent, EndorseShareRequestComponent } from './common-ui';
+  LabelurlCellGridComponent, ReportLinkCellGridComponent, LoadingDialogComponent, EndorseShareRequestComponent } from './common-ui';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 
 @NgModule({
@@ -55,7 +55,6 @@ import { UserRegistrationComponent } from './component/user-registration/user-re
     ActionCellGridComponent,
     AddReportOwnerDialogComponent,
     ListCellGridComponent,
-    VeriguideCourseInfoComponent,
     EndorseShareRequestComponent,
     UserRegistrationComponent 
   ]

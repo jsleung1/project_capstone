@@ -7,6 +7,7 @@ import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/models
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserMenuContainer } from '../veriguide-common-type/user-menu-container';
 import { ContentMenuItem } from '../veriguide-common-type/content-menu-item';
+import { Instructor } from '../veriguide-model/rest-api-response/User';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,13 @@ export class MenuBuilderService implements OnDestroy {
 
     private createTopMenuItems( loggedInUser: LoggedInUser ): TopMenuItem[]  {
       const topMenuItems: TopMenuItem[] = new Array();
+      if ( loggedInUser.userType === Instructor ) {
+        topMenuItems.push({
+          name: 'topmenu.course',
+          url: this.urlPathConfig.userCourses.fullPath
+        });
+      }
+      
       topMenuItems.push({
         name: 'menu.submission',
         url: this.urlPathConfig.userSubmissionUpload.fullPath
@@ -47,12 +55,6 @@ export class MenuBuilderService implements OnDestroy {
         name: 'topmenu.submissionHistory',
         url: this.urlPathConfig.userAssignmentSubmissionHistory.fullPath
       });
-
-      topMenuItems.push({
-        name: 'topmenu.course',
-        url: this.urlPathConfig.userCourses.fullPath
-      });
-
 
       topMenuItems.push({
         name: 'topmenu.assignmentDeadline',
@@ -65,6 +67,14 @@ export class MenuBuilderService implements OnDestroy {
     private createContentMenuItems( loggedInUser: LoggedInUser ): ContentMenuItem[]  {
       const contentMenuItems: ContentMenuItem[] = new Array();
 
+      if ( loggedInUser.userType === Instructor ) {
+        contentMenuItems.push({
+          name: 'My Courses',
+          iconPath: 'assets/images/veriguide-main/info.png',
+          description: 'Teaching Courses by Academic Year',
+          url: this.urlPathConfig.userCourses.fullPath
+        } );        
+      }
       contentMenuItems.push( {
         name: 'contentMenu.assignmentSubmission',
         iconPath: 'assets/images/veriguide-main/upload_2.png',

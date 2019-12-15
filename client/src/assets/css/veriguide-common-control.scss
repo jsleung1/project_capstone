@@ -38,4 +38,57 @@ button {
 .fileSelectionInputHeight {
     height: 40px !important;
 }
-  
+.postSelectionText{
+  font-size: 14px;
+  color:#385C69; 
+}
+.top-function-bar {
+  border: #c6dcf1 1px solid;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color:#b6c5d3; 
+  margin-left:-10px; 
+  margin-right:-10px;
+}
+.menu-item-container {
+  border: #c6dcf1 1px solid;
+  border-radius: 10px;
+  background-color: #FFF;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left:10px; 
+  padding-right:0px;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.menu-item-container-outer {
+  padding-left:5px; 
+  padding-right:5px;
+}
+.menu-item-container:hover {
+  background: #c6dcf1;
+  cursor: pointer;
+}
+.linkicon{
+	float:left; margin-right: 10px; height: 50px;
+}
+.contentMenuItemText 
+{
+  font-family: "myriad pro","trebuchet ms","helvetica neue",helvetica,arial,sans-serif;
+	font-weight: normal;
+	color: #385C69;
+  font-size:15pt;
+}
+.no-border-radius-left-side {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.no-border-radius-right-side {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}

@@ -1,0 +1,97 @@
+<!--
+<div class="menu-item-container" *ngFor="let course of courses" (click)="openCourse(course)">
+    <img class="linkicon"  src="assets/images/veriguide-main/admin.png" alt="Course" />
+    <h3 class="contentMenuItemText">{{ course.courseName }}</h3>
+    {{ course.courseDescription }}
+</div>
+-->
+<div class="form-row top-function-bar">
+    <div class="col-md-3 margin-padding-right-0px" style="padding-top:5px;" >
+        <label class="md-label-text" >Filter Course by Academic Year</label> 
+    </div>    
+    <div class="col-md-2" style="padding-top:5px;">
+        <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedAcadYear"
+            (click)="onAcadYearSelection(acadYear)">
+            <option *ngFor="let acadYear of acadYears" [ngValue]="acadYear">{{ acadYear }}</option>
+        </select>        
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-4 margin-padding-right-0px " style="float:left;padding-top:5px;padding-right:10px;" >
+        <button type="button" class="btn btn-primary col-md-12" style="margin-bottom:0px;margin-right:0px;padding-right:0px;" (click)="onCreateCourse()">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Click [here] to create a New Course
+        </button>
+    </div>
+</div> 
+<div *ngFor="let course of filteredCourses; let i = index">
+    <div *ngIf="i % 3 == 0" class="row">
+        <div *ngIf="i + 0 < filteredCourses.length" class="col-md-4 menu-item-container-outer" >
+            <div class="form-row menu-item-container" >
+                <div class="col-md-12">
+                    <img class="linkicon"  src="assets/images/veriguide-main/admin.png" alt="Course" />
+                    <h3 class="contentMenuItemText">{{ filteredCourses[i].courseName }}</h3>
+                </div>
+                <div class="col-md-12" style="padding-top:0px;">
+                    <label style="font-size:13px;">Course Description:</label>
+                    <textarea class="form-control"  rows="4"  [(ngModel)]="filteredCourses[i].courseDescription"></textarea>
+                </div>
+                <div class="col-md-12" style="padding-top:10px;text-align:center;">
+                    <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i])">
+                        Open
+                    </button>
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i])">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i])">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="i + 1 < filteredCourses.length" class="col-md-4 menu-item-container-outer" >
+            <div class="form-row menu-item-container" >
+                <div class="col-md-12">
+                    <img class="linkicon"  src="assets/images/veriguide-main/admin.png" alt="Course" />
+                    <h3 class="contentMenuItemText">{{ filteredCourses[i+1].courseName }}</h3>
+                </div>
+                <div class="col-md-12" style="padding-top:0px;">
+                    <label style="font-size:13px;">Course Description:</label>
+                    <textarea class="form-control"  rows="4"  [(ngModel)]="filteredCourses[i+1].courseDescription"></textarea>
+                </div>
+                <div class="col-md-12" style="padding-top:10px;text-align:center;">
+                    <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i+1])">
+                        Open
+                    </button>
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i+1])">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i+1])">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="i + 2 < filteredCourses.length" class="col-md-4 menu-item-container-outer" >
+            <div class="form-row menu-item-container">
+                <div class="col-md-12">
+                    <img class="linkicon"  src="assets/images/veriguide-main/admin.png" alt="Course" />
+                    <h3 class="contentMenuItemText">{{ filteredCourses[i+2].courseName }}</h3>
+                </div>
+                <div class="col-md-12" style="padding-top:0px;">
+                    <label style="font-size:13px;">Course Description:</label>
+                    <textarea class="form-control"  rows="4"  [(ngModel)]="filteredCourses[i+2].courseDescription"></textarea>
+                </div>
+                <div class="col-md-12" style="padding-top:10px;text-align:center;">
+                    <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i+2])">
+                        Open
+                    </button>
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i+2])">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i+2])">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

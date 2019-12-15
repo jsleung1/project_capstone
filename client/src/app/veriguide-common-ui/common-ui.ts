@@ -14,7 +14,7 @@ export * from './grid/veriguide-grid/veriguide-grid.component';
 export * from './grid/veriguide-grid/veriguide-grid.service';
 export * from './grid/endorse-share-request/endorse-share-request.component';
 
-export * from './view/veriguide-course-info/veriguide-course-info.component';
+export * from '../veriguide-course/veriguide-course-info/veriguide-course-info.component';
 
 export * from '../veriguide-main/main-menu/main-menu.component';
 

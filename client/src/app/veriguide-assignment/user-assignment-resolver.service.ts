@@ -9,86 +9,37 @@ import { Observable, Subscription } from 'rxjs';
 import { LabelurlCellGridComponent } from '../veriguide-common-ui/grid/labelurl-cell-grid/labelurl-cell-grid.component';
 import { TranslateService } from '@ngx-translate/core';
 import { VeriguideGridService } from '../veriguide-common-ui/common-ui';
+import { Assignment } from '../veriguide-model/rest-api-response/Assignment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserAssignmentResolverService implements Resolve<Array<UserAssignmentsDTO>>, OnDestroy  {
+export class UserAssignmentResolverService implements Resolve<Array<Assignment>>, OnDestroy  {
 
   private subscription: Subscription;
   private loggedInUser: LoggedInUser = { authenticationState: AuthenticationStateEnum.NeedToLogin };
-  private baseQueryUrl = '';
 
   constructor(private veriguideHttpClient: VeriguideHttpClient,
               private userService: UserService,
-              private veriguideGridService: VeriguideGridService,
-              private translateService: TranslateService ) {
+              private spinner: NgxSpinnerService  ) {
 
     this.subscription = this.userService.getLoggedInUser().subscribe(loggedInUser => {
       this.loggedInUser = loggedInUser;
     });
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): UserAssignmentsDTO[] |
-    Observable<UserAssignmentsDTO[]> | Promise<UserAssignmentsDTO[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Assignment[] |
+    Observable<Assignment[]> | Promise<Assignment[]> {
 
-    this.baseQueryUrl = 'assignments/' + route.paramMap.get('yearTermCourseCodeSection');
+    this.spinner.show();
 
-    const observableResult = this.veriguideHttpClient.get<Array<UserAssignmentsDTO>>( this.baseQueryUrl );
+    const baseQueryUrl = 'assignments/' + route.paramMap.get('courseId');
+    const observableResult = this.veriguideHttpClient.get<Array<Assignment>>( baseQueryUrl );
 
-    observableResult.subscribe(userAssignmentDTOs => {
-
-      userAssignmentDTOs.forEach(
-        userAssignmentDTO => {
-          const assignmentNumberStr = userAssignmentDTO.assignment_number.toString();
-
-          userAssignmentDTO.assignmentNumberCellDTO = {
-            labelName : 'common.assignment',
-            labelValue1 : assignmentNumberStr,
-            labelUrlLink :  './' + assignmentNumberStr + '/submissions'
-          };
-
-          userAssignmentDTO.assignmentDownloadCellDTO = {
-            downloadFileName :  route.paramMap.get('yearTermCourseCodeSection') + '-' +  userAssignmentDTO.assignment_number  + '.zip',
-            downloadFileUrl : this.baseQueryUrl + '/' + userAssignmentDTO.assignment_number + '/downloadFiles',
-            showDefaultDownloadLabel: true
-          };
-        }
-      );
-
-      this.veriguideGridService.gridInfo.next(
-        {
-          columnDefs: [
-            // { headerName: 'Assignment No.', field: 'assignment_number' },
-            { headerName: 'Assignment No.',
-              cellRendererFramework: LabelurlCellGridComponent,
-              cellRendererParams: {
-                value: {
-                  getPropertyName: 'assignmentNumberCellDTO'
-                }
-              },
-              getQuickFilterText: (params) => {
-                return this.translateService.instant( params.data.assignmentNumberCellDTO.labelName )
-                  + ' ' + params.data.assignmentNumberCellDTO.labelValue1;
-              }
-            },
-            { headerName: 'Submission', field: 'num_of_submissions' },
-            { headerName: 'Last submission time', field: 'submission_time' },
-            { headerName: 'Download',
-              cellRendererFramework: DownloadCellGridComponent,
-              cellRendererParams: {
-                value: {
-                  blobType: 'application/zip',
-                  getPropertyName: 'assignmentDownloadCellDTO'
-                }
-              },
-              getQuickFilterText: (params) => {
-                return DownloadCellGridComponent.cellValueForQuickSearch( params.data.assignmentDownloadCellDTO , this.translateService);
-              }
-            },
-          ],
-          records: userAssignmentDTOs
-        });
+    observableResult.subscribe(assignments => {
+      console.log( JSON.stringify( assignments ));
+      this.spinner.hide();
     });
 
     return observableResult;

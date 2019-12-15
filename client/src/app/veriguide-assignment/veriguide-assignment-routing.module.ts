@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-common-type/guard/goto-url-auth.guard';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { UserAssignmentResolverService } from './user-assignment-resolver.service';
-import { VeriguideGridComponent } from '../veriguide-common-ui/grid/veriguide-grid/veriguide-grid.component';
+import { VeriguideAssignmentInfoComponent } from './veriguide-assignment-info/veriguide-assignment-info.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VeriguideGridComponent,
+    component: VeriguideAssignmentInfoComponent,
     canActivate: [ GotoUrlAuthGuard ],
     resolve: {
       userResolverService: UserAssignmentResolverService

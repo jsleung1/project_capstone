@@ -30,7 +30,7 @@ export class VeriguideHttpClient implements OnDestroy {
             responseType: 'arraybuffer',
             headers: new HttpHeaders({
                 'Content-Type':  'application/json',
-                Authorization: this.loggedInUser.idToken
+                Authorization: `Bearer ${ this.loggedInUser.idToken}`
             })
         });
     }
@@ -39,6 +39,10 @@ export class VeriguideHttpClient implements OnDestroy {
         return this.http.put<T>(url, body, this.createHttpOptions() ).pipe( share() );
     }
 
+    patch<T>(url: string, body: any | null): Observable<T> {
+        return this.http.patch<T>(url, body, this.createHttpOptions() ).pipe( share() );
+    }
+    
     post<T>(url: string, body: any | null): Observable<T> {
         return this.http.post<T>(url, body, this.createHttpOptions() ).pipe( share() );
     }
@@ -52,8 +56,8 @@ export class VeriguideHttpClient implements OnDestroy {
         });
     }
 
-    delete<T>(url: string, httpParams?: HttpParams): Observable<T> {
-      return this.http.delete<T>(url, this.createHttpOptions(httpParams)).pipe( share() );
+    delete<T>(url: string): Observable<T> {
+      return this.http.delete<T>(url, this.createHttpOptions()).pipe( share() );
     }
 
     private createHttpOptions( httpParams?: HttpParams ) {
@@ -62,7 +66,7 @@ export class VeriguideHttpClient implements OnDestroy {
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Content-Type':  'application/json',
-                    Authorization: idToken
+                    Authorization: `Bearer ${ this.loggedInUser.idToken}`
                 }),
                 params: httpParams
             };
@@ -71,7 +75,7 @@ export class VeriguideHttpClient implements OnDestroy {
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Content-Type':  'application/json',
-                    Authorization: idToken
+                    Authorization: `Bearer ${ this.loggedInUser.idToken}`
                 })
             };
             return httpOptions;

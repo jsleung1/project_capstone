@@ -15,6 +15,7 @@ export interface UrlPathConfig {
     userThesisSubmissionUpload: UrlPathInfo;
 
     userCourses: UrlPathInfo;
+    userCreateCourse: UrlPathInfo;
 
     userAssignments: UrlPathInfo;
     userAssignmentDeadline: UrlPathInfo;
