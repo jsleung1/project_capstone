@@ -10,8 +10,8 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'auth0'
     },
     userRegistrationPage: {
-        fullPath: '/school/registration',
-        relativePath: 'registration'
+        fullPath: '/school/registration/:userId',
+        relativePath: 'registration/:userId'
     },
     userMainPage : {
         fullPath: '/school/main',

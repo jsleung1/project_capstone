@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "updateUserRequest",
+    "type": "object",
+    "properties": {
+      "userType": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "userType",
+      "email"
+    ],
+    "additionalProperties": false
+}

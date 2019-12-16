@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user-service';
 import { User } from '../veriguide-model/rest-api-response/User';
 import { Router } from '@angular/router';
-import { UrlPathConfig } from '../veriguide-common-type/url-path-config';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
 import { AuthenticationStateEnum } from '../veriguide-model/models';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -67,14 +66,15 @@ export class Auth0Service {
               email: user.email,
               userType: user.userType,
               accessToken: authResult.accessToken,
-              idToken: authResult.idToken
+              idToken: authResult.idToken,
+              userId: user.userId
             });
 
             // navigate to the user main page
             this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
           } else {
             // navgiate to register new user
-            this.userService.setRegistrationUser({
+            this.userService.setRegisterNewUser({
               authenticationState: AuthenticationStateEnum.NeedToCreate,
               idToken: authResult.idToken,
               accessToken: authResult.accessToken,
@@ -83,7 +83,10 @@ export class Auth0Service {
               email: '',
               userName: ''              
             });
-            this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath ] );
+
+            let url = veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath;
+            url = url.replace(':userId', '0');
+            this.router.navigate( [ url ] );
           }
 
         } catch (e) {

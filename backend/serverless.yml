@@ -25,6 +25,9 @@ custom:
       - name: CreateUserRequest
         contentType: application/json
         schema: ${file(models/user/create-user-request.json)}
+      - name: UpdateUserRequest
+        contentType: application/json
+        schema: ${file(models/user/update-user-request.json)}
       - name: CreateCourseRequest
         contentType: application/json
         schema: ${file(models/course/create-course-request.json)}
@@ -124,7 +127,39 @@ functions:
         Action:
           - xray:PutTraceSegments
           - xray:PutTelemetryRecords
-        Resource: "*"   
+        Resource: "*"
+  UpdateUser:
+    handler: src/lambda/http/user/updateUser.handler
+    events:
+      - http:
+          method: patch
+          path: users
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Update existing user
+            description: Register an user whether it is student or instructor
+            requestModels:
+              'application/json': UpdateUserRequest
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_EMAIL_INDEX}      
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource: "*"
   GetUser:
     handler: src/lambda/http/user/getUser.handler
     events:

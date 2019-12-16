@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { MainMenuComponent } from '../veriguide-common-ui/common-ui';
-import { Auth0ResolverService } from '../veriguide-user-service/auth0-resolver.service';
-import { UserRegistrationComponent } from '../veriguide-common-ui/component/user-registration/user-registration.component';
 
 const routes: Routes = [
   {
@@ -12,16 +10,6 @@ const routes: Routes = [
     component: MainMenuComponent,
     canActivate: [ GotoUrlAuthGuard ]
   },
-  /*
-  {
-    // https://lms.veriguide.org:4400/school/main/auth0
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userAuth0CallBackPath.relativePath,
-    component: MainMenuComponent,
-    resolve: {
-      auth0ResolverService: Auth0ResolverService
-    },
-  },
-  */
   {
     path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.relativePath,
     loadChildren: () => import('../veriguide-submission-history/veriguide-submission-history.module').then(mod => mod.VeriguideSubmissionHistoryModule)

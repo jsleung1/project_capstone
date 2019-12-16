@@ -113,4 +113,25 @@ export class UserAccess {
     
         return user
     }
+
+    async updateUser(user: User): Promise<User> {
+
+        this.logger.info('updateUser: ' + JSON.stringify(user) )    
+    
+        await this.docClient.update({
+            TableName: this.usersTable,
+            Key: {
+                userId: user.userId,
+                createdAt: user.createdAt
+            },         
+            UpdateExpression: 'set userType = :userType, email = :email',
+            ExpressionAttributeValues: {
+                ':userType': user.userType,
+                ':email': user.email
+            }
+        }).promise()
+
+          
+        return user
+    }
 }

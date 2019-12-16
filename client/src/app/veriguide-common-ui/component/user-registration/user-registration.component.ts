@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../../veriguide-user-service/user-service';
 import { User, Instructor, Student } from '../../../veriguide-model/rest-api-response/User';
 import { UtilService } from '../../../veriguide-user-service/util.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateUserRequest } from '../../../veriguide-model/rest-api-request/user/CreateUserRequest';
+import { UpdateUserRequest } from '../../../veriguide-model/rest-api-request/user/UpdateUserRequest';
 import { LoggedInUser, AuthenticationStateEnum } from '../../../veriguide-model/models';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UrlPathConfig } from '../../../veriguide-common-type/url-path-config';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../../../veriguide-common-type/veriguide-injectors';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
+import { Subscription } from 'rxjs';
+import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
+  private subscription: Subscription;
+  
   private registerUser: LoggedInUser;
   private title = '';
   private buttonTitle = '';
@@ -25,21 +29,34 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(private userService: UserService,
               private http: HttpClient,
+              private veriguideHttpClient: VeriguideHttpClient,
+              private activatedRoute: ActivatedRoute,
+              private route: ActivatedRoute,
               private router: Router,
               private spinner: NgxSpinnerService,
               private alertDialogService: AlertDialogService ) { 
-
-    this.userService.getRegistrationUser().subscribe( registerUser => {
-      this.registerUser = registerUser;
-      if ( this.registerUser.userId == null) {
+                
+    this.userService.getRegisterNewUser().subscribe( registerUser => {
+      const userId = this.route.snapshot.paramMap.get('userId');
+      if ( userId === '0') {
         this.title = 'User Registration - Create new user';
         this.buttonTitle = 'Create new user';
-      } else {
-        this.title = 'User Registration - Update existing user';
+        this.registerUser = registerUser;
+      } 
+    });
+
+    //if user already logged in and userId = 0 to create, we skip this user action and navigate back to user main page
+    this.subscription = this.userService.getLoggedInUser().subscribe(loggedInUser => {
+      const userId = this.route.snapshot.paramMap.get('userId');
+      if ( loggedInUser.authenticationState === AuthenticationStateEnum.Authenticated && userId === '0') {
+        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+      }
+      if ( loggedInUser.authenticationState === AuthenticationStateEnum.Authenticated && userId !== '0') {
+        this.registerUser =  loggedInUser;
+        this.title = 'User Settings - Update existing user';
         this.buttonTitle = 'Update user';
       }
-    })
-
+    });
   }
 
   ngOnInit() {
@@ -52,7 +69,15 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   async onCreateOrUpdateUser() {
+    if (  this.buttonTitle === 'Create new user') {
+      await this.createNewUser();
+    }
+    if ( this.isUpdateExistUser() ) {
+      await this.updateExistingUser();
+    }
+  }
 
+  async createNewUser() {
     const createUserRequest: CreateUserRequest = {
       userType: this.registerUser.userType,
       email: this.registerUser.email,
@@ -71,27 +96,68 @@ export class UserRegistrationComponent implements OnInit {
 
       // for create new user when login to auth0, set the newly created user as our logged in user and create the session cookie
       if ( this.registerUser.authenticationState === AuthenticationStateEnum.NeedToCreate ) {
-        this.userService.setLoggedInUser({
-          authenticationState: AuthenticationStateEnum.Authenticated,
-          userName: user.userName,
-          email: user.email,
-          userType: user.userType,
-          accessToken: this.registerUser.accessToken,
-          idToken: this.registerUser.idToken
-        });
-
         this.alertDialogService.openDialog({
           title: 'Register New User',
-          message: 'Successfully created the new user.',
+          message: 'Successfully registered as a new user.',
           dialogType: 'OKDialog'
         }).then( res => {
-          // navigate to the user main page
-          this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+          this.userService.setLoggedInUser({
+            authenticationState: AuthenticationStateEnum.Authenticated,
+            userName: user.userName,
+            email: user.email,
+            userType: user.userType,
+            accessToken: this.registerUser.accessToken,
+            idToken: this.registerUser.idToken,
+            userId: user.userId
+          });
+          // this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
         });
       }
     } catch (e) {
       this.spinner.hide();
       console.log(e);
     }
+  }
+
+  async updateExistingUser() {
+    const updateUserRequest: UpdateUserRequest = {
+      userType: this.registerUser.userType,
+      email: this.registerUser.email
+    };
+
+    this.spinner.show();
+    try {
+      const user = await this.veriguideHttpClient.patch( 'users', updateUserRequest ).toPromise() as User;
+      this.spinner.hide();
+      this.alertDialogService.openDialog({
+        title: 'Update Existing User',
+        message: 'Successfully updated the user settings.',
+        dialogType: 'OKDialog'
+      }).then( res => {
+        // navigate to the user main page
+        this.userService.setLoggedInUser({
+          authenticationState: AuthenticationStateEnum.Authenticated,
+          userName: user.userName,
+          email: user.email,
+          userType: user.userType,
+          accessToken: this.registerUser.accessToken,
+          idToken: this.registerUser.idToken,
+          userId: user.userId
+        });
+        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+      });
+
+    } catch (e) {
+      this.spinner.hide();
+      console.log(e);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  isUpdateExistUser(): boolean {
+    return this.buttonTitle === 'Update user';
   }
 }

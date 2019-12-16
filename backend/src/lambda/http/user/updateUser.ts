@@ -5,25 +5,22 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { UpdateAssignmentRequest } from '../../../requests/assignment/UpdateAssignmentRequest';
-import { updateAssignment } from '../../../businessLogic/assignmentService';
+import { updateUser } from '../../../businessLogic/userService'
+import { UpdateUserRequest } from '../../../requests/user/UpdateUserRequest'
 
-const logger = createLogger('updateAssignmentHandler')
+const logger = createLogger('updateUserHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
   
-  const assignmentId = event.pathParameters.queryId
-
-  const updateAssignmentRequest: UpdateAssignmentRequest = JSON.parse(event.body)
+  const updateUserRequest: UpdateUserRequest = JSON.parse(event.body)
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
-  
-  let updatedAssignment = null
 
+  let user = null
   try {
-    updatedAssignment = await updateAssignment( updateAssignmentRequest, assignmentId, userId)
+    user = await updateUser(updateUserRequest, userId)
   } catch (e) {
     logger.error(e.message)
     return {
@@ -40,6 +37,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify(updatedAssignment)
+    body: JSON.stringify(user)
   }
 }

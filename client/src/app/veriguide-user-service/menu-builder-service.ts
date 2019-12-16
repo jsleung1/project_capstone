@@ -7,19 +7,19 @@ import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/models
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserMenuContainer } from '../veriguide-common-type/user-menu-container';
 import { ContentMenuItem } from '../veriguide-common-type/content-menu-item';
-import { Instructor } from '../veriguide-model/rest-api-response/User';
+import { Instructor, Student } from '../veriguide-model/rest-api-response/User';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MenuBuilderService implements OnDestroy {
-    private urlPathConfig: UrlPathConfig;
+
     private subscription: Subscription;
 
     private userMenuContainerObservable = new BehaviorSubject<UserMenuContainer>(new UserMenuContainer() );
 
     constructor( private userService: UserService ) {
-      this.urlPathConfig = veriguideInjectors.get(URL_PATH_CONFIG);
+
       this.subscription = this.userService.getLoggedInUser().subscribe( loggedInUser => {
 
           const userMenuContainer = new UserMenuContainer();
@@ -38,13 +38,33 @@ export class MenuBuilderService implements OnDestroy {
     }
 
     private createTopMenuItems( loggedInUser: LoggedInUser ): TopMenuItem[]  {
+
+      console.log('createTopMenuItems: ' + loggedInUser.userId );
+
       const topMenuItems: TopMenuItem[] = new Array();
       if ( loggedInUser.userType === Instructor ) {
         topMenuItems.push({
           name: 'Courses',
-          url: this.urlPathConfig.userCourses.fullPath
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         });
       }
+
+      if ( loggedInUser.userType === Student ) {
+        topMenuItems.push({
+          name: 'menu.submission',
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
+        });
+  
+        topMenuItems.push({
+          name: 'topmenu.submissionHistory',
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
+        });
+      }
+
+      topMenuItems.push({
+        name: 'User',
+        url: veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
+      });
 
       /*
       topMenuItems.push({
@@ -74,24 +94,26 @@ export class MenuBuilderService implements OnDestroy {
           name: 'My Courses',
           iconPath: 'assets/images/veriguide-main/info.png',
           description: 'Teaching Courses by Academic Year',
-          url: this.urlPathConfig.userCourses.fullPath
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         } );
       }
+
+      if ( loggedInUser.userType === Student ) {
+        contentMenuItems.push( {
+          name: 'contentMenu.assignmentSubmission',
+          iconPath: 'assets/images/veriguide-main/upload_2.png',
+          description: 'contentMenu.assignmentSubmission.desc',
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
+        });
+
+        contentMenuItems.push({
+          name: 'contentMenu.submissionHistory',
+          iconPath: 'assets/images/veriguide-main/history.png',
+          description: 'contentMenu.submissionHistory.desc',
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
+        });
+      }
       /*
-      contentMenuItems.push( {
-        name: 'contentMenu.assignmentSubmission',
-        iconPath: 'assets/images/veriguide-main/upload_2.png',
-        description: 'contentMenu.assignmentSubmission.desc',
-        url: this.urlPathConfig.userSubmissionUpload.fullPath
-      });
-
-      contentMenuItems.push({
-        name: 'contentMenu.submissionHistory',
-        iconPath: 'assets/images/veriguide-main/history.png',
-        description: 'contentMenu.submissionHistory.desc',
-        url: this.urlPathConfig.userAssignmentSubmissionHistory.fullPath
-      });
-
       contentMenuItems.push({
         name: 'contentMenu.course',
         iconPath: 'assets/images/veriguide-main/info.png',
@@ -105,14 +127,14 @@ export class MenuBuilderService implements OnDestroy {
         description: 'contentMenu.assignmentDeadline.desc',
         url: this.urlPathConfig.userAssignmentDeadline.fullPath
       } );
-
-      contentMenuItems.push({
-        name: 'contentMenu.personnel',
-        iconPath: 'assets/images/veriguide-main/personnel.png',
-        description: 'contentMenu.personnel.desc',
-        url: this.urlPathConfig.userPersonnel.fullPath
-       } );
       */
+      contentMenuItems.push({
+        name: 'User Settings',
+        iconPath: 'assets/images/veriguide-main/personnel.png',
+        description: 'Click here to change user settings',
+        url: veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
+       } );
+
       return contentMenuItems;
     }
 

@@ -16,7 +16,7 @@ export class UserService {
         idToken: ''
     } );
 
-    private registrationUserObservable = new BehaviorSubject<LoggedInUser>({
+    private registerNewUserObservable = new BehaviorSubject<LoggedInUser>({
         authenticationState: AuthenticationStateEnum.NeedToLogin,
         idToken: '',
         accessToken: '',
@@ -55,12 +55,12 @@ export class UserService {
         this.loggedInUserObservable.next( loggedInUser );
     }
 
-    setRegistrationUser(registrationUser: LoggedInUser ) {
-        this.registrationUserObservable.next( registrationUser );
+    setRegisterNewUser(registerNewUser: LoggedInUser ) {
+        this.registerNewUserObservable.next( registerNewUser );
     }
 
-    getRegistrationUser(): BehaviorSubject<LoggedInUser> {
-        return this.registrationUserObservable;
+    getRegisterNewUser(): BehaviorSubject<LoggedInUser> {
+        return this.registerNewUserObservable;
     }
 
     deleteLoggedInUserCookie() {

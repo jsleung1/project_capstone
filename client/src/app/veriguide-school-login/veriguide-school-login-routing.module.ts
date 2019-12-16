@@ -6,6 +6,7 @@ import { AuthenticationStateEnum } from '../veriguide-model/models';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { UserRegistrationComponent } from '../veriguide-common-ui/component/user-registration/user-registration.component';
 import { Auth0ResolverService } from '../veriguide-user-service/auth0-resolver.service';
+import { LoadUserResolverService } from '../veriguide-user-service/resolver/load-user-resolver.service';
 
 const routes: Routes = [
   {

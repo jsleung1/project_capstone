@@ -3,6 +3,7 @@ import { createLogger } from '../utils/logger';
 import { UserAccess } from '../dataLayer/userAccess';
 import { User } from '../entities/User';
 import { CreateUserRequest } from '../requests/user/CreateUserRequest';
+import { UpdateUserRequest } from '../requests/user/UpdateUserRequest';
 
 const logger = createLogger('userService')
 
@@ -34,6 +35,30 @@ export async function createUser(
   logger.info('Create user successful:' + JSON.stringify( savedUser ))
   return savedUser;
    
+}
+
+export async function updateUser( 
+  updateUserRequest: UpdateUserRequest,
+  userId: string
+): Promise<User> {
+
+  const existingUser = await userAccess.getUserByUserId( userId )
+  if ( ! existingUser ) {
+    throw new Error('User not registered in the system!')
+  }
+
+  const existingUserWithSameEmail = await userAccess.getUserByEmail( updateUserRequest.email )
+  if ( existingUserWithSameEmail && existingUserWithSameEmail.userId !== userId ) {
+    throw new Error('A user is already registered with the same Email')
+  }
+
+  existingUser.email = updateUserRequest.email;
+  existingUser.userType = updateUserRequest.userType;
+
+  const savedUser = userAccess.updateUser( existingUser )
+
+  logger.info('Update user successful:' + JSON.stringify( savedUser ))
+  return savedUser;
 }
 
 export async function getUserOrEmptyUser(userId: string): Promise<User> {

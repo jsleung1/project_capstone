@@ -5,7 +5,9 @@
           <label class="md-label-text" >User name</label>
         </div>
         <div class="col-md-6">
-            <input class="form-control formInputHeight"  type="text" [(ngModel)]="registerUser.userName" >
+            <input class="form-control formInputHeight"  type="text" 
+            [disabled]="isUpdateExistUser()===true"    
+            [(ngModel)]="registerUser.userName" >
         </div>
     </div>
     <div class="form-row md-padding-top">
