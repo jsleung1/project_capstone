@@ -24,7 +24,8 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
   private assignmentInfos: Array<AssignmentInfo> = [];
   private courseId = '';
 
-  constructor( private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private veriguideHttpClient: VeriguideHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
@@ -35,19 +36,19 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     this.config.spinners = false;
     this.courseId = this.route.snapshot.paramMap.get('courseId');
     this.activatedRoute.data.subscribe( data => {
-      const assignments: Array<Assignment> = data["resolverService"];
+      const assignments: Array<Assignment> = data.resolverService;
       this.addToAssignmentInfos(assignments);
-    })
+    });
   }
 
   private addToAssignmentInfos(assignments: Assignment[]) {
     assignments.forEach(assignment => {
-      const year = Number(assignment.dueDate.split("-")[0].slice(0, 4));
-      const month = Number(assignment.dueDate.split("-")[1].slice(0, 2));
-      const day = Number(assignment.dueDate.split("-")[2].slice(0, 2));
-      const parts = assignment.dueDate.split("_");
-      const hour = Number(parts[1].split(":")[0].slice(0, 2));
-      const minute = Number(parts[1].split(":")[1].slice(0, 2));
+      const year = Number(assignment.dueDate.split('-')[0].slice(0, 4));
+      const month = Number(assignment.dueDate.split('-')[1].slice(0, 2));
+      const day = Number(assignment.dueDate.split('-')[2].slice(0, 2));
+      const parts = assignment.dueDate.split('_');
+      const hour = Number(parts[1].split(':')[0].slice(0, 2));
+      const minute = Number(parts[1].split(':')[1].slice(0, 2));
       this.assignmentInfos.push({
         assignment,
         ngbDateStruct: {
@@ -67,10 +68,8 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
   async onUpdateAssignment(assignmentInfo: AssignmentInfo) {
 
     const year = assignmentInfo.ngbDateStruct.year.toString();
-   
     const month = assignmentInfo.ngbDateStruct.month.toString().padStart(2, '0');
     const day = assignmentInfo.ngbDateStruct.day.toString().padStart(2, '0');
-    
     const hour = assignmentInfo.ngbTimeStruct.hour.toString().padStart(2, '0');
     const minute = assignmentInfo.ngbTimeStruct.minute.toString().padStart(2, '0');
     const second = assignmentInfo.ngbTimeStruct.second.toString().padStart(2, '0');
@@ -92,8 +91,7 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
         dialogType: 'OKDialog'
       }).then( res => {
       });
-    } 
-    catch(err) {
+    } catch (err) {
       this.spinner.hide();
       console.error(err);
     }
@@ -112,16 +110,13 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
         dialogType: 'OKDialog'
       }).then( res => {
       });
-    } 
-    catch(err) {
+    } catch (err) {
       this.spinner.hide();
       console.error(err);
     }
-  } 
+  }
 
-  
   async reloadAssignments() {
-   
     const assignments = await this.veriguideHttpClient.get<Array<Assignment>>(`assignments/${this.courseId}`).toPromise();
     this.assignmentInfos = [];
     this.addToAssignmentInfos(assignments);

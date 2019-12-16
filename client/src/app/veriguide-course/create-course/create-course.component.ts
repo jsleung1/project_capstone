@@ -60,9 +60,9 @@ export class CreateCourseComponent implements OnInit {
         dialogType: 'OKDialog'
       }).then( res => {
         // navigate to the courses page
-        this.router.navigate( [ '../' ] , { relativeTo: this.route } );
+        this.router.navigate( [ '../../' ] , { relativeTo: this.route } );
       });
-   
+
     } catch (e) {
       this.spinner.hide();
       console.log(e);

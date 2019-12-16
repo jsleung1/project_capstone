@@ -38,9 +38,10 @@ export class CreateAssignmentComponent implements OnInit {
       minute: 0,
       second: 0
     }
-  }
+  };
 
-  constructor( private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private veriguideHttpClient: VeriguideHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
@@ -50,9 +51,9 @@ export class CreateAssignmentComponent implements OnInit {
 
     this.config.spinners = false;
     this.activatedRoute.data.subscribe( data => {
-      this.course = data["resolverService"];
-      console.log( JSON.stringify( this.course ))
-    })
+      this.course = data.resolverService;
+      console.log( JSON.stringify( this.course ));
+    });
 
   }
 
@@ -61,15 +62,14 @@ export class CreateAssignmentComponent implements OnInit {
 
   isEnableCreateAssignmentButton() {
     return ! UtilService.isStringEmpty( this.assignmentInfo.assignment.assignmentName )
-      && ! UtilService.isStringEmpty( this.assignmentInfo.assignment.assignmentDescription );   
+      && ! UtilService.isStringEmpty( this.assignmentInfo.assignment.assignmentDescription );
   }
 
   async onCreateNewAssignment() {
     const year = this.assignmentInfo.ngbDateStruct.year.toString();
-   
     const month = this.assignmentInfo.ngbDateStruct.month.toString().padStart(2, '0');
     const day = this.assignmentInfo.ngbDateStruct.day.toString().padStart(2, '0');
-    
+
     const hour = this.assignmentInfo.ngbTimeStruct.hour.toString().padStart(2, '0');
     const minute = this.assignmentInfo.ngbTimeStruct.minute.toString().padStart(2, '0');
     const second = this.assignmentInfo.ngbTimeStruct.second.toString().padStart(2, '0');
@@ -81,7 +81,7 @@ export class CreateAssignmentComponent implements OnInit {
       assignmentName: this.assignmentInfo.assignment.assignmentName,
       assignmentDescription: this.assignmentInfo.assignment.assignmentDescription,
       dueDate
-    };    
+    };
 
     this.spinner.show();
     try {
@@ -94,8 +94,7 @@ export class CreateAssignmentComponent implements OnInit {
       }).then( res => {
         this.router.navigate( [ '../' ] , { relativeTo: this.route } );
       });
-    } 
-    catch(err) {
+    } catch ( err ) {
       this.spinner.hide();
       console.error(err);
     }

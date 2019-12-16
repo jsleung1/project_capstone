@@ -41,7 +41,7 @@ export class MenuBuilderService implements OnDestroy {
       const topMenuItems: TopMenuItem[] = new Array();
       if ( loggedInUser.userType === Instructor ) {
         topMenuItems.push({
-          name: 'topmenu.course',
+          name: 'Courses',
           url: this.urlPathConfig.userCourses.fullPath
         });
       }
@@ -51,7 +51,7 @@ export class MenuBuilderService implements OnDestroy {
         name: 'menu.submission',
         url: this.urlPathConfig.userSubmissionUpload.fullPath
       });
-    
+
       topMenuItems.push({
         name: 'topmenu.submissionHistory',
         url: this.urlPathConfig.userAssignmentSubmissionHistory.fullPath
@@ -75,7 +75,7 @@ export class MenuBuilderService implements OnDestroy {
           iconPath: 'assets/images/veriguide-main/info.png',
           description: 'Teaching Courses by Academic Year',
           url: this.urlPathConfig.userCourses.fullPath
-        } );        
+        } );
       }
       /*
       contentMenuItems.push( {
