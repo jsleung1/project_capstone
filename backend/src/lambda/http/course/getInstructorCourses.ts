@@ -2,24 +2,21 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 
-import { parseUserId, replaceReservedCharacters } from '../../../auth/utils'
-import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { getUserOrEmptyUser } from '../../../businessLogic/userService'
+import { getInstructorCourses } from '../../../businessLogic/courseService'
 
-const logger = createLogger('getUserHandler')
+const logger = createLogger('getInstructorCoursesHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
-  //const userId = event.pathParameters.userId
-  const jwtToken = getJwtToken( event.headers.Authorization )
-  const userId = parseUserId(jwtToken)
-  console.log('userId = ' + userId)
-
-  let user = null
+  
+  let instructorId = event.pathParameters.instructorId
+  let acadYear = event.pathParameters.acadYear
+  
+  let courses = []
   try {
-    user = await getUserOrEmptyUser(userId)
+    courses = await getInstructorCourses( instructorId, acadYear )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -30,12 +27,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       body: e.message
     }
   }
-
+  
   return {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(courses)
   }
 }

@@ -70,6 +70,7 @@ provider:
     USERS_TABLE: VeriGuide-Users1-${self:provider.stage}
     USERS_USERID_INDEX: Users_userId_Index
     USERS_EMAIL_INDEX: Users_email_Index
+    USERS_USERTYPE_INDEX: Users_userType_Index
 
     COURSES_TABLE: VeriGuide-Courses1-${self:provider.stage}
     COURSES_COURSEID_INDEX: Courses_courseId_Index
@@ -180,7 +181,28 @@ functions:
         Action:
           - xray:PutTraceSegments
           - xray:PutTelemetryRecords
-        Resource: "*"           
+        Resource: "*"
+  GetUsersByType:
+    handler: src/lambda/http/user/getUsersByUserType.handler
+    events:
+      - http:
+          method: get
+          path: users/{userType}
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERTYPE_INDEX}
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+      - Effect: Allow
+        Action:
+          - xray:PutTraceSegments
+          - xray:PutTelemetryRecords
+        Resource: "*"       
   CreateCourse:
     handler: src/lambda/http/course/createCourse.handler
     events:
@@ -253,6 +275,34 @@ functions:
       Action:
         - dynamodb:Query
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_ACADYEAR_INDEX}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+  GetInstructrCrse:
+    handler: src/lambda/http/course/getInstructorCourses.handler
+    events:
+      - http:
+          method: get
+          path: instructor/{instructorId}/courses/{acadYear}
+          cors: true
+          #authorizer: Auth0
+          #reqValidatorName: RequestBodyValidator
+          #documentation:
+          #  summary: Create a new Todo
+          #  description: Create a new Todo
+          #  requestModels:
+          #    'application/json': CreateTodoRequest
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}
     - Effect: Allow
       Action:
         - dynamodb:Query
@@ -765,6 +815,8 @@ resources:
             AttributeType: S
           - AttributeName: email
             AttributeType: S
+          - AttributeName: userType
+            AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
         KeySchema:
@@ -782,6 +834,12 @@ resources:
           - IndexName: ${self:provider.environment.USERS_EMAIL_INDEX}
             KeySchema:
             - AttributeName: email
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: ${self:provider.environment.USERS_USERTYPE_INDEX}
+            KeySchema:
+            - AttributeName: userType
               KeyType: HASH
             Projection:
               ProjectionType: ALL

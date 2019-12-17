@@ -1,87 +1,94 @@
 <div class="form-part">
-    <h3 style="padding-top: 10px;">Assigment Submission</h3>
-    <div class="form-row" style="padding-top: 20px;">
-        <div class="col-md-4 margin-padding-right-0px" >
-          <label class="md-label-text" >{{ 'assignmentUpload.acad.year' | translate }}</label>
+    <h3>Upload Submission</h3>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Select Instructor</label>
         </div>
         <div class="col-md-6">
-          <select class="form-control formInputHeight">
-            <option *ngFor="let itemYear of acadYearDTOs" [ngValue]="itemYear">{{ itemYear.name }}</option>
+            <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedInstructor" (ngModelChange)="onInstructorSelection()">
+                <option *ngFor="let instructor of instructors" [ngValue]="instructor">{{ instructor.userName }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+          <label class="md-label-text" >Academic Year</label>
+        </div>
+        <div class="col-md-6">
+          <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedAcadYear" (ngModelChange)="onAcadYearSelection()">
+            <option *ngFor="let acadYear of acadYears" [ngValue]="acadYear">{{ acadYear }}</option>
           </select>
         </div>
     </div>
     <div class="form-row md-padding-top">
         <div class="col-md-4 margin-padding-right-0px">
-            <label class="md-label-text" >{{ 'assignmentUpload.choose' | translate }}</label>
+            <label class="md-label-text" >Choose a course</label>
         </div>
         <div class="col-md-6">
-            <select class="form-control formInputHeight">
-                <option *ngFor="let itemCourse of courseDTOs" [ngValue]="itemCourse">{{ itemCourse.name }}</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-row md-padding-top">
-        <div class="col-md-4 margin-padding-right-0px">
-            <label class="md-label-text" >Course Description</label>
-        </div>
-        <div class="col-md-6">
-            <textarea class="form-control" rows="4" [(ngModel)]="testValue" [disabled]="true"></textarea>
-        </div>
-    </div>
-    <div class="form-row md-padding-top">
-        <div class="col-md-4 margin-padding-right-0px">
-            <label class="md-label-text" >Select an assigment</label>
-        </div>
-        <div class="col-md-6">
-            <select class="form-control formInputHeight">
-                <option *ngFor="let itemCourse of courseDTOs" [ngValue]="itemCourse">{{ itemCourse.name }}</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-row md-padding-top">
-        <div class="col-md-4 margin-padding-right-0px">
-            <label class="md-label-text" >Assignment Description</label>
-        </div>
-        <div class="col-md-6">
-            <textarea class="form-control" rows="4" [(ngModel)]="testValue" [disabled]="true"></textarea>
-        </div>
-    </div>
-    <div class="form-row md-padding-top">
-        <div class="col-md-4 margin-padding-right-0px" >
-            <label class="md-label-text">Instructor</label>
-        </div>
-        <div class="col-md-6">
-            <select class="form-control formInputHeight">
-                <option *ngFor="let assignmentMarker of assignmentMarkerDTOs" [ngValue]="assignmentMarker">{{ assignmentMarker.name }}</option>
+            <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedCourse" (ngModelChange)="onCourseSelection()">
+                <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseName }}</option>
             </select>
         </div>
     </div>
     <div class="form-row md-padding-top">
         <div class="col-md-4 margin-padding-right-0px" >
-            <label class="md-label-text">{{ 'assignmentUpload.deadline' | translate }}</label>
+            <label class="md-label-text" >Course description</label>
         </div>
-        <div class="col-md-6 formInputCalendar" >
-            <input class="form-control datePickerInputHeight no-border-radius-right-side" ngbDatepicker #dp="ngbDatepicker" >
-            <span class="input-group-addon no-padding">
-                <button class="btn btn-outline-secondary calendar no-border-radius-left-side" (click)="dp.toggle();" type="button"></button>
-            </span>            
+        <div class="col-md-6">
+            <textarea class="form-control" rows="3"  [(ngModel)]="courseDescription" [disabled]="true"></textarea>
         </div>
     </div>
     <div class="form-row md-padding-top">
-        <div class="col-md-4 margin-padding-right-0px" style="padding-top: 4px;">
-            <label class="md-label-text">{{ 'assignmentUpload.file' | translate }}</label>
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Choose assignment</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedAssignment" (ngModelChange)="onAssignmentSelection()">
+                <option *ngFor="let assignment of assignments" [ngValue]="assignment">{{ assignment.assignmentName }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Assignment description</label>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="5"  [(ngModel)]="assignmentDescription" [disabled]="true"></textarea>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text">Assignment due date</label>
+        </div>
+        <div class="col-md-6">
+            <div class="formInputCalendar" >
+                <input class="form-control datePickerInputHeight no-border-radius-right-side"  [disabled]="true"
+                    ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="ngbDateStruct" >
+                <span class="input-group-addon no-padding">
+                    <button class="btn btn-outline-secondary calendar no-border-radius-left-side" (click)="dp.toggle();" type="button"></button>
+                </span>
+                <span class="input-group-addon no-padding" style="padding-left:10px;">
+                    <ngb-timepicker [(ngModel)]="ngbTimeStruct" [disabled]="true"></ngb-timepicker>            
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px">
+            <label class="md-label-text" >Select a file</label>
         </div>
         <div class="col-md-6">
             <input type="file" class="file labelText form-control fileSelectionInputHeight"
-             id="assignmentFile" name="assignmentFile" (change)="onChangeFileValue($event)" >
+                id="assignmentFile" name="assignmentFile" (change)="onChangeFileValue($event)" >
         </div>
     </div>
     <div class="form-row md-padding-top">
         <div class="col-md-4 margin-padding-right-0px" >
         </div>
         <div class="col-md-6" >
-            <button type="button" class="btn btn-primary col-md-12" (click)="onUploadSubmission($event)">
-                Upload Submission
+            <button type="button" class="btn btn-primary col-md-12" (click)="UploadSubmission()" 
+            [disabled]="isEnableUploadSubmissionButton()===false" >
+               Upload Submission
             </button>
         </div>
     </div>

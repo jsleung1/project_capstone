@@ -11,12 +11,13 @@ export class UserAccess {
         private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
         private readonly usersTable = process.env.USERS_TABLE,
         private readonly usersUserIdIndex = process.env.USERS_USERID_INDEX,
-        private readonly usersEmailIndex = process.env.USERS_EMAIL_INDEX
+        private readonly usersEmailIndex = process.env.USERS_EMAIL_INDEX,
+        private readonly usersUserTypeIndex = process.env.USERS_USERTYPE_INDEX
       ) {
     }
 
     async getUserByUserId(userId: string): Promise<User> {
-        this.logger.info('getUser')
+        this.logger.info('getUserByUserId')
     
         const result = await this.docClient.query({
           TableName: this.usersTable,
@@ -35,7 +36,7 @@ export class UserAccess {
     }
 
     async getUserByUserIdOrEmptyUser(userId: string): Promise<User> {
-        this.logger.info('getUser')
+        this.logger.info('getUserByUserIdOrEmptyUser')
     
         const result = await this.docClient.query({
           TableName: this.usersTable,
@@ -60,7 +61,7 @@ export class UserAccess {
     }
 
     async getUserByUserIdAndUserType(userId: string, userType: string): Promise<User> {
-        this.logger.info('getUser')
+        this.logger.info('getUserByUserIdAndUserType')
     
         const result = await this.docClient.query({
           TableName: this.usersTable,
@@ -83,8 +84,24 @@ export class UserAccess {
         }
     }
 
+    async getUsersByUserIdAndUserType(userType: string): Promise<User[]> {
+        this.logger.info('getUsersByUserIdAndUserType')
+    
+        const result = await this.docClient.query({
+          TableName: this.usersTable,
+          IndexName: this.usersUserTypeIndex,
+          KeyConditionExpression: 'userType = :userType',
+          ExpressionAttributeValues: {
+              ':userType': userType
+          }      
+        }).promise()
+  
+        const items = result.Items
+        return items as User[]
+    }
+
     async getUserByEmail(email: string): Promise<User> {
-        this.logger.info('getUser')
+        this.logger.info('getUserByEmail')
     
         const result = await this.docClient.query({
           TableName: this.usersTable,

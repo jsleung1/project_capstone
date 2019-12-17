@@ -18,8 +18,8 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'main'
     },
     userSubmissionUpload: {
-        fullPath: '/school/main/submissionUpload',
-        relativePath: 'submissionUpload'
+        fullPath: '/school/main/uploadSubmission',
+        relativePath: 'uploadSubmission'
     },
     userAssignmentSubmissionUploadSuccess : {
         fullPath: '/school/main/submissionSelect/uploadSuccess',

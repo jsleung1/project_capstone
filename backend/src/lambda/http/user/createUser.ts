@@ -2,7 +2,7 @@ import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
 
-import { parseUserId } from '../../../auth/utils'
+import { parseUserId, replaceReservedCharacters } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
 import { createUser } from '../../../businessLogic/userService'
@@ -40,3 +40,4 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     body: JSON.stringify(user)
   }
 }
+

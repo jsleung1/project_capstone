@@ -1,5 +1,4 @@
 import { decode } from 'jsonwebtoken'
-
 import { JwtPayload } from './JwtPayload'
 
 /**
@@ -9,5 +8,11 @@ import { JwtPayload } from './JwtPayload'
  */
 export function parseUserId(jwtToken: string): string {
   const decodedJwt = decode(jwtToken) as JwtPayload
-  return decodedJwt.sub
+  const sub = decodedJwt.sub
+  return replaceReservedCharacters(sub, '-')
 }
+
+function replaceReservedCharacters( checkString: string, replaceValue: string): string {
+  return checkString.replace("|", replaceValue )
+}
+

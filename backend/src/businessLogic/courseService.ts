@@ -28,16 +28,29 @@ export async function getCoursesForInstructorOrStudent(userId: string, acadYear:
   }
 
   if ( user.userType === Student) {
-    if ( !acadYear) {
+    if ( acadYear) {
+      return await courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
+    } else {
       throw new Error(`Cannot get courses for student with missing parameter for acadYear`)
-    } 
-    return await courseAccess.getAllCoursesByAcadYear( Number(acadYear) );
+    }
   }
   
   if ( user.userType === Instructor) {
-    return await courseAccess.getAllCoursesByInstructorId(userId);
+    if ( acadYear ) {
+      const coursesByAcadYear = await courseAccess.getAllCoursesByAcadYear( Number(acadYear) )
+      const instructorCoursesByAcadYear = coursesByAcadYear.filter( s => s.instructorId === userId )
+      return instructorCoursesByAcadYear;
+    } else {
+      return await courseAccess.getAllCoursesByInstructorId(userId);
+    }
   }
   throw new Error(`Cannot get the courses with invalid userType`) 
+}
+
+export async function getInstructorCourses( instructorId: string, acadYear: string): Promise<Course[]> {
+  const coursesByAcadYear = await courseAccess.getAllCoursesByAcadYear( Number(acadYear) )
+  const instructorCoursesByAcadYear = coursesByAcadYear.filter( s => s.instructorId === instructorId )
+  return instructorCoursesByAcadYear;
 }
 
 export async function createCourse( createCourseRequest: CreateCourseRequest, instructorId: string): Promise<Course> {

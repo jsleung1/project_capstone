@@ -1,25 +1,19 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-
-import { parseUserId, replaceReservedCharacters } from '../../../auth/utils'
-import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { getUserOrEmptyUser } from '../../../businessLogic/userService'
+import { getUsersByUserType } from '../../../businessLogic/userService'
 
-const logger = createLogger('getUserHandler')
+const logger = createLogger('getUsersByUserTypeHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
-  //const userId = event.pathParameters.userId
-  const jwtToken = getJwtToken( event.headers.Authorization )
-  const userId = parseUserId(jwtToken)
-  console.log('userId = ' + userId)
-
-  let user = null
+  const userType = event.pathParameters.userType
+  
+  let users = []
   try {
-    user = await getUserOrEmptyUser(userId)
+    users = await getUsersByUserType( userType )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -36,6 +30,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(users)
   }
 }

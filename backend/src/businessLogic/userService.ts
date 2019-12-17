@@ -64,3 +64,7 @@ export async function updateUser(
 export async function getUserOrEmptyUser(userId: string): Promise<User> {
     return await userAccess.getUserByUserIdOrEmptyUser(userId);
 }
+
+export async function getUsersByUserType( userType: string ): Promise<User[]> {
+    return await userAccess.getUsersByUserIdAndUserType( userType )
+}

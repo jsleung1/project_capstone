@@ -51,12 +51,12 @@ export class MenuBuilderService implements OnDestroy {
 
       if ( loggedInUser.userType === Student ) {
         topMenuItems.push({
-          name: 'menu.submission',
+          name: 'Submission',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
   
         topMenuItems.push({
-          name: 'topmenu.submissionHistory',
+          name: 'History',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
         });
       }
@@ -100,16 +100,16 @@ export class MenuBuilderService implements OnDestroy {
 
       if ( loggedInUser.userType === Student ) {
         contentMenuItems.push( {
-          name: 'contentMenu.assignmentSubmission',
+          name: 'Upload Submission',
           iconPath: 'assets/images/veriguide-main/upload_2.png',
-          description: 'contentMenu.assignmentSubmission.desc',
+          description: 'To submit your assignment to VeriGuide.',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
 
         contentMenuItems.push({
-          name: 'contentMenu.submissionHistory',
+          name: 'Submission History',
           iconPath: 'assets/images/veriguide-main/history.png',
-          description: 'contentMenu.submissionHistory.desc',
+          description: 'View your submissions that were uploaded to VeriGuide',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
         });
       }
