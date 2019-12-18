@@ -26,7 +26,8 @@ export class CourseAccess {
         KeyConditionExpression: 'acadYear = :acadYear',
         ExpressionAttributeValues: {
             ':acadYear': acadYear
-        }      
+        },
+        ScanIndexForward: false
       }).promise()
   
       const items = result.Items
@@ -42,7 +43,8 @@ export class CourseAccess {
           KeyConditionExpression: 'instructorId = :instructorId',
           ExpressionAttributeValues: {
               ':instructorId': instructorId
-          }      
+          },
+          ScanIndexForward: false  
         }).promise()
     
         const items = result.Items
@@ -59,7 +61,8 @@ export class CourseAccess {
             KeyConditionExpression: 'courseId = :courseId',
             ExpressionAttributeValues: {
                 ':courseId': courseId
-            }      
+            },
+            ScanIndexForward: false   
         }).promise()
 
         if (result.Count !== 0) { 
@@ -79,7 +82,8 @@ export class CourseAccess {
           KeyConditionExpression: 'courseName = :courseName',
           ExpressionAttributeValues: {
               ':courseName': courseName
-          }      
+          },
+          ScanIndexForward: false      
       }).promise()
 
       const items = result.Items
@@ -125,7 +129,7 @@ export class CourseAccess {
           Key: {
             courseId: course.courseId,
             createdAt: course.createdAt
-          }
+          },
         }).promise()
     
         this.logger.info("Delete course successful:", JSON.stringify(data) );

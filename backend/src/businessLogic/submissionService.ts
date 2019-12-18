@@ -51,7 +51,15 @@ export async function getSubmissionsForInstructorOrStudent(assigmentId: string, 
     }
 
     throw new Error(`Cannot get the submissions with invalid userType`) 
-  }
+}
+
+export async function getSubmissionsByUserId(userId: string): Promise<Submission[]> {
+    const user = await userAccess.getUserByUserId(userId)
+    if ( !user ) {
+      throw new Error(`Cannot find user to return the corresponding submissions`)
+    }
+    return await submissionAccess.getAllSubmissionsByStudentId( userId )   
+}
 
 export async function createSubmission( createSubmissionRequest: CreateSubmissionRequest, studentId: string ) : Promise<Submission> {
 
@@ -91,7 +99,7 @@ export async function createSubmission( createSubmissionRequest: CreateSubmissio
         studentRemarks: createSubmissionRequest.studentRemarks,
         submissionFileUrl,
         submissionUploadUrl,
-        similarityPercentage: null,
+        similarityPercentage: Math.round(Math.random()*100 * 100) / 100,
         reportStatus: null,
         reportCreateTime: null
     })

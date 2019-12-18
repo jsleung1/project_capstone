@@ -9,6 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
+import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
+import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/veriguide-user-service/user-service';
+import { LoggedInUser } from 'src/app/veriguide-model/models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { VeriguideHttpInterceptor } from 'src/app/veriguide-rest-service/veriguide-http-interceptor';
+import { UtilService } from 'src/app/veriguide-user-service/util.service';
 
 @Component({
   selector: 'app-assignment-upload',
@@ -35,6 +43,11 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
   assignmentDescription = '';
   ngbDateStruct: NgbDateStruct;
   ngbTimeStruct: NgbTimeStruct ;
+
+  selectedFileName: string;
+  selectedFile: any;
+
+  studentRemarks = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -107,21 +120,48 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
   }
 
   onChangeFileValue(event: any) {
-    // display filename
-    const fileName = event.target.files[0].name;
-    console.log(fileName);
-
-    // file data
-    const dataFile = event.target.files.length > 0 ? event.target.files[0] : null;
-    console.log(dataFile);
+    if ( event.target.files.length ) {
+      this.selectedFileName = event.target.files[0].name;
+      this.selectedFile = event.target.files[0];
+    }
   }
 
-  UploadSubmission() {
+  async UploadSubmission() {
 
+    try {
+      const createSubmissionRequest: CreateSubmissionRequest = {
+        assignmentId: this.selectedAssignment.assignmentId,
+        fileName: this.selectedFileName,
+        studentRemarks: this.studentRemarks
+      }
+
+      this.spinner.show();
+      const createdSubmission = await this.veriguideHttpClient.post(`submissions`, createSubmissionRequest).toPromise() as Submission;
+  
+      console.log(  JSON.stringify( createdSubmission ) );
+
+      await this.veriguideHttpClient.put( createdSubmission.submissionUploadUrl, this.selectedFile, true, true ).toPromise();
+     
+      this.spinner.hide();
+      this.alertDialogService.openDialog({
+        title: 'Upload New Submission',
+        message: 'Successfully uploaded submission to VeriGuide.',
+        dialogType: 'OKDialog'
+      }).then( res => {
+      });
+    } catch (e) {
+      this.spinner.hide();
+      console.log(e) 
+    }
+  
   }
 
   isEnableUploadSubmissionButton() : boolean {
-    return true;
+    return this.selectedInstructor !== undefined 
+      && this.selectedAcadYear !== undefined 
+      && this.selectedCourse !== undefined
+      && this.selectedAssignment !== undefined
+      && this.selectedFileName !== undefined;
   }
 
   ngOnDestroy(): void {

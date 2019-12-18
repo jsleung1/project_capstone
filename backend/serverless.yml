@@ -7,7 +7,7 @@ service:
 custom:
   dynamodb:
     stages:
-      - v1
+      - v2
     start:
       port: 8000
       inMemory: true
@@ -61,29 +61,29 @@ provider:
   runtime: nodejs8.10
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
-  stage: ${opt:stage, 'v1'}
+  stage: ${opt:stage, 'v2'}
   region: ${opt:region, 'us-east-1'}
   tracing:
     lambda: true
     apiGateway: true
   environment:
-    USERS_TABLE: VeriGuide-Users1-${self:provider.stage}
+    USERS_TABLE: VeriGuide-Users-${self:provider.stage}
     USERS_USERID_INDEX: Users_userId_Index
     USERS_EMAIL_INDEX: Users_email_Index
     USERS_USERTYPE_INDEX: Users_userType_Index
 
-    COURSES_TABLE: VeriGuide-Courses1-${self:provider.stage}
+    COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
     COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
     COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
     COURSES_COURSENAME_INDEX: Courses_courseName_Index
 
-    ASSIGNMENTS_TABLE: VeriGuide-Assignments1-${self:provider.stage}
+    ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
     ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
     ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
     ASSIGNMENTS_ASSIGNMENTNAME_INDEX: Assignments_assignmentName_Index
 
-    SUBMISSIONS_TABLE: VeriGuide-Submissions1-${self:provider.stage}
+    SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
     SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
@@ -636,12 +636,12 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"
-  GetSubmissions:
-    handler: src/lambda/http/submission/getSubmissions.handler
+  GetSubmissionsAId:
+    handler: src/lambda/http/submission/getAssignmentSubmissions.handler
     events:
       - http:
           method: get
-          path: submissions/{queryId}
+          path: submissions/assignment/{queryId}
           cors: true
           #authorizer: Auth0
     iamRoleStatements:
@@ -665,7 +665,37 @@ functions:
       Action:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
-      Resource: "*" 
+      Resource: "*"
+  GetSubmissionsUId:
+    handler: src/lambda/http/submission/getUserSubmissions.handler
+    events:
+      - http:
+          method: get
+          path: submissions
+          cors: true
+          #authorizer: Auth0
+    iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}/index/${self:provider.environment.USERS_USERID_INDEX}  
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
   GetSubmission:
     handler: src/lambda/http/submission/getSubmission.handler
     events:
@@ -829,18 +859,24 @@ resources:
             KeySchema:
             - AttributeName: userId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.USERS_EMAIL_INDEX}
             KeySchema:
             - AttributeName: email
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.USERS_USERTYPE_INDEX}
             KeySchema:
             - AttributeName: userType
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
@@ -869,24 +905,32 @@ resources:
             KeySchema:
             - AttributeName: courseId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.COURSES_INSTRUCTORID_INDEX}
             KeySchema:
             - AttributeName: instructorId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.COURSES_ACADYEAR_INDEX}
             KeySchema:
             - AttributeName: acadYear
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.COURSES_COURSENAME_INDEX}
             KeySchema:
             - AttributeName: courseName
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
@@ -913,18 +957,24 @@ resources:
             KeySchema:
             - AttributeName: assignmentId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.ASSIGNMENTS_COURSEID_INDEX}
             KeySchema:
             - AttributeName: courseId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.ASSIGNMENTS_ASSIGNMENTNAME_INDEX}
             KeySchema:
             - AttributeName: assignmentName
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
@@ -953,24 +1003,32 @@ resources:
             KeySchema:
             - AttributeName: submissionId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.SUBMISSIONS_ASSIGNMENTID_INDEX}
             KeySchema:
             - AttributeName: assignmentId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.SUBMISSIONS_STUDENTID_INDEX}
             KeySchema:
             - AttributeName: studentId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
           - IndexName: ${self:provider.environment.SUBMISSIONS_INSTRUCTORID_INDEX}
             KeySchema:
             - AttributeName: instructorId
               KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST

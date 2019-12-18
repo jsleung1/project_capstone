@@ -26,7 +26,8 @@ export class AssignmentAccess {
           KeyConditionExpression: 'courseId = :courseId',
           ExpressionAttributeValues: {
               ':courseId': courseId
-          }      
+          },
+          ScanIndexForward: false
         }).promise()
     
         const items = result.Items
@@ -43,7 +44,8 @@ export class AssignmentAccess {
           KeyConditionExpression: 'assignmentId = :assignmentId',
           ExpressionAttributeValues: {
               ':assignmentId': assignmentId
-          }      
+          },
+          ScanIndexForward: false 
       }).promise()
 
       if (result.Count !== 0) { 
@@ -63,7 +65,8 @@ export class AssignmentAccess {
             KeyConditionExpression: 'assignmentId = :assignmentId',
             ExpressionAttributeValues: {
                 ':assignmentId': assignmentId
-            }      
+            },
+            ScanIndexForward: false
         }).promise()
 
         if (result.Count !== 0) { 
@@ -83,7 +86,8 @@ export class AssignmentAccess {
           KeyConditionExpression: 'assignmentName = :assignmentName',
           ExpressionAttributeValues: {
               ':assignmentName': assignmentName
-          }      
+          },
+          ScanIndexForward: false
       }).promise()
 
       const items = result.Items

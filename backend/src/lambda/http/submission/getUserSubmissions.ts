@@ -5,9 +5,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { getSubmissionsForInstructorOrStudent } from '../../../businessLogic/submissionService';
+import { getSubmissionsByUserId } from '../../../businessLogic/submissionService';
 
-const logger = createLogger('getSubmissionsHandler')
+const logger = createLogger('getUserSubmissionsHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
@@ -16,11 +16,10 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
  
-  let assignmentId = event.pathParameters.queryId  
   let submissions = []
 
   try {
-    submissions = await getSubmissionsForInstructorOrStudent( assignmentId, userId )
+    submissions = await getSubmissionsByUserId( userId )
   } catch (e) {
     logger.error(e.message)
     return {

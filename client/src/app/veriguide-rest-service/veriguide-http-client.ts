@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import {Injectable, OnDestroy} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { share } from 'rxjs/operators';
+import { apiEndpoint } from '../config';
 
 @Injectable({
     providedIn: 'root'
@@ -22,11 +23,12 @@ export class VeriguideHttpClient implements OnDestroy {
     }
 
     get<T>(url: string, httpParams?: HttpParams ): Observable<T> {
-        return this.http.get<T>(url, this.createHttpOptions( httpParams ) ).pipe( share() );
+        
+        return this.http.get<T>(this.parseHttpUrl(url), this.createHttpOptions( httpParams ) ).pipe( share() );
     }
 
     getBlob(url: string) {
-        return this.http.get(url, {
+        return this.http.get(this.parseHttpUrl(url), {
             responseType: 'arraybuffer',
             headers: new HttpHeaders({
                 'Content-Type':  'application/json',
@@ -35,21 +37,31 @@ export class VeriguideHttpClient implements OnDestroy {
         });
     }
 
-    put<T>(url: string, body: any | null): Observable<T> {
-        return this.http.put<T>(url, body, this.createHttpOptions() ).pipe( share() );
+    put<T>(url: string, body: any | null, useParamUrl?: boolean, noAuthHeader?: boolean ): Observable<T> {
+        
+        let fullUrl = this.parseHttpUrl(url);
+        if ( useParamUrl === true ) {
+            fullUrl = url;
+        }
+
+        if ( noAuthHeader === true ) {
+            return this.http.put<T>(fullUrl, body ).pipe( share() );
+        } else {
+            return this.http.put<T>(fullUrl, body, this.createHttpOptions() ).pipe( share() );
+        }
     }
 
     patch<T>(url: string, body: any | null): Observable<T> {
-        return this.http.patch<T>(url, body, this.createHttpOptions() ).pipe( share() );
+        return this.http.patch<T>(this.parseHttpUrl(url), body, this.createHttpOptions() ).pipe( share() );
     }
     
     post<T>(url: string, body: any | null): Observable<T> {
-        return this.http.post<T>(url, body, this.createHttpOptions() ).pipe( share() );
+        return this.http.post<T>(this.parseHttpUrl(url), body, this.createHttpOptions() ).pipe( share() );
     }
 
     postFile<T>(url: string, body: any | null): Observable<any> {
         const idToken = this.loggedInUser.idToken;
-        return this.http.post<T>(url, body, {
+        return this.http.post<T>(this.parseHttpUrl(url), body, {
             headers: new HttpHeaders({
                 Authorization: idToken
             })
@@ -57,7 +69,7 @@ export class VeriguideHttpClient implements OnDestroy {
     }
 
     delete<T>(url: string): Observable<T> {
-      return this.http.delete<T>(url, this.createHttpOptions()).pipe( share() );
+      return this.http.delete<T>(this.parseHttpUrl(url), this.createHttpOptions()).pipe( share() );
     }
 
     private createHttpOptions( httpParams?: HttpParams ) {
@@ -80,6 +92,10 @@ export class VeriguideHttpClient implements OnDestroy {
             };
             return httpOptions;
         }
+    }
+
+    private parseHttpUrl(subUrl: string): string {
+        return `${apiEndpoint}/${subUrl}`;
     }
 
     ngOnDestroy(): void {

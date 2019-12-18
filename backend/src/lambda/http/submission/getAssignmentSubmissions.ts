@@ -5,24 +5,22 @@ import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } f
 import { parseUserId } from '../../../auth/utils'
 import { getJwtToken } from '../../utils'
 import { createLogger } from '../../../utils/logger'
-import { CreateSubmissionRequest } from '../../../requests/submission/CreateSubmissionRequest';
-import { createSubmission } from '../../../businessLogic/submissionService';
-import { Submission } from '../../../entities/Submission'
+import { getSubmissionsForInstructorOrStudent } from '../../../businessLogic/submissionService';
 
-const logger = createLogger('createSubmissionHandler')
+const logger = createLogger('getAssignmentSubmissionsHandler')
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
   logger.info('Processing event: ', event)
   
-  const createSubmissionRequest: CreateSubmissionRequest = JSON.parse(event.body)
   const jwtToken = getJwtToken( event.headers.Authorization )
   const userId = parseUserId(jwtToken)
-  
-  let submission: Submission = null
+ 
+  let assignmentId = event.pathParameters.queryId  
+  let submissions = []
 
   try {
-    submission = await createSubmission( createSubmissionRequest, userId)
+    submissions = await getSubmissionsForInstructorOrStudent( assignmentId, userId )
   } catch (e) {
     logger.error(e.message)
     return {
@@ -33,12 +31,12 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       body: e.message
     }
   }
-
+  
   return {
-    statusCode: 201,
+    statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    body: JSON.stringify(submission)
+    body: JSON.stringify( submissions )
   }
 }

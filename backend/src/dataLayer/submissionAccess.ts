@@ -27,7 +27,8 @@ export class SubmissionAccess {
           KeyConditionExpression: 'assignmentId = :assignmentId',
           ExpressionAttributeValues: {
               ':assignmentId': assignmentId
-          }      
+          },
+          ScanIndexForward: false
         }).promise()
     
         const items = result.Items
@@ -43,7 +44,8 @@ export class SubmissionAccess {
           KeyConditionExpression: 'studentId = :studentId',
           ExpressionAttributeValues: {
               ':studentId': studentId
-          }      
+          },
+          ScanIndexForward: false
         }).promise()
     
         const items = result.Items
@@ -59,7 +61,8 @@ export class SubmissionAccess {
         KeyConditionExpression: 'instructorId = :instructorId',
         ExpressionAttributeValues: {
             ':instructorId': instructorId
-        }      
+        },
+        ScanIndexForward: false
       }).promise()
   
       const items = result.Items
@@ -75,7 +78,8 @@ export class SubmissionAccess {
         KeyConditionExpression: 'submissionId = :submissionId',
         ExpressionAttributeValues: {
             ':submissionId': submissionId
-        }      
+        },
+        ScanIndexForward: false
       }).promise()
   
       if (result.Count !== 0) { 

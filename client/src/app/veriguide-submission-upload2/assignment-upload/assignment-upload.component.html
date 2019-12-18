@@ -1,5 +1,5 @@
 <div class="form-part">
-    <h3>Upload Submission</h3>
+    <h3>Upload New Submission</h3>
     <div class="form-row md-padding-top">
         <div class="col-md-4 margin-padding-right-0px">
             <label class="md-label-text" >Select Instructor</label>
@@ -80,6 +80,14 @@
         <div class="col-md-6">
             <input type="file" class="file labelText form-control fileSelectionInputHeight"
                 id="assignmentFile" name="assignmentFile" (change)="onChangeFileValue($event)" >
+        </div>
+    </div>
+    <div class="form-row md-padding-top">
+        <div class="col-md-4 margin-padding-right-0px" >
+            <label class="md-label-text" >Student remarks</label>
+        </div>
+        <div class="col-md-6">
+            <textarea class="form-control" rows="6" [(ngModel)]="studentRemarks" ></textarea>
         </div>
     </div>
     <div class="form-row md-padding-top">
