@@ -27,7 +27,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userType\": \"student\",\n    \"email\": \"jsleung206@gmail.com\",\n    \"userName\": \"Mary Lee\"\n}"
+							"raw": "{\n    \"userType\": \"student\",\n    \"email\": \"jsleung506@gmail.com\",\n    \"userName\": \"Mary Lee\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/users",
@@ -48,7 +48,76 @@
 					"response": []
 				},
 				{
+					"name": "Update user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userType\": \"student\",\n    \"email\": \"jsleung506@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/users/{userId}",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"users",
+								"{userId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/user",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users by userType",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -101,7 +170,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"acadYear\": 2019,\n    \"courseName\": \"2019 Term 1 ACCT-3001\",\n    \"courseDescription\": \"Accounting III: Advanced Accounting Skills\"\n}"
+							"raw": "{\n    \"acadYear\": 2019,\n    \"courseName\": \"2019 Term 1 ELTU-5025\",\n    \"courseDescription\": \"English Skills for Information Technology Users etc.\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses",
@@ -221,6 +290,68 @@
 					"response": []
 				},
 				{
+					"name": "Get instructor courses (called by student users)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/instructor/{instructorId}/courses/{acadYear}",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"instructor",
+								"{instructorId}",
+								"courses",
+								"{acadYear}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/course/d3ceb528-e85c-4de3-ab60-56fd114351d0",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"course",
+								"d3ceb528-e85c-4de3-ab60-56fd114351d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete course",
 					"request": {
 						"method": "DELETE",
@@ -301,7 +432,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"courseId\": \"d3ceb528-e85c-4de3-ab60-56fd114351d0\",\n    \"assignmentName\": \"Advanced Accounting III: Assignment 1\",\n    \"assignmentDescription\": \"Advanced Accounting Assignment 1: Here are the instructions, please follow!\",\n    \"dueDate\": \"2020-01-15T00:00:00.000Z\"\n}"
+							"raw": "{\n    \"courseId\": \"84b62a24-1900-49f6-8851-744fc7bff045\",\n    \"assignmentName\": \"English skills 123: Assignment 122334\",\n    \"assignmentDescription\": \"English skills 123: Assignment 1 Descssss\",\n    \"dueDate\": \"2020-01-15_00:00:00\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments",
@@ -384,7 +515,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/2093233c-cce6-4895-8c5e-10867779451d",
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignments/aea4d90f-bfe4-420f-9db0-294641277c63",
 							"protocol": "https",
 							"host": [
 								"{{apiId}}",
@@ -396,7 +527,7 @@
 							"path": [
 								"{{env}}",
 								"assignments",
-								"2093233c-cce6-4895-8c5e-10867779451d"
+								"aea4d90f-bfe4-420f-9db0-294641277c63"
 							]
 						}
 					},
@@ -427,6 +558,36 @@
 								"{{env}}",
 								"assignments",
 								"d3ceb528-e85c-4de3-ab60-56fd114351d0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get assignment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/assignment/8b39cca4-9af4-408c-91be-20fcfd2fe5ab",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"assignment",
+								"8b39cca4-9af4-408c-91be-20fcfd2fe5ab"
 							]
 						}
 					},
@@ -501,6 +662,36 @@
 								"{{env}}",
 								"submissions",
 								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get submission",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/submission/3c6fbad7-ecbc-4772-90a4-94ee0ccbfeae",
+							"protocol": "https",
+							"host": [
+								"{{apiId}}",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"{{env}}",
+								"submission",
+								"3c6fbad7-ecbc-4772-90a4-94ee0ccbfeae"
 							]
 						}
 					},
@@ -602,19 +793,19 @@
 	],
 	"variable": [
 		{
-			"id": "ffd2a9bc-9417-46e2-bb87-7e12c3cff421",
+			"id": "921459d0-3ced-4589-9d78-acb74fcd46d8",
 			"key": "apiId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fd62080d-3a72-437b-81b1-bd154d697f28",
+			"id": "7f2f7de8-70df-4f41-8c28-6c3ed917313f",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "562ce6b8-57d6-4597-8504-f09306671c67",
+			"id": "8f31db3c-9c0b-4201-a02f-095fc0d65958",
 			"key": "env",
 			"value": "",
 			"type": "string"
