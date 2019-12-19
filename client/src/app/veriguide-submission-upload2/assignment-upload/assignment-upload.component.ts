@@ -11,6 +11,8 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
+import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
+import { UtilService } from 'src/app/veriguide-user-service/util.service';
 
 @Component({
   selector: 'app-assignment-upload',
@@ -41,7 +43,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
   selectedFileName: string;
   selectedFile: any;
 
-  studentRemarks = '';
+  studentReferences = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -126,7 +128,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
       const createSubmissionRequest: CreateSubmissionRequest = {
         assignmentId: this.selectedAssignment.assignmentId,
         fileName: this.selectedFileName,
-        studentRemarks: this.studentRemarks
+        studentReferences: this.studentReferences
       }
 
       this.spinner.show();
@@ -142,6 +144,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
         message: 'Successfully uploaded submission to VeriGuide.',
         dialogType: 'OKDialog'
       }).then( res => {
+        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
       });
     } catch (e) {
       this.spinner.hide();
@@ -155,7 +158,8 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
       && this.selectedAcadYear !== undefined 
       && this.selectedCourse !== undefined
       && this.selectedAssignment !== undefined
-      && this.selectedFileName !== undefined;
+      && this.selectedFileName !== undefined
+      && ! UtilService.isStringEmpty( this.studentReferences )
   }
 
   ngOnDestroy(): void {

@@ -8,11 +8,15 @@
       },
       "fileName": {
         "type": "string"
+      },
+      "studentReferences": {
+        "type": "string"
       }
     },
     "required": [
       "assignmentId",
-      "fileName"
+      "fileName",
+      "studentReferences"
     ],
     "additionalProperties": false
 }

@@ -33,7 +33,6 @@ export class LoadSubmissionsResolverService implements Resolve<Array<Submission>
 
     observableResult = this.veriguideHttpClient.get<Array<Submission>>( urlPath );
     observableResult.subscribe(submissions => {
-      console.log( JSON.stringify( submissions ));
       this.spinner.hide();
     });
 

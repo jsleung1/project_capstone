@@ -112,13 +112,13 @@ export class SubmissionAccess {
             submissionId: submission.submissionId,
             createdAt: submission.createdAt
           },         
-          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, similarityPercentage = :similarityPercentage, reportStatus = :reportStatus, studentRemarks = :studentRemarks',
+          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, similarityPercentage = :similarityPercentage, reportStatus = :reportStatus, studentReferences = :studentReferences',
           ExpressionAttributeValues: {
             ':instructorComments': submission.instructorComments,
             ':studentScore': submission.studentScore,
             ':similarityPercentage': submission.similarityPercentage,
             ':reportStatus': submission.reportStatus,  
-            ':studentRemarks': submission.studentRemarks
+            ':studentReferences': submission.studentReferences
           }
         }).promise()
     

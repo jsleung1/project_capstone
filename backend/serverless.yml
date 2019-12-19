@@ -1,5 +1,5 @@
 service:
-  name: capstone-veriguide-app
+  name: veriguide-app
 
 #package:
 #  individually: true
@@ -76,7 +76,7 @@ provider:
     COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
     COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
-    COURSES_COURSENAME_INDEX: Courses_courseName_Index
+    COURSES_COURSECODE_INDEX: Courses_courseCode_Index
 
     ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
     ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
@@ -234,7 +234,7 @@ functions:
     - Effect: Allow
       Action:
         - dynamodb:Query
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSENAME_INDEX}
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.COURSES_TABLE}/index/${self:provider.environment.COURSES_COURSECODE_INDEX}
     - Effect: Allow
       Action:
         - xray:PutTraceSegments
@@ -284,7 +284,7 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"
-  GetInstructrCrse:
+  GetInstructorCourses:
     handler: src/lambda/http/course/getInstructorCourses.handler
     events:
       - http:
@@ -636,7 +636,7 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"
-  GetAssSubmissions:
+  GetAssignmentSubmissions:
     handler: src/lambda/http/submission/getAssignmentSubmissions.handler
     events:
       - http:
@@ -891,7 +891,7 @@ resources:
             AttributeType: S
           - AttributeName: acadYear
             AttributeType: N
-          - AttributeName: courseName
+          - AttributeName: courseCode
             AttributeType: S
           - AttributeName: createdAt
             AttributeType: S
@@ -925,9 +925,9 @@ resources:
               KeyType: RANGE
             Projection:
               ProjectionType: ALL
-          - IndexName: ${self:provider.environment.COURSES_COURSENAME_INDEX}
+          - IndexName: ${self:provider.environment.COURSES_COURSECODE_INDEX}
             KeySchema:
-            - AttributeName: courseName
+            - AttributeName: courseCode
               KeyType: HASH
             - AttributeName: createdAt
               KeyType: RANGE

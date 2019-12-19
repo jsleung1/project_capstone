@@ -94,14 +94,10 @@ export async function createSubmission( createSubmissionRequest: CreateSubmissio
         instructorId: assignment.instructorId,
         instructorName: instructorUser.userName,
         instructorEmail: instructorUser.email,
-        instructorComments: null,
-        studentScore: null,
-        studentRemarks: createSubmissionRequest.studentRemarks,
+        studentReferences: createSubmissionRequest.studentReferences,
         submissionFileUrl,
         submissionUploadUrl,
         similarityPercentage: Math.round(Math.random()*100 * 100) / 100,
-        reportStatus: null,
-        reportCreateTime: null
     })
 
     logger.info('Create submission successful:' + JSON.stringify( savedSubmission ))
@@ -127,7 +123,7 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
         }
     
         // only student can update the remarks of the submission
-        submissionToUpdate.studentRemarks = updateSubmissionRequest.studentRemarks;
+        submissionToUpdate.studentReferences = updateSubmissionRequest.studentReferences;
     
         const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
         return submissionUpdated;
@@ -148,8 +144,6 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
         // instructor can update comments, student score etc. for the submission
         submissionToUpdate.instructorComments = updateSubmissionRequest.instructorComments
         submissionToUpdate.studentScore = updateSubmissionRequest.studentScore
-        submissionToUpdate.similarityPercentage = updateSubmissionRequest.similarityPercentage
-        submissionToUpdate.reportStatus = updateSubmissionRequest.reportStatus
 
         const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
         return submissionUpdated;

@@ -6,7 +6,7 @@
       "acadYear": {
         "type": "number"
       },
-      "courseName": {
+      "courseCode": {
         "type": "string"
       },
       "courseDescription": {
@@ -15,7 +15,7 @@
     },
     "required": [
       "acadYear",
-      "courseName",
+      "courseCode",
       "courseDescription"
     ],
     "additionalProperties": false

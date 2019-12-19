@@ -4,7 +4,7 @@ export interface Course {
     createdAt: string;
 
     acadYear: number;
-    courseName: string;
+    courseCode: string;
     courseDescription: string;
     instructorName: string;
 }

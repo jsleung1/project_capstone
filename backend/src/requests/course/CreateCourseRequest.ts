@@ -1,6 +1,6 @@
 export interface CreateCourseRequest {
     acadYear: number;
-    courseName: string;
+    courseCode: string;
     courseDescription: string;
 }
   

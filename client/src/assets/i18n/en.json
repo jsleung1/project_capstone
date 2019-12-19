@@ -145,7 +145,7 @@
   "assignmentUpload.course.code": "Course Code <span>e.g. ACCT-100-1</span>",
   "assignmentUpload.course.info": "Course Information",
   "assignmentUpload.course.select": "(select a course first)",
-  "assignmentUpload.courseName": "Course Name",
+  "assignmentUpload.courseCode": "Course Name",
   "assignmentUpload.course.searching": "Searching...",
   "assignmentUpload.course.searching.notfound": "Cannot be found.",
   "assignmentUpload.datePicker.done": "Done",

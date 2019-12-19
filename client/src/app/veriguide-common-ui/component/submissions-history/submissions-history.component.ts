@@ -6,6 +6,7 @@ import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Student } from 'src/app/veriguide-model/rest-api-response/User';
 import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
+import { UpdateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/UpdateSubmissionRequest';
 
 @Component({
   selector: 'app-submissions-history',
@@ -15,7 +16,7 @@ import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment
 export class SubmissionsHistoryComponent implements OnInit {
 
   private title = '';
-  private viewType = '';
+  private assignmentId = '';
   private submissions: Submission[];
 
   constructor(
@@ -26,21 +27,30 @@ export class SubmissionsHistoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router  ) {
 
-    this.viewType = this.route.snapshot.paramMap.get('assignmentId');
-
+    this.assignmentId = this.route.snapshot.paramMap.get('assignmentId');
 
     this.activatedRoute.data.subscribe( data => {
       this.submissions = data.resolverService;
-      console.log( JSON.stringify( this.submissions ) );
+      this.submissions.forEach( submission => {
+        const d = new Date( submission.createdAt ); 
+        submission.uploadDateTime = d.toLocaleString(); 
+        if ( submission.studentScore === undefined ) {
+          submission.studentScoreStr = '--'
+        } else {
+          submission.studentScoreStr = submission.studentScore.toString();
+        }
+      })
     });
   }
 
   async ngOnInit() {
-    if ( this.viewType === 'all') {
+    if ( this.assignmentId === 'all') {
       this.title = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>My Submissions Upload History</b>';
     } else {
-      const assignmentId = this.viewType;
-      const assignment = await this.veriguideHttpClient.get(`assignment/${assignmentId}`).toPromise() as Assignment;
+      
+      this.spinner.show();
+      const assignment = await this.veriguideHttpClient.get(`assignment/${this.assignmentId}`).toPromise() as Assignment;
+      this.spinner.hide();
 
       let assignmentName;
       if ( assignment ) {
@@ -53,4 +63,66 @@ export class SubmissionsHistoryComponent implements OnInit {
 
   }
 
+  onToggleSubmissionComments(submission: Submission) {
+      if ( submission.expandedInstructorComments === undefined || submission.expandedInstructorComments === false ) {
+        submission.expandedInstructorComments = true;
+      } else {
+        submission.expandedInstructorComments = false;
+      }
+  }
+
+  onToggleSubmissionReferences(submission: Submission) {
+    if ( submission.expandedReferences === undefined || submission.expandedReferences === false ) {
+      submission.expandedReferences = true;
+    } else {
+      submission.expandedReferences = false;
+    }    
+  }
+
+  onWithdrawSubmission(submission: Submission) {
+    this.alertDialogService.openDialog({
+      title: 'Withdraw Submission',
+      message: 'Are you sure you want to withdraw this submission?',
+      dialogType: 'YesNoDialog'
+    }).then( async res => {
+      if ( res === 'YES') {
+        this.spinner.show();
+        const deletedSubmission = await this.veriguideHttpClient.delete(`submissions/${submission.submissionId}`).toPromise();
+       
+        let urlPath;
+        if ( this.assignmentId !== 'all' ) {
+          urlPath = `submissions/assignment/${this.assignmentId}`; // get submissons of the assignment
+        } else {
+          urlPath = `submissions`; // get submissions uploaded by user
+        }
+
+        this.submissions = await this.veriguideHttpClient.get<Array<Submission>>( urlPath ).toPromise();
+        this.spinner.hide();
+
+        this.alertDialogService.openDialog({
+          title: 'Withdraw Submission',
+          message: 'Successfully withdraw the submission.',
+          dialogType: 'OKDialog' 
+        });
+      }
+    });
+  }
+
+  async onUpdateSubmissionReferences(submission: Submission) {
+    const updateSubmissionRequest: UpdateSubmissionRequest = {
+      instructorComments: submission.instructorComments || null,
+      studentScore: submission.studentScore || null,
+      studentReferences: submission.studentReferences
+    }
+    console.log( JSON.stringify(updateSubmissionRequest) );
+
+    this.spinner.show();
+    const updatedSubmission = await this.veriguideHttpClient.patch(`submissions/${submission.submissionId}`, updateSubmissionRequest ).toPromise();
+    this.spinner.hide();
+    this.alertDialogService.openDialog({
+      title: 'Update Submission',
+      message: 'Successfully update the Submission References.',
+      dialogType: 'OKDialog' 
+    }); 
+  }
 }

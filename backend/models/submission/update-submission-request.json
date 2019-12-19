@@ -9,22 +9,9 @@
       "studentScore": {
         "type": "number"
       },
-      "similarityPercentage": {
-        "type": "number"
-      },
-      "reportStatus": {
-        "type": "string"
-      },
-      "studentRemarks": {
+      "studentReferences": {
         "type": "string"
       }      
     },
-    "required": [
-        "instructorComments",
-        "studentScore",
-        "similarityPercentage",
-        "reportStatus",
-        "studentRemarks"
-    ],
     "additionalProperties": false
 }

@@ -13,7 +13,7 @@ export class CourseAccess {
         private readonly coursesCourseIdIndex = process.env.COURSES_COURSEID_INDEX,
         private readonly coursesInstructorIdIndex = process.env.COURSES_INSTRUCTORID_INDEX,
         private readonly coursesAcadYearIndex = process.env.COURSES_ACADYEAR_INDEX,
-        private readonly coursesCourseNameIndex = process.env.COURSES_COURSENAME_INDEX,
+        private readonly coursesCourseCodeIndex = process.env.COURSES_COURSECODE_INDEX,
       ) {
     }
 
@@ -73,15 +73,15 @@ export class CourseAccess {
         }
     }
     
-    async getCoursesByCourseName(courseName: string): Promise<Course[]> {
+    async getCoursesByCourseCode(courseCode: string): Promise<Course[]> {
         
-      this.logger.info('getCourseByCourseName')
+      this.logger.info('getCoursesByCourseCode')
       const result = await this.docClient.query({
           TableName: this.coursesTable,
-          IndexName: this.coursesCourseNameIndex,
-          KeyConditionExpression: 'courseName = :courseName',
+          IndexName: this.coursesCourseCodeIndex,
+          KeyConditionExpression: 'courseCode = :courseCode',
           ExpressionAttributeValues: {
-              ':courseName': courseName
+              ':courseCode': courseCode
           },
           ScanIndexForward: false      
       }).promise()

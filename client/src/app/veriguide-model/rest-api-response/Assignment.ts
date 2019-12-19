@@ -4,7 +4,7 @@ export interface Assignment {
     courseId?: string;
     createdAt?: string;
     
-    courseName?: string;
+    courseCode?: string;
     instructorId?: string;
     instructorName?: string;
 

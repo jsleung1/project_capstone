@@ -1,6 +1,6 @@
 export interface CourseMenuItem {
     acadYear: number;
-    courseName: string;
+    courseCode: string;
     courseDescription: string;
     instructorName: string;
     createdAt: string;

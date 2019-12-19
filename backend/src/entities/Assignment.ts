@@ -5,7 +5,7 @@ export interface Assignment {
     createdAt: string;
     assignmentName: string;
     
-    courseName: string;
+    courseCode: string;
     instructorId: string;
     instructorName: string;
     assignmentDescription: string;

@@ -2,7 +2,7 @@
 // const apiId = '2xedbri4g3';
 // const env = 'v1';
 
-const apiId = 'i83xvf3lfg';
+const apiId = '2pkept7lx0';
 const env = 'v2';
 
 export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com/${env}`

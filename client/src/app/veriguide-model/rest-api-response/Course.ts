@@ -5,6 +5,6 @@ export interface Course {
     instructorName?: string;
 
     acadYear: number;
-    courseName: string;
+    courseCode: string;
     courseDescription: string;
 }

@@ -12,15 +12,18 @@ export interface Submission {
     instructorName: string;
     instructorEmail: string;
     
-    instructorComments: string;
-    studentScore: number;
-    studentRemarks: string;
+    instructorComments?: string;
+    studentScore?: number;
+    studentReferences: string;
     
     submissionFileUrl: string;
     submissionUploadUrl: string;
 
     similarityPercentage: number;
-    reportStatus: string;
-    reportCreateTime: string;
+
+    uploadDateTime: string;
+    expandedInstructorComments: boolean;
+    expandedReferences: boolean;
+    studentScoreStr: string;
 }
   

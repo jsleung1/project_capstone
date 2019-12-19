@@ -6,6 +6,6 @@ export interface UploadSubmissionResultDTO {
     yearTermCourseCodeSection?: string;
     submissionDateTime?: string;
     assignmentNumber?: number;
-    courseName?: string;
+    courseCode?: string;
     submissionId?: number;
 }

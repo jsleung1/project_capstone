@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-6">
             <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedCourse" (ngModelChange)="onCourseSelection()">
-                <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseName }}</option>
+                <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseCode }}</option>
             </select>
         </div>
     </div>
@@ -84,10 +84,10 @@
     </div>
     <div class="form-row md-padding-top">
         <div class="col-md-4 margin-padding-right-0px" >
-            <label class="md-label-text" >Student remarks</label>
+            <label class="md-label-text" >Submission References</label>
         </div>
         <div class="col-md-6">
-            <textarea class="form-control" rows="6" [(ngModel)]="studentRemarks" ></textarea>
+            <textarea class="form-control" rows="6" [(ngModel)]="studentReferences" ></textarea>
         </div>
     </div>
     <div class="form-row md-padding-top">

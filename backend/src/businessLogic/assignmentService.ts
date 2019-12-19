@@ -73,7 +73,7 @@ export async function createAssignment( createAssignmentRequest: CreateAssignmen
         courseId: course.courseId,
         createdAt: new Date().toISOString(),
 
-        courseName: course.courseName,
+        courseCode: course.courseCode,
         instructorId: instructorUser.userId,
         instructorName: instructorUser.userName,
         assignmentName: createAssignmentRequest.assignmentName,

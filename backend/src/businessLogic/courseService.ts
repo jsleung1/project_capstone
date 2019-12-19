@@ -60,11 +60,11 @@ export async function createCourse( createCourseRequest: CreateCourseRequest, in
     throw new Error(`Invalid user to create the course`)
   }
 
-  const existingCourses = await courseAccess.getCoursesByCourseName( createCourseRequest.courseName)
+  const existingCourses = await courseAccess.getCoursesByCourseCode( createCourseRequest.courseCode)
   const existCourseInAcadYear = existingCourses.find( s => s.acadYear === createCourseRequest.acadYear)
 
   if ( existCourseInAcadYear ) {
-    throw new Error(`A course with the same name (${createCourseRequest.courseName}) under the same term (${createCourseRequest.acadYear}) already exists!`)
+    throw new Error(`A course with the same name (${createCourseRequest.courseCode}) under the same term (${createCourseRequest.acadYear}) already exists!`)
   }
 
   const courseId: string = uuid.v4()
@@ -74,7 +74,7 @@ export async function createCourse( createCourseRequest: CreateCourseRequest, in
     instructorId,
     createdAt: new Date().toISOString(),
     acadYear: createCourseRequest.acadYear,
-    courseName: createCourseRequest.courseName,
+    courseCode: createCourseRequest.courseCode,
     courseDescription: createCourseRequest.courseDescription,
     instructorName: instructorUser.userName
   })

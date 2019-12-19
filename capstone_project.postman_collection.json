@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1e10c40a-a868-4142-aeea-c32deb21a4bc",
-		"name": "Udacity Capstone Project",
+		"name": "VeriGuide Capstone Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -170,7 +170,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"acadYear\": 2019,\n    \"courseName\": \"2019 Term 1 ELTU-5025\",\n    \"courseDescription\": \"English Skills for Information Technology Users etc.\"\n}"
+							"raw": "{\n    \"acadYear\": 2019,\n    \"courseCode\": \"2019 Term 1 ELTU-5025\",\n    \"courseDescription\": \"English Skills for Information Technology Users etc.\"\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/courses",
@@ -617,7 +617,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"assignmentId\": \"deb6747e-aa8e-4639-8eb6-93f445c89a32\",\r\n    \"fileName\": \"sampleSubmission3.pdf\",\r\n    \"studentRemarks\": \"Reference 4.10\"\r\n}"
+							"raw": "{\r\n    \"assignmentId\": \"fab904c5-a84c-4c74-a9b0-4c0e07d664c1\",\r\n    \"fileName\": \"sampleSubmission3.pdf\",\r\n    \"studentReferences\": \"Reference 4.10\"\r\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/submissions",
@@ -638,7 +638,7 @@
 					"response": []
 				},
 				{
-					"name": "Get submissions",
+					"name": "Get submissions by assignmentId",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -715,7 +715,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instructorComments\": \"Some mistakes in the student assignment\",\r\n    \"studentScore\": 76,\r\n    \"similarityPercentage\": 45.2,\r\n    \"reportStatus\": \"Processing\",\r\n    \"studentRemarks\": \"updated reference 3, 4\"\r\n}"
+							"raw": "{\r\n    \"instructorComments\": \"Some mistakes in the student assignment\",\r\n    \"studentScore\": 76,\r\n    \"similarityPercentage\": 45.2,\r\n    \"reportStatus\": \"Processing\",\r\n    \"studentReferences\": \"updated reference 3, 4\"\r\n}"
 						},
 						"url": {
 							"raw": "https://{{apiId}}.execute-api.us-east-1.amazonaws.com/{{env}}/submissions/4a70f7e7-808d-47ee-b2a4-07581c0ec26c",
@@ -793,19 +793,19 @@
 	],
 	"variable": [
 		{
-			"id": "921459d0-3ced-4589-9d78-acb74fcd46d8",
+			"id": "d0833d0f-e058-472b-9b89-30276010a4ae",
 			"key": "apiId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7f2f7de8-70df-4f41-8c28-6c3ed917313f",
+			"id": "ec197669-e8d8-4b27-8861-2614ffef7fd6",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8f31db3c-9c0b-4201-a02f-095fc0d65958",
+			"id": "da649cae-c9d0-4356-91d0-73ded7ad5a1b",
 			"key": "env",
 			"value": "",
 			"type": "string"

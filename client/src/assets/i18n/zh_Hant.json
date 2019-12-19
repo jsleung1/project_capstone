@@ -145,7 +145,7 @@
   "assignmentUpload.course.code": "科目編號<span>例如: ACCT-100-1</span>",
   "assignmentUpload.course.info": "科目資料",
   "assignmentUpload.course.select": "(先選擇科目)",
-  "assignmentUpload.courseName": "科目名稱",
+  "assignmentUpload.courseCode": "科目名稱",
   "assignmentUpload.course.searching": "正在搜尋...",
   "assignmentUpload.course.searching.notfound": "找不到課程。",
   "assignmentUpload.datePicker.done": "完成",

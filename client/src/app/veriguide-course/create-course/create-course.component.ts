@@ -18,7 +18,7 @@ export class CreateCourseComponent implements OnInit {
   acadYears = AcadYearsNumber;
   
   course: Course = {
-    courseName: '',
+    courseCode: '',
     courseDescription: '',
     acadYear: 0
   }
@@ -39,14 +39,14 @@ export class CreateCourseComponent implements OnInit {
   }
 
   isEnableCreateCourseButton() {
-    return ! UtilService.isStringEmpty( this.course.courseName )
+    return ! UtilService.isStringEmpty( this.course.courseCode )
       && ! UtilService.isStringEmpty( this.course.courseDescription );     
   }
 
   async onCreateNewCourse() {
     const createUserRequest: CreateCourseRequest = {
       acadYear: this.course.acadYear,
-      courseName: this.course.courseName,
+      courseCode: this.course.courseCode,
       courseDescription: this.course.courseDescription
     };
 
