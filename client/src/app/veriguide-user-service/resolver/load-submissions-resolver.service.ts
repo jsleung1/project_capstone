@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
-import { UserService } from '../user-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
-import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,12 +23,12 @@ export class LoadSubmissionsResolverService implements Resolve<Array<Submission>
 
     this.spinner.show();
 
-    let urlPath = `submissions/${assignmentId}`;
+    let urlPath;
 
-    if ( assignmentId ) {
-      urlPath = `submissions/${assignmentId}`;
+    if ( assignmentId && assignmentId !== 'all' ) {
+      urlPath = `submissions/assignment/${assignmentId}`; // get submissons of the assignment
     } else {
-      urlPath = `submissions`;
+      urlPath = `submissions`; // get submissions uploaded by user
     }
 
     observableResult = this.veriguideHttpClient.get<Array<Submission>>( urlPath );

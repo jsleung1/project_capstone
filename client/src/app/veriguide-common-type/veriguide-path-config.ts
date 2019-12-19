@@ -30,8 +30,8 @@ export const VeriguidePathConfig: UrlPathConfig = {
         relativePath: 'uploadFailed'
     },
     userAssignmentSubmissionHistory : {
-        fullPath: '/school/main/submissionHistory/:queryId',
-        relativePath: 'submissionHistory/:queryId'
+        fullPath: '/school/main/submissionHistory/:assignmentId',
+        relativePath: 'submissionHistory/:assignmentId'
     },
     userAssignments: {
         fullPath: ':courseId/assignments',

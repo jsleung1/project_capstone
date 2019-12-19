@@ -29,7 +29,7 @@ export class VeriguideCourseInfoComponent implements OnInit {
                private router: Router  ) {
 
     this.activatedRoute.data.subscribe( data => {
-      this.courses =  data["resolverService"];
+      this.courses =  data.resolverService;
       this.filterCourse();
     })
   }

@@ -9,6 +9,7 @@ import { CustomDatepickerI18n } from 'src/app/veriguide-common-type/custom-datep
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
 import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
 import { AssignmentInfo } from '../assignment-info';
+import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 
 @Component({
   selector: 'app-veriguide-assignment-info',
@@ -23,6 +24,7 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
 
   private assignmentInfos: Array<AssignmentInfo> = [];
   private courseId = '';
+  private title = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +36,7 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     private config: NgbTimepickerConfig  ) {
 
     this.config.spinners = false;
-    this.courseId = this.route.snapshot.paramMap.get('courseId');
+
     this.activatedRoute.data.subscribe( data => {
       const assignments: Array<Assignment> = data.resolverService;
       this.addToAssignmentInfos(assignments);
@@ -130,7 +132,12 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     const url =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
     this.router.navigate( [ url ], { relativeTo: this.route } );
   }
-  
-  ngOnInit() {
+
+  async ngOnInit() {
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
+    if ( this.courseId ) {
+      const course = await this.veriguideHttpClient.get<Course>(`course/${this.courseId}`).toPromise();
+      this.title = `<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Viewing Assignments for Course <b>${course.courseName}</b>`;
+    }
   }
 }

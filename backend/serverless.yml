@@ -636,7 +636,7 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"
-  GetSubmissionsAId:
+  GetAssSubmissions:
     handler: src/lambda/http/submission/getAssignmentSubmissions.handler
     events:
       - http:
@@ -666,7 +666,7 @@ functions:
         - xray:PutTraceSegments
         - xray:PutTelemetryRecords
       Resource: "*"
-  GetSubmissionsUId:
+  GetUserSubmissions:
     handler: src/lambda/http/submission/getUserSubmissions.handler
     events:
       - http:

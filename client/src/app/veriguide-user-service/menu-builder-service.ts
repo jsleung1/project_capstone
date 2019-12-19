@@ -55,7 +55,7 @@ export class MenuBuilderService implements OnDestroy {
 
         topMenuItems.push({
           name: 'History',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':queryId', Student )
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
       }
 
@@ -91,7 +91,7 @@ export class MenuBuilderService implements OnDestroy {
           name: 'Submission History',
           iconPath: 'assets/images/veriguide-main/history.png',
           description: 'View your submissions that were uploaded to VeriGuide',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
       }
 

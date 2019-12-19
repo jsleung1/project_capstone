@@ -24,11 +24,11 @@ export class SubmissionsHistoryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router  ) {
 
-    const viewType = this.route.snapshot.paramMap.get('queryId');
-    if ( viewType === Student) {
-      this.title = '<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Viewing <b>Student Submissions Upload History</b>';
+    const viewType = this.route.snapshot.paramMap.get('assignmentId');
+    if ( viewType === 'all') {
+      this.title = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>My Submissions Upload History</b>';
     } else {
-      this.title = '<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Viewing <b>Student Submissions</b> uploaded to the <b>Assignment</b>';
+      this.title = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>Student Submissions</b> uploaded to the Assignment <b>XXXXXXXXXXXXXXXXXXXXXXXX</b>';
     }
 
     this.activatedRoute.data.subscribe( data => {
