@@ -23,7 +23,6 @@ export class VeriguideHttpClient implements OnDestroy {
     }
 
     get<T>(url: string, httpParams?: HttpParams ): Observable<T> {
-        
         return this.http.get<T>(this.parseHttpUrl(url), this.createHttpOptions( httpParams ) ).pipe( share() );
     }
 
@@ -38,7 +37,7 @@ export class VeriguideHttpClient implements OnDestroy {
     }
 
     put<T>(url: string, body: any | null, useParamUrl?: boolean, noAuthHeader?: boolean ): Observable<T> {
-        
+
         let fullUrl = this.parseHttpUrl(url);
         if ( useParamUrl === true ) {
             fullUrl = url;

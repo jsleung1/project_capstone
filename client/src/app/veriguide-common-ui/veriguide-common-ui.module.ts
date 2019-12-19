@@ -14,6 +14,7 @@ import { DownloadCellGridComponent, ActionCellGridComponent, AddReportOwnerDialo
   ListCellGridComponent, VeriguideGridComponent, AlertDialogComponent,
   LabelurlCellGridComponent, ReportLinkCellGridComponent, LoadingDialogComponent, EndorseShareRequestComponent } from './common-ui';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
+import { SubmissionsHistoryComponent } from './component/submissions-history/submissions-history.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { UserRegistrationComponent } from './component/user-registration/user-re
     AddReportOwnerDialogComponent,
     ListCellGridComponent,
     EndorseShareRequestComponent,
-    UserRegistrationComponent 
+    UserRegistrationComponent,
+    SubmissionsHistoryComponent 
   ]
 })
 export class VeriguideCommonUiModule { }

@@ -12,6 +12,7 @@ import { URL_PATH_CONFIG, veriguideInjectors } from '../../../veriguide-common-t
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { apiEndpoint } from 'src/app/config';
 
 @Component({
   selector: 'app-user-registration',
@@ -21,7 +22,6 @@ import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-ht
 export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
   private subscription: Subscription;
-  
   private registerUser: LoggedInUser;
   private title = '';
   private buttonTitle = '';
@@ -35,17 +35,17 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
               private router: Router,
               private spinner: NgxSpinnerService,
               private alertDialogService: AlertDialogService ) { 
-                
+
     this.userService.getRegisterNewUser().subscribe( registerUser => {
       const userId = this.route.snapshot.paramMap.get('userId');
       if ( userId === '0') {
         this.title = 'User Registration - Create new user';
         this.buttonTitle = 'Create new user';
         this.registerUser = registerUser;
-      } 
+      }
     });
 
-    //if user already logged in and userId = 0 to create, we skip this user action and navigate back to user main page
+    // if user already logged in and userId = 0 to create, we skip this user action and navigate back to user main page
     this.subscription = this.userService.getLoggedInUser().subscribe(loggedInUser => {
       const userId = this.route.snapshot.paramMap.get('userId');
       if ( loggedInUser.authenticationState === AuthenticationStateEnum.Authenticated && userId === '0') {
@@ -91,7 +91,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
     this.spinner.show();
     try {
-      const user = await this.http.post( 'users', createUserRequest, { headers } ).toPromise() as User;
+      const user = await this.http.post( `${apiEndpoint}/users`, createUserRequest, { headers } ).toPromise() as User;
       this.spinner.hide();
 
       // for create new user when login to auth0, set the newly created user as our logged in user and create the session cookie

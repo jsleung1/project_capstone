@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
 import { AuthenticationStateEnum } from '../veriguide-model/models';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { apiEndpoint } from '../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth0Service {
-  
+
   auth0 = new auth0.WebAuth({
     domain: authConfig.domain,
     clientID: authConfig.clientId,
@@ -45,7 +45,7 @@ export class Auth0Service {
     return this.auth0.parseHash( async (err, authResult) => {
       if ( authResult && authResult.accessToken && authResult.idToken ) {
         console.log('Access token: ', authResult.accessToken );
-        console.log('id token: ', authResult.idToken );       
+        console.log('id token: ', authResult.idToken );
         try {
           this.spinner.show();
           const headers = new HttpHeaders({
@@ -53,11 +53,11 @@ export class Auth0Service {
             Authorization: `Bearer ${authResult.idToken}`
           });
 
-          const user = await this.http.get<User>('user', { headers }).toPromise();
+          const user = await this.http.get<User>(`${apiEndpoint}/user`, { headers }).toPromise();
           this.spinner.hide();
 
           console.log(user);
-          // user is registered in the system, fetch the user details 
+          // user is registered in the system, fetch the user details
           // and store the user in the cookie as our session cookie
           if ( user.userId != null ) {
             this.userService.setLoggedInUser({
@@ -81,7 +81,7 @@ export class Auth0Service {
               userId: null,
               userType: '',
               email: '',
-              userName: ''              
+              userName: ''
             });
 
             let url = veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath;

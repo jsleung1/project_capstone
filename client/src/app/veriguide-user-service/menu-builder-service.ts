@@ -39,8 +39,6 @@ export class MenuBuilderService implements OnDestroy {
 
     private createTopMenuItems( loggedInUser: LoggedInUser ): TopMenuItem[]  {
 
-      console.log('createTopMenuItems: ' + loggedInUser.userId );
-
       const topMenuItems: TopMenuItem[] = new Array();
       if ( loggedInUser.userType === Instructor ) {
         topMenuItems.push({
@@ -54,10 +52,10 @@ export class MenuBuilderService implements OnDestroy {
           name: 'Submission',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
-  
+
         topMenuItems.push({
           name: 'History',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':queryId', Student )
         });
       }
 
@@ -65,23 +63,6 @@ export class MenuBuilderService implements OnDestroy {
         name: 'User',
         url: veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
       });
-
-      /*
-      topMenuItems.push({
-        name: 'menu.submission',
-        url: this.urlPathConfig.userSubmissionUpload.fullPath
-      });
-
-      topMenuItems.push({
-        name: 'topmenu.submissionHistory',
-        url: this.urlPathConfig.userAssignmentSubmissionHistory.fullPath
-      });
-
-      topMenuItems.push({
-        name: 'topmenu.assignmentDeadline',
-        url: this.urlPathConfig.userAssignmentDeadline.fullPath
-      });
-      */ 
 
       return topMenuItems;
     }
@@ -113,21 +94,7 @@ export class MenuBuilderService implements OnDestroy {
           url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath
         });
       }
-      /*
-      contentMenuItems.push({
-        name: 'contentMenu.course',
-        iconPath: 'assets/images/veriguide-main/info.png',
-        description: 'contentMenu.course.desc',
-        url: this.urlPathConfig.userCourses.fullPath
-      } );
 
-      contentMenuItems.push({
-        name: 'contentMenu.assignmentDeadline',
-        iconPath: 'assets/images/veriguide-main/deadline.png',
-        description: 'contentMenu.assignmentDeadline.desc',
-        url: this.urlPathConfig.userAssignmentDeadline.fullPath
-      } );
-      */
       contentMenuItems.push({
         name: 'User Settings',
         iconPath: 'assets/images/veriguide-main/personnel.png',

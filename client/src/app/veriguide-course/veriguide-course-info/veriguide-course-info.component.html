@@ -39,7 +39,8 @@
                     <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i])">
                         Open
                     </button>
-                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i])">
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" 
+                        [disabled]="!(filteredCourses[i].courseDescription&&filteredCourses[i].courseDescription.length>0)" (click)="onUpdateCourse(filteredCourses[i])">
                         Update
                     </button>
                     <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i])">
@@ -62,7 +63,8 @@
                     <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i+1])">
                         Open
                     </button>
-                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i+1])">
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" 
+                        [disabled]="!(filteredCourses[i+1].courseDescription&&filteredCourses[i+1].courseDescription.length>0)" (click)="onUpdateCourse(filteredCourses[i+1])">
                         Update
                     </button>
                     <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i+1])">
@@ -85,7 +87,8 @@
                     <button type="button" class="btn btn-primary col-md-3" style="font-size:13px;margin-right:5px;" (click)="openCourse(filteredCourses[i+2])">
                         Open
                     </button>
-                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" (click)="onUpdateCourse(filteredCourses[i+2])">
+                    <button type="button" class="btn btn-info col-md-3" style="font-size:13px;margin-right:5px;" 
+                        [disabled]="!(filteredCourses[i+2].courseDescription&&filteredCourses[i+2].courseDescription.length>0)" (click)="onUpdateCourse(filteredCourses[i+2])">
                         Update
                     </button>
                     <button type="button" class="btn btn-danger col-md-3" style="font-size:13px;" (click)="onDeleteCourse(filteredCourses[i+2])">

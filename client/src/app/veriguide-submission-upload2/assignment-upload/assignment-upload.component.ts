@@ -11,12 +11,6 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
-import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/veriguide-user-service/user-service';
-import { LoggedInUser } from 'src/app/veriguide-model/models';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { VeriguideHttpInterceptor } from 'src/app/veriguide-rest-service/veriguide-http-interceptor';
-import { UtilService } from 'src/app/veriguide-user-service/util.service';
 
 @Component({
   selector: 'app-assignment-upload',

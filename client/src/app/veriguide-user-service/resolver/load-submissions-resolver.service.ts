@@ -12,8 +12,8 @@ import { Observable } from 'rxjs';
 })
 export class LoadSubmissionsResolverService implements Resolve<Array<Submission>>  {
 
-  constructor(private veriguideHttpClient: VeriguideHttpClient,
-    private userService: UserService,
+  constructor(
+    private veriguideHttpClient: VeriguideHttpClient,
     private spinner: NgxSpinnerService  ) {
   }
 
@@ -38,7 +38,7 @@ export class LoadSubmissionsResolverService implements Resolve<Array<Submission>
       console.log( JSON.stringify( submissions ));
       this.spinner.hide();
     });
-    
+
     return observableResult;
   }
 }

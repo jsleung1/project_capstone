@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
-import { UserSubmissionHistoryResolverService } from './user-submission-history-resolver.service';
-import { VeriguideGridComponent } from '../veriguide-common-ui/grid/veriguide-grid/veriguide-grid.component';
 import { LoadSubmissionsResolverService } from '../veriguide-user-service/resolver/load-submissions-resolver.service';
+import { SubmissionsHistoryComponent } from '../veriguide-common-ui/component/submissions-history/submissions-history.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VeriguideGridComponent,
+    component: SubmissionsHistoryComponent,
     canActivate: [ GotoUrlAuthGuard ],
     resolve: {
       resolverService: LoadSubmissionsResolverService
