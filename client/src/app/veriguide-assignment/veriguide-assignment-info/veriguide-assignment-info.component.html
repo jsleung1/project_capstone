@@ -6,12 +6,16 @@
 </div>
 -->
 <div class="form-row top-function-bar">
-    <div class="col-md-6 margin-padding-right-0px inner-bar-style" *ngIf="courseId!=='0'" >
+    <div class="col-md-6 margin-padding-right-0px inner-bar-style" *ngIf="courseIdParam!=='0'" >
         <label class="md-label-text padding-left-10px margin-bottom-0px ">
             <div class="no-padding" [innerHTML]="assignmentCourseTitle"></div>
         </label>         
     </div>
-    <div class="col-md-6 margin-padding-right-0px inner-bar-style" *ngIf="courseId==='0'" >
+    <div class="col-md-6 margin-padding-right-0px inner-bar-style" style="margin-top:0px;" *ngIf="courseIdParam==='0'" >
+        <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedCourse"
+            (ngModelChange)="onCourseSelection()">
+            <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseCode }}: {{ course.courseDescription }}</option>
+        </select>  
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4 margin-padding-right-0px" style="padding-right:10px;" >

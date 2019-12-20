@@ -5,30 +5,44 @@ import { UserService } from '../user-service';
 import { Observable } from 'rxjs';
 import { Assignment } from '../../veriguide-model/rest-api-response/Assignment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
+import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoadAssignmentsResolverService implements Resolve<Array<Assignment>>  {
+export class LoadAssignmentsResolverService implements Resolve<CoursesAssignmentsDTO>  {
 
   constructor(private veriguideHttpClient: VeriguideHttpClient,
               private userService: UserService,
               private spinner: NgxSpinnerService  ) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Assignment[] |
-    Observable<Assignment[]> | Promise<Assignment[]> {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<CoursesAssignmentsDTO> {
+
+    const courseId =  route.paramMap.get('courseId');
+    if ( courseId === '0') {
+      const courses = await this.veriguideHttpClient.get<Course[]>(`courses`).toPromise();
+      const coursesAssignmentsDTO: CoursesAssignmentsDTO = {
+        assignments: [],
+        courses
+      }
+      return coursesAssignmentsDTO;
+    }
 
     this.spinner.show();
+    const assignments = await this.veriguideHttpClient.get<Array<Assignment>>(  `assignments/${courseId}` ).toPromise();
+    const course = await this.veriguideHttpClient.get<Course>( `course/${courseId}` ).toPromise();
 
-    const baseQueryUrl = 'assignments/' + route.paramMap.get('courseId');
-    const observableResult = this.veriguideHttpClient.get<Array<Assignment>>( baseQueryUrl );
+    let courses = [];
+    courses.push( course );
 
-    observableResult.subscribe(assignments => {
-      console.log( JSON.stringify( assignments ));
-      this.spinner.hide();
-    });
+    const courseAssignmentsDTO: CoursesAssignmentsDTO = {
+      assignments,
+      courses
+    }
+    this.spinner.hide();
 
-    return observableResult;
+    return courseAssignmentsDTO;
   }
 }

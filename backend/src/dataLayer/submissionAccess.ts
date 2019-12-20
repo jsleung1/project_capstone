@@ -1,14 +1,18 @@
 import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
+
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
 import { Submission } from '../entities/Submission';
+
+const XAWS = AWSXRay.captureAWS(AWS)
 
 export class SubmissionAccess {
 
     private logger = createLogger('SubmissionAccess')
 
     constructor(
-        private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
+        private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
         private readonly submissionsTable = process.env.SUBMISSIONS_TABLE,
         private readonly submissionsSubmissionIdIndex = process.env.SUBMISSIONS_SUBMISSIONID_INDEX,
         private readonly submissionsAssignmentIdIndex = process.env.SUBMISSIONS_ASSIGNMENTID_INDEX,

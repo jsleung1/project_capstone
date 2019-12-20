@@ -10,6 +10,7 @@ import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-reques
 import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
 import { AssignmentInfo } from '../assignment-info';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
+import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
 
 @Component({
   selector: 'app-veriguide-assignment-info',
@@ -23,8 +24,13 @@ import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 export class VeriguideAssignmentInfoComponent implements OnInit {
 
   private assignmentInfos: Array<AssignmentInfo> = [];
+
+  private courseIdParam: string;
   private courseId: string;
   private assignmentCourseTitle: string;
+
+  private courses: Course[];
+  private selectedCourse: Course;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,19 +44,24 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     this.config.spinners = false;
 
     this.activatedRoute.data.subscribe( data => {
-      const assignments: Array<Assignment> = data.resolverService;
-      this.addToAssignmentInfos(assignments);
+
+      const coursesAssignmentsDTO: CoursesAssignmentsDTO = data.resolverService;
+      this.courseIdParam = this.route.snapshot.paramMap.get('courseId');
+      this.courseId = this.courseIdParam;
+      
+      if ( this.courseId !== '0' ) {
+        const course = coursesAssignmentsDTO.courses[0];
+        const assignments = coursesAssignmentsDTO.assignments;
+        this.assignmentCourseTitle = `<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Viewing Assignments for Course <b>${course.courseCode}</b>`;
+        this.addToAssignmentInfos(assignments);
+      } else {
+        this.courses = coursesAssignmentsDTO.courses;
+      }
     });
   }
 
-  async ngOnInit() {
-    this.courseId = this.route.snapshot.paramMap.get('courseId');
-    if ( this.courseId !== '0' ) {
-      this.spinner.show();
-      const course = await this.veriguideHttpClient.get<Course>(`course/${this.courseId}`).toPromise();
-      this.spinner.hide();
-      this.assignmentCourseTitle = `<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Viewing Assignments for Course <b>${course.courseCode}</b>`;
-    }
+  ngOnInit() {
+
   }
 
   private addToAssignmentInfos(assignments: Assignment[]) {
@@ -139,8 +150,31 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
   }
 
   onCreateAssignment() {
-    const url =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
-    this.router.navigate( [ url ], { relativeTo: this.route } );
+
+
+    if ( this.courseIdParam === '0') {
+
+      const subUrl =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.fullPath.replace(':courseId', this.courseId );
+      const parentUrl = veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath;
+      const url = `${parentUrl}/${subUrl}`
+      this.router.navigate( [ url ] );
+
+    } else {
+      const url =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
+      this.router.navigate( [ url ],  { relativeTo: this.route });
+    }
+  }
+
+  async onCourseSelection() {
+
+    this.courseId = this.selectedCourse.courseId;
+
+    this.spinner.show();
+    const baseQueryUrl = `assignments/${this.courseId}`    
+    const assignments = await this.veriguideHttpClient.get<Array<Assignment>>( baseQueryUrl ).toPromise();
+    this.assignmentInfos = [];
+    this.addToAssignmentInfos(assignments);
+    this.spinner.hide();
   }
 
 }

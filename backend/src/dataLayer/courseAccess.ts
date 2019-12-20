@@ -1,14 +1,18 @@
 import * as AWS  from 'aws-sdk'
+import * as AWSXRay from 'aws-xray-sdk'
+
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { createLogger } from '../utils/logger'
 import { Course } from '../entities/Course';
+
+const XAWS = AWSXRay.captureAWS(AWS)
 
 export class CourseAccess {
 
     private logger = createLogger('CourseAccess')
 
     constructor(
-        private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
+        private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
         private readonly coursesTable = process.env.COURSES_TABLE,
         private readonly coursesCourseIdIndex = process.env.COURSES_COURSEID_INDEX,
         private readonly coursesInstructorIdIndex = process.env.COURSES_INSTRUCTORID_INDEX,
