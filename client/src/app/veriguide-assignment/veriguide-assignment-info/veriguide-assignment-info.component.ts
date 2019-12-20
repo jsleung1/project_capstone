@@ -45,7 +45,7 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
 
   async ngOnInit() {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
-    if ( this.courseId ) {
+    if ( this.courseId !== '0' ) {
       this.spinner.show();
       const course = await this.veriguideHttpClient.get<Course>(`course/${this.courseId}`).toPromise();
       this.spinner.hide();

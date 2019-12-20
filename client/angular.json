@@ -29,7 +29,7 @@
               "./src/styles.css",
               "./src/assets/css/veriguide-ag-grid.css",
               "./src/assets/css/veriguide-heading.scss",
-              "./src/assets/css/veriguide-common-control.scss"
+              "./src/assets/css/veriguide-common.scss"
             ],
             "scripts": [] 
           },
@@ -96,7 +96,7 @@
               "./src/styles.css",
               "./src/assets/css/veriguide-ag-grid.css",
               "./src/assets/css/veriguide-heading.scss",
-              "./src/assets/css/veriguide-common-control.scss"
+              "./src/assets/css/veriguide-common.scss"
             ],
             "scripts": []
           }
