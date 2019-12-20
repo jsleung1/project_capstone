@@ -7,7 +7,7 @@
     </div>    
 </div>
 <div class="form-row menu-item-container" *ngFor="let submission of submissions" style="margin-top:20px;" >
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-12 margin-bottom-0px">
         <img class="linkicon inline-item"  src="assets/images/veriguide-main/upload_2.png" alt="Assignment" />
         <h3 class="contentMenuItemText inline-item padding-top-10px"><b>Assignment Name:</b> {{submission.assignmentName}}</h3>
     </div>
@@ -15,11 +15,11 @@
         <label class="inline-item-font-14px"><b>Uploaded time:</b></label>
         <label class="inline-item-font-14px padding-left-5px" >{{submission.uploadDateTime}}</label>
     </div>
-    <div class="form-group col-md-4 padding-top-10px margin-bottom-0px">
+    <div class="form-group col-md-3 padding-top-10px margin-bottom-0px">
         <label class="inline-item-font-14px "><b>Student Name:</b></label>
         <label class="inline-item-font-14px padding-left-5px">{{submission.studentName}}</label>
     </div>
-    <div class="form-group col-md-4 padding-top-10px margin-bottom-0px ">
+    <div class="form-group col-md-5 padding-top-10px margin-bottom-0px ">
         <label class="inline-item-font-14px "><b>Instructor Name:</b></label>
         <label class="inline-item-font-14px padding-left-5px">{{submission.instructorName}}</label>
     </div>
@@ -33,21 +33,21 @@
                         'red-text ': submission.similarityPercentage>=30&&submission.similarityPercentage>50}">{{submission.similarityPercentage}} %
             </span>
     </div>
-    <div class="form-group col-md-8 padding-top-10px margin-bottom-0px">
+    <div class="form-group col-md-3 padding-top-10px margin-bottom-0px">
         <label class="inline-item-font-14px">
             <b>Submission Score:</b>
         </label>
-        <span class="inline-item-font-14px padding-left-5px" *ngIf="loggedInUser.userType==='Student1'"
+        <span class="inline-item-font-14px padding-left-5px" *ngIf="loggedInUser.userType==='Student'"
             [ngClass]="{ 'red-text ': submission.studentScore<50, 
                          'yellow-text ': submission.studentScore>=50&&submission.studentScore<70, 
                          'green-text ': submission.studentScore>=70&&submission.studentScore<90,
                          'blue-text ': submission.studentScore>=90}">{{submission.studentScoreStr}}%</span>
-        <input type="number" min="0" max="100" [(ngModel)]="submission.studentScore" *ngIf="loggedInUser.userType==='Student'"
-            class="form-control inline-item-font-14px" style="margin-left:10px;width:80px;height:28px;" >
+        <input type="number" min="0" max="100" [(ngModel)]="submission.studentScore" *ngIf="loggedInUser.userType==='Instructor'"
+            class="form-control inline-item-font-14px input-score">
     </div>
-    <div class="form-group col-md-8 padding-top-10px margin-bottom-0px ">
+    <div class="form-group col-md-5 padding-top-10px margin-bottom-0px ">
         <label class="inline-item-font-14px "><b>Download File:</b></label>
-        <a href="{{submission.submissionFileUrl}}" class="inline-item-font-14px padding-left-5px" download="{{submission.fileName}}" target="_blank">
+        <a href="{{submission.submissionFileUrl}}" class="inline-item-font-14px padding-left-5px" download="{{submission.fileName}}">
             {{submission.fileName}}
         </a>
     </div>
@@ -55,25 +55,43 @@
         <button type="button" class="btn btn-info submission-history-button" (click)="onToggleSubmissionComments(submission)">
             <i *ngIf="submission.expandedInstructorComments!==true" class="fa fa-plus-square" aria-hidden="true"></i>
             <i *ngIf="submission.expandedInstructorComments===true" class="fa fa-minus-square" aria-hidden="true"></i>
-            &nbsp;&nbsp;View Instructor Comments
+            &nbsp;&nbsp;Instructor Comments
         </button>
         <button type="button" class="btn btn-success submission-history-button" (click)="onToggleSubmissionReferences(submission)">
             <i *ngIf="submission.expandedReferences!==true" class="fa fa-plus-square" aria-hidden="true"></i>
             <i *ngIf="submission.expandedReferences===true" class="fa fa-minus-square" aria-hidden="true"></i>
-            &nbsp;&nbsp;Update Submission References 
+            &nbsp;&nbsp;Submission References 
         </button>
-        <button type="button" class="btn btn-danger submission-history-button" (click)="onWithdrawSubmission(submission)">
+        <button type="button" class="btn btn-primary submission-history-button" 
+            [hidden]="loggedInUser.userType==='Student'"
+            [disabled]="submission.studentScore===undefined"
+            (click)="onUpdateSubmission(submission, 'score', 'Successfully updated the student score.')">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            &nbsp;&nbsp;Update Student Score
+        </button>
+        <button type="button" class="btn btn-danger submission-history-button" 
+            [hidden]="loggedInUser.userType==='Instructor'"
+            (click)="onWithdrawSubmission(submission)">
             <i class="fa fa-trash" aria-hidden="true"></i>
             &nbsp;&nbsp;Withdraw Submission
         </button>
-
-        <textarea *ngIf="submission.expandedInstructorComments===true" class="form-control" rows="5" style="margin-top:10px;"
-            [disabled]="true" [(ngModel)]="submission.instructorComments"></textarea>
+        <div *ngIf="submission.expandedInstructorComments===true">
+            <textarea *ngIf="submission.expandedInstructorComments===true" class="form-control" rows="5" style="margin-top:10px;"
+                [disabled]="loggedInUser.userType==='Student'" [(ngModel)]="submission.instructorComments"></textarea>
+            <button type="button" class="btn btn-primary"
+                [disabled]="!(submission.instructorComments && submission.instructorComments.length>0)"
+                [hidden]="loggedInUser.userType==='Student'"
+                style="font-size:13px;margin-top:10px;" (click)="onUpdateSubmission(submission, 'instructorComments', 'Successfully updated the instructor comments.')">
+                Update Comments
+            </button>
+        </div>
         <div *ngIf="submission.expandedReferences===true">
             <textarea class="form-control margin-top-15px" rows="5"
-                [(ngModel)]="submission.studentReferences"></textarea>
-            <button type="button" class="btn btn-primary" [disabled]="! (submission.studentReferences.length>0)"
-                style="font-size:13px;margin-top:10px;" (click)="onUpdateSubmissionReferences(submission)">
+                [disabled]="loggedInUser.userType==='Instructor'" [(ngModel)]="submission.studentReferences"></textarea>
+            <button type="button" class="btn btn-primary" 
+                [disabled]="!(submission.studentReferences && submission.studentReferences.length>0)"
+                [hidden]="loggedInUser.userType==='Instructor'"
+                style="font-size:13px;margin-top:10px;" (click)="onUpdateSubmission(submission, 'studentReferences', 'Successfully updated the submission references.')">
                 Update References
             </button>
         </div>

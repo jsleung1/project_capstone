@@ -10,6 +10,7 @@ import { Student } from 'src/app/veriguide-model/rest-api-response/User';
 import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 import { UpdateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/UpdateSubmissionRequest';
 import { Subscription } from 'rxjs';
+import { AssignmentsSubmissionsDTO } from 'src/app/veriguide-model/assignmentsSubmissionsDTO';
 
 @Component({
   selector: 'app-submissions-history',
@@ -19,6 +20,7 @@ import { Subscription } from 'rxjs';
 export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
 
   private title = '';
+  private assignmentIdParam: string;
   private assignmentId = '';
   private submissions: Submission[];
   private subscription: Subscription;
@@ -37,10 +39,23 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
       this.loggedInUser = loggedInUser;
     });
 
-    this.assignmentId = this.route.snapshot.paramMap.get('assignmentId');
-
     this.activatedRoute.data.subscribe( data => {
-      this.submissions = data.resolverService;
+      this.assignmentIdParam = this.route.snapshot.paramMap.get('assignmentId');
+      this.assignmentId = this.assignmentIdParam;
+      
+      const assignmentsSubmissionsDTO: AssignmentsSubmissionsDTO = data.resolverService;
+
+      if ( this.assignmentId === '0') {
+        this.title = `<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>Student Submissions</b> uploaded to <b>All</b> of <b>My Assignments</b>`;
+      } else if ( this.assignmentId === 'all') {
+        this.title = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>My Submissions Upload History</b>';
+      } else {
+        const assignment = assignmentsSubmissionsDTO.assignments[0]
+        const assignmentName = assignment.assignmentName;
+        this.title = `<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>Student Submissions</b> uploaded to <b>${ assignmentName }</b>`;
+      }
+
+      this.submissions = assignmentsSubmissionsDTO.submissions;
       this.submissions.forEach( submission => {
         const d = new Date( submission.createdAt ); 
         submission.uploadDateTime = d.toLocaleString(); 
@@ -49,28 +64,15 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
         } else {
           submission.studentScoreStr = submission.studentScore.toString();
         }
+        submission.origInstructorComments = submission.instructorComments;
+        submission.origStudentScore = submission.studentScore;
+        submission.origStudentReferences = submission.studentReferences;
+        
       })
     });
   }
 
-  async ngOnInit() {
-    if ( this.assignmentId === 'all') {
-      this.title = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>My Submissions Upload History</b>';
-    } else {
-      
-      this.spinner.show();
-      const assignment = await this.veriguideHttpClient.get(`assignment/${this.assignmentId}`).toPromise() as Assignment;
-      this.spinner.hide();
-
-      let assignmentName;
-      if ( assignment ) {
-        assignmentName = assignment.assignmentName;
-      } else {
-        assignmentName = '';
-      }
-      this.title = `<i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Viewing <b>Student Submissions</b> uploaded to <b>${ assignmentName }</b>`;
-    }
-
+  ngOnInit() {
   }
 
   onToggleSubmissionComments(submission: Submission) {
@@ -118,12 +120,33 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onUpdateSubmissionReferences(submission: Submission) {
-    const updateSubmissionRequest: UpdateSubmissionRequest = {
-      instructorComments: submission.instructorComments,
-      studentScore: submission.studentScore,
-      studentReferences: submission.studentReferences
-    };
+  async onUpdateSubmission(submission: Submission, saveMode: string, message: string) {
+    
+    let updateSubmissionRequest: UpdateSubmissionRequest;
+    
+    if ( saveMode === 'score') {
+      updateSubmissionRequest = {
+        instructorComments: submission.origInstructorComments,
+        studentScore: submission.studentScore,
+        studentReferences: submission.origStudentReferences
+      };
+    }
+
+    if ( saveMode === 'instructorComments') {
+      updateSubmissionRequest = {
+        instructorComments: submission.instructorComments,
+        studentScore: submission.origStudentScore,
+        studentReferences: submission.origStudentReferences
+      };
+    }
+
+    if ( saveMode === 'studentReferences') {
+      updateSubmissionRequest = {
+        instructorComments: submission.origInstructorComments,
+        studentScore: submission.origStudentScore,
+        studentReferences: submission.studentReferences
+      };
+    }
 
     console.log( JSON.stringify(updateSubmissionRequest) );
 
@@ -132,7 +155,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
     this.spinner.hide();
     this.alertDialogService.openDialog({
       title: 'Update Submission',
-      message: 'Successfully update the Submission References.',
+      message,
       dialogType: 'OKDialog' 
     }); 
   }

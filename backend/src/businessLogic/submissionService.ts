@@ -58,7 +58,14 @@ export async function getSubmissionsByUserId(userId: string): Promise<Submission
     if ( !user ) {
       throw new Error(`Cannot find user to return the corresponding submissions`)
     }
-    return await submissionAccess.getAllSubmissionsByStudentId( userId )   
+
+    if (user.userType === Student ) {
+        return await submissionAccess.getAllSubmissionsByStudentId( userId )  
+    }
+    if (user.userType === Instructor ) {
+        return await submissionAccess.getAllSubmissionsByInstructorId( userId )  
+    }
+    throw new Error(`Cannot get the submissions with invalid userType`) 
 }
 
 export async function createSubmission( createSubmissionRequest: CreateSubmissionRequest, studentId: string ) : Promise<Submission> {

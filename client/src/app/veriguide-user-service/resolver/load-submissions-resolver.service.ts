@@ -4,38 +4,51 @@ import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-ht
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
 import { Observable } from 'rxjs';
+import { AssignmentsSubmissionsDTO } from 'src/app/veriguide-model/assignmentsSubmissionsDTO';
+import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoadSubmissionsResolverService implements Resolve<Array<Submission>>  {
+export class LoadSubmissionsResolverService implements Resolve<AssignmentsSubmissionsDTO>  {
 
   constructor(
     private veriguideHttpClient: VeriguideHttpClient,
     private spinner: NgxSpinnerService  ) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Submission[] |
-    Observable<Submission[]> | Promise<Submission[]> {
+  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Promise<AssignmentsSubmissionsDTO> {
 
     const assignmentId = route.paramMap.get('assignmentId');
-    let observableResult;
-
     this.spinner.show();
 
-    let urlPath;
+    let assignments: Assignment[] = []
+    if ( assignmentId === '0') {
+      const submissions = await this.veriguideHttpClient.get<Submission[]>(`submissions`).toPromise();
+      const assignmentsSubmissionsDTO: AssignmentsSubmissionsDTO = {
+        assignments,
+        submissions
+      }
+      return assignmentsSubmissionsDTO;
+    }
 
+    let urlPath;
     if ( assignmentId && assignmentId !== 'all' ) {
+      const assignment = await this.veriguideHttpClient.get(`assignment/${assignmentId}`).toPromise() as Assignment;
+      assignments.push( assignment )
       urlPath = `submissions/assignment/${assignmentId}`; // get submissons of the assignment
     } else {
       urlPath = `submissions`; // get submissions uploaded by user
     }
 
-    observableResult = this.veriguideHttpClient.get<Array<Submission>>( urlPath );
-    observableResult.subscribe(submissions => {
-      this.spinner.hide();
-    });
+    const submissions = await this.veriguideHttpClient.get<Array<Submission>>( urlPath ).toPromise()
+    this.spinner.hide()
 
-    return observableResult;
+    const assignmentsSubmissionsDTO: AssignmentsSubmissionsDTO = {
+      assignments,
+      submissions
+    }
+    
+    return assignmentsSubmissionsDTO;
   }
 }

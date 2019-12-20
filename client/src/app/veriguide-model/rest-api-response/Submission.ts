@@ -25,5 +25,9 @@ export interface Submission {
     expandedInstructorComments: boolean;
     expandedReferences: boolean;
     studentScoreStr: string;
+
+    origInstructorComments?: string;
+    origStudentScore?: number;
+    origStudentReferences?: string;
 }
   

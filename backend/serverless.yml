@@ -690,6 +690,10 @@ functions:
     - Effect: Allow
       Action:
         - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}/index/${self:provider.environment.SUBMISSIONS_INSTRUCTORID_INDEX}    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SUBMISSIONS_TABLE}
     - Effect: Allow
       Action:

@@ -110,18 +110,63 @@ export class SubmissionAccess {
 
         this.logger.info('updating Submission: ' + JSON.stringify(submission) )
     
+        let updateInstructorComments = '';
+        let updateStudentScore = '';
+        let updateStudentReferences = '';
+                
+        let expressionAttributeValues = new Object();
+
+        if ( submission.instructorComments !== undefined ) {
+          updateInstructorComments = ' instructorComments = :instructorComments '
+          expressionAttributeValues[":instructorComments"] = submission.instructorComments
+        }
+        if ( submission.studentScore !== undefined ) {
+          updateStudentScore = ' studentScore = :studentScore '
+          expressionAttributeValues[":studentScore"] = submission.studentScore
+        }
+        if ( submission.studentReferences !== undefined ) {
+          updateStudentReferences = ' studentReferences = :studentReferences '
+          expressionAttributeValues[":studentReferences"] = submission.studentReferences
+        }
+
+        let updateExpression = '';
+        if ( updateInstructorComments.length > 0) {
+          updateExpression += updateInstructorComments
+        }
+        if ( updateStudentScore.length > 0) {
+          if ( updateExpression.length > 0 ) {
+            updateExpression += ','
+          }
+          updateExpression += updateStudentScore
+        }
+        if ( updateStudentReferences.length > 0) {
+          if ( updateExpression.length > 0 ) {
+            updateExpression += ','
+          }
+          updateExpression += updateStudentReferences
+        }       
+
+        this.logger.info( JSON.stringify( submission ));
+        
+
+
+        if ( updateExpression.length == 0) {
+          return submission
+        } else {
+          updateExpression = ' set ' + updateExpression
+        }
+        
+        this.logger.info( updateExpression );
+        this.logger.info( JSON.stringify( expressionAttributeValues ));
+
         await this.docClient.update({
           TableName: this.submissionsTable,
           Key: {
             submissionId: submission.submissionId,
             createdAt: submission.createdAt
           },         
-          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, studentReferences = :studentReferences',
-          ExpressionAttributeValues: {
-            ':instructorComments': submission.instructorComments,
-            ':studentScore': submission.studentScore,
-            ':studentReferences': submission.studentReferences
-          }
+          UpdateExpression: updateExpression,
+          ExpressionAttributeValues: expressionAttributeValues
         }).promise()
     
         return submission

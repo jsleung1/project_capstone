@@ -146,7 +146,8 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
   }
 
   onViewAssigmentSubmissions(assignmentInfo: AssignmentInfo) {
-
+    const url = veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', assignmentInfo.assignment.assignmentId)
+    this.router.navigate( [ url ] );
   }
 
   onCreateAssignment() {
