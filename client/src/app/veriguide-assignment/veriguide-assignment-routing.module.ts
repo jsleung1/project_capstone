@@ -23,10 +23,6 @@ const routes: Routes = [
     resolve: {
       resolverService: LoadCourseResolverService
     }
-  },
-  {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissions.fullPath, // // actually it is a relative path, but full path for a submodule (submissions module)
-    loadChildren: () => import('../veriguide-submissions/veriguide-submissions.module').then(mod => mod.VeriguideSubmissionsModule)
   }
 ];
 

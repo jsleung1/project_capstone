@@ -10,9 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 
-import { DownloadCellGridComponent, ActionCellGridComponent, AddReportOwnerDialogComponent,
-  ListCellGridComponent, VeriguideGridComponent, AlertDialogComponent,
-  LabelurlCellGridComponent, ReportLinkCellGridComponent, LoadingDialogComponent, EndorseShareRequestComponent } from './common-ui';
+import {  AlertDialogComponent } from './common-ui';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 import { SubmissionsHistoryComponent } from './component/submissions-history/submissions-history.component';
 
@@ -20,12 +18,6 @@ import { SubmissionsHistoryComponent } from './component/submissions-history/sub
   imports: [
     CommonModule,
     AgGridModule.withComponents([
-      LabelurlCellGridComponent,
-      DownloadCellGridComponent,
-      ReportLinkCellGridComponent,
-      ActionCellGridComponent,
-      ListCellGridComponent,
-      EndorseShareRequestComponent
     ]),
     TranslateModule.forChild({
       loader: {
@@ -41,22 +33,9 @@ import { SubmissionsHistoryComponent } from './component/submissions-history/sub
   ],
   entryComponents: [
     AlertDialogComponent,
-    AddReportOwnerDialogComponent
-  ],
-  exports: [
-    VeriguideGridComponent
   ],
   declarations: [
     AlertDialogComponent,
-    VeriguideGridComponent,
-    DownloadCellGridComponent,
-    LabelurlCellGridComponent,
-    ReportLinkCellGridComponent,
-    LoadingDialogComponent,
-    ActionCellGridComponent,
-    AddReportOwnerDialogComponent,
-    ListCellGridComponent,
-    EndorseShareRequestComponent,
     UserRegistrationComponent,
     SubmissionsHistoryComponent 
   ]
