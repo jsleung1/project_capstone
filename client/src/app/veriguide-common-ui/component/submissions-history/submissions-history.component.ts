@@ -1,13 +1,11 @@
 import { UserService } from 'src/app/veriguide-user-service/user-service';
-import { LoggedInUser } from './../../../veriguide-model/server-model/loggedInUser';
+import { LoggedInUser } from '../../../veriguide-model/loggedInUser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Student } from 'src/app/veriguide-model/rest-api-response/User';
-import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 import { UpdateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/UpdateSubmissionRequest';
 import { Subscription } from 'rxjs';
 import { AssignmentsSubmissionsDTO } from 'src/app/veriguide-model/assignmentsSubmissionsDTO';

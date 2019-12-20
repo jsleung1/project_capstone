@@ -1,7 +1,7 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/models';
+import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/loggedInUser';
 
 @Injectable({
     providedIn: 'root'

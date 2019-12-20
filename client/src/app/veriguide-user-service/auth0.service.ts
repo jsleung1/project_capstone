@@ -7,9 +7,10 @@ import { UserService } from './user-service';
 import { User } from '../veriguide-model/rest-api-response/User';
 import { Router } from '@angular/router';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
-import { AuthenticationStateEnum } from '../veriguide-model/models';
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { apiEndpoint } from '../config';
+import { AuthenticationStateEnum } from '../veriguide-model/loggedInUser';
 
 @Injectable({
   providedIn: 'root'

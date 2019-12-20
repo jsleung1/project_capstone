@@ -1,8 +1,7 @@
-import { AuthenticationStateEnum } from './veriguide-model/server-model/loggedInUser';
+import { AuthenticationStateEnum, LoggedInUser } from './veriguide-model/loggedInUser';
 import { TopMenuItem } from './veriguide-common-type/top-menu-item';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
-import { LoggedInUser } from './veriguide-model/models';
 
 import { UrlPathConfig } from './veriguide-common-type/url-path-config';
 import { veriguideInjectors, URL_PATH_CONFIG } from './veriguide-common-type/veriguide-injectors';

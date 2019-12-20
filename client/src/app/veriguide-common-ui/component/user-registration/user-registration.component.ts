@@ -5,7 +5,6 @@ import { UtilService } from '../../../veriguide-user-service/util.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateUserRequest } from '../../../veriguide-model/rest-api-request/user/CreateUserRequest';
 import { UpdateUserRequest } from '../../../veriguide-model/rest-api-request/user/UpdateUserRequest';
-import { LoggedInUser, AuthenticationStateEnum } from '../../../veriguide-model/models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { URL_PATH_CONFIG, veriguideInjectors } from '../../../veriguide-common-type/veriguide-injectors';
@@ -13,6 +12,7 @@ import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-servi
 import { Subscription } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { apiEndpoint } from 'src/app/config';
+import { LoggedInUser, AuthenticationStateEnum } from 'src/app/veriguide-model/loggedInUser';
 
 @Component({
   selector: 'app-user-registration',

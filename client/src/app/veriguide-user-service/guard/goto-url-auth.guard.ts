@@ -1,9 +1,8 @@
 import { UserService } from 'src/app/veriguide-user-service/user-service';
-import { AuthenticationStateEnum } from '../../veriguide-model/server-model/loggedInUser';
+import { AuthenticationStateEnum, LoggedInUser } from '../../veriguide-model/loggedInUser';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree, Router, CanActivate, Route } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { LoggedInUser,  } from '../../veriguide-model/models';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../../veriguide-common-type/veriguide-injectors';
 
 @Injectable({
