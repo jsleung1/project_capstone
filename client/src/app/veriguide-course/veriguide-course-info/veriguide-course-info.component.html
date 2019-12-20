@@ -6,18 +6,18 @@
 </div>
 -->
 <div class="form-row top-function-bar">
-    <div class="col-md-3 margin-padding-right-0px" style="padding-top:5px;" >
-        <label class="md-label-text" >Filter Course by Academic Year</label> 
+    <div class="col-md-3 margin-padding-right-0px no-padding" >
+        <label class="md-label-text margin-bottom-0px" >Filter Course by Academic Year</label> 
     </div>    
-    <div class="col-md-2" style="padding-top:5px;">
+    <div class="col-md-2 no-padding" >
         <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedAcadYear"
             (ngModelChange)="onAcadYearSelection()">
             <option *ngFor="let acadYear of acadYears" [ngValue]="acadYear">{{ acadYear }}</option>
         </select>        
     </div>
     <div class="col-md-3"></div>
-    <div class="col-md-4 margin-padding-right-0px " style="float:left;padding-top:5px;padding-right:10px;" >
-        <button type="button" class="btn btn-primary col-md-12" style="margin-bottom:0px;margin-right:0px;padding-right:0px;padding-top:5px;padding-bottom:6px;" 
+    <div class="col-md-4 margin-padding-right-0px " style="float:left;padding-right:10px;" >
+        <button type="button" class="btn btn-primary col-md-12 bar-button-margin-padding"
             (click)="onCreateCourse()">
             <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Click [here] to create a New Course
         </button>

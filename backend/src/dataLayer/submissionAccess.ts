@@ -102,7 +102,7 @@ export class SubmissionAccess {
     }
 
     // may need to add submissionId to the GlobalSecondaryIndexes
-    async updateSubmission(submission: Submission): Promise<Submission> {
+    async updateSubmissionFromUser(submission: Submission): Promise<Submission> {
 
         this.logger.info('updating Submission: ' + JSON.stringify(submission) )
     
@@ -112,12 +112,10 @@ export class SubmissionAccess {
             submissionId: submission.submissionId,
             createdAt: submission.createdAt
           },         
-          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, similarityPercentage = :similarityPercentage, reportStatus = :reportStatus, studentReferences = :studentReferences',
+          UpdateExpression: 'set instructorComments = :instructorComments, studentScore = :studentScore, studentReferences = :studentReferences',
           ExpressionAttributeValues: {
             ':instructorComments': submission.instructorComments,
             ':studentScore': submission.studentScore,
-            ':similarityPercentage': submission.similarityPercentage,
-            ':reportStatus': submission.reportStatus,  
             ':studentReferences': submission.studentReferences
           }
         }).promise()

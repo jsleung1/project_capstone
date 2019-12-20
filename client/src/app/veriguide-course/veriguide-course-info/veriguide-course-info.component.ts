@@ -49,13 +49,13 @@ export class VeriguideCourseInfoComponent implements OnInit {
     this.router.navigate( [ url ] );
   }
 
-  openCourse(course: Course) {  
+  openCourse(course: Course) {
     const url =  `${course.courseId}/${veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.relativePath}`;
     this.router.navigate( [ url ], { relativeTo: this.route } );
   }
 
   async onUpdateCourse(course: Course) {
-   
+
     const updateCourseRequest: UpdateCourseRequest = {
       courseDescription: course.courseDescription
     };

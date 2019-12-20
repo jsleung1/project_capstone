@@ -125,7 +125,7 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
         // only student can update the remarks of the submission
         submissionToUpdate.studentReferences = updateSubmissionRequest.studentReferences;
     
-        const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
+        const submissionUpdated = await submissionAccess.updateSubmissionFromUser( submissionToUpdate )
         return submissionUpdated;
     
     }
@@ -145,7 +145,7 @@ export async function updateSubmissionForInstructorOrStudent( updateSubmissionRe
         submissionToUpdate.instructorComments = updateSubmissionRequest.instructorComments
         submissionToUpdate.studentScore = updateSubmissionRequest.studentScore
 
-        const submissionUpdated = await submissionAccess.updateSubmission( submissionToUpdate )
+        const submissionUpdated = await submissionAccess.updateSubmissionFromUser( submissionToUpdate )
         return submissionUpdated;
 
     }

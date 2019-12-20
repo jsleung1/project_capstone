@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/veriguide-user-service/user-service';
+import { LoggedInUser } from './../../../veriguide-model/server-model/loggedInUser';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
@@ -7,17 +9,20 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Student } from 'src/app/veriguide-model/rest-api-response/User';
 import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 import { UpdateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/UpdateSubmissionRequest';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-submissions-history',
   templateUrl: './submissions-history.component.html',
   styleUrls: ['./submissions-history.component.scss']
 })
-export class SubmissionsHistoryComponent implements OnInit {
+export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
 
   private title = '';
   private assignmentId = '';
   private submissions: Submission[];
+  private subscription: Subscription;
+  private loggedInUser: LoggedInUser;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,7 +30,12 @@ export class SubmissionsHistoryComponent implements OnInit {
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private router: Router  ) {
+    private router: Router,
+    private userService: UserService  ) {
+
+    this.subscription = this.userService.getLoggedInUser().subscribe( loggedInUser => {
+      this.loggedInUser = loggedInUser;
+    });
 
     this.assignmentId = this.route.snapshot.paramMap.get('assignmentId');
 
@@ -110,10 +120,11 @@ export class SubmissionsHistoryComponent implements OnInit {
 
   async onUpdateSubmissionReferences(submission: Submission) {
     const updateSubmissionRequest: UpdateSubmissionRequest = {
-      instructorComments: submission.instructorComments || null,
-      studentScore: submission.studentScore || null,
+      instructorComments: submission.instructorComments,
+      studentScore: submission.studentScore,
       studentReferences: submission.studentReferences
-    }
+    };
+
     console.log( JSON.stringify(updateSubmissionRequest) );
 
     this.spinner.show();
@@ -124,5 +135,9 @@ export class SubmissionsHistoryComponent implements OnInit {
       message: 'Successfully update the Submission References.',
       dialogType: 'OKDialog' 
     }); 
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

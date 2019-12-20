@@ -45,6 +45,15 @@ export class MenuBuilderService implements OnDestroy {
           name: 'Courses',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         });
+
+
+        const parentPath = veriguideInjectors.get(URL_PATH_CONFIG).userMainPage;
+        const assignmentUrlSubPath = veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' );
+
+        topMenuItems.push({
+          name: 'Assignments',
+          url: `${parentPath}/${assignmentUrlSubPath}`
+        });
       }
 
       if ( loggedInUser.userType === Student ) {
@@ -77,6 +86,13 @@ export class MenuBuilderService implements OnDestroy {
           description: 'Teaching Courses by Academic Year',
           url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         } );
+
+        contentMenuItems.push({
+          name: 'My Assignments',
+          iconPath: 'assets/images/veriguide-main/deadline.png',
+          description: 'Assignments in My Teaching Course',
+          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' )
+        });
       }
 
       if ( loggedInUser.userType === Student ) {

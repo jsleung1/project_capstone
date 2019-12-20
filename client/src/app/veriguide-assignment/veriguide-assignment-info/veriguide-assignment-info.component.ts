@@ -23,8 +23,8 @@ import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 export class VeriguideAssignmentInfoComponent implements OnInit {
 
   private assignmentInfos: Array<AssignmentInfo> = [];
-  private courseId = '';
-  private title = '';
+  private courseId: string;
+  private assignmentCourseTitle: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,6 +41,16 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
       const assignments: Array<Assignment> = data.resolverService;
       this.addToAssignmentInfos(assignments);
     });
+  }
+
+  async ngOnInit() {
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
+    if ( this.courseId ) {
+      this.spinner.show();
+      const course = await this.veriguideHttpClient.get<Course>(`course/${this.courseId}`).toPromise();
+      this.spinner.hide();
+      this.assignmentCourseTitle = `<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Viewing Assignments for Course <b>${course.courseCode}</b>`;
+    }
   }
 
   private addToAssignmentInfos(assignments: Assignment[]) {
@@ -133,13 +143,4 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     this.router.navigate( [ url ], { relativeTo: this.route } );
   }
 
-  async ngOnInit() {
-    this.courseId = this.route.snapshot.paramMap.get('courseId');
-    if ( this.courseId ) {
-      this.spinner.show();
-      const course = await this.veriguideHttpClient.get<Course>(`course/${this.courseId}`).toPromise();
-      this.spinner.hide();
-      this.title = `<i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;&nbsp;Viewing Assignments for Course <b>${course.courseCode}</b>`;
-    }
-  }
 }
