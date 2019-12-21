@@ -12,14 +12,14 @@ import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
 
 @Component({
-  selector: 'app-veriguide-assignment-info',
-  templateUrl: './veriguide-assignment-info.component.html',
-  styleUrls: ['./veriguide-assignment-info.component.scss'],
+  selector: 'app-assignment-info',
+  templateUrl: './assignment-info.component.html',
+  styleUrls: ['./assignment-info.component.scss'],
   providers: [
    NgbTimepickerConfig
   ]
 })
-export class VeriguideAssignmentInfoComponent implements OnInit {
+export class AssignmentInfoComponent implements OnInit {
 
   private assignmentInfos: Array<AssignmentInfo> = [];
 
