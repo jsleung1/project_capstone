@@ -7,7 +7,7 @@ import { CreateUserRequest } from '../../../veriguide-model/rest-api-request/use
 import { UpdateUserRequest } from '../../../veriguide-model/rest-api-request/user/UpdateUserRequest';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { URL_PATH_CONFIG, veriguideInjectors } from '../../../veriguide-common-type/veriguide-injectors';
+import { URL_PATH_CONFIG, veriguideInjectors } from '../../../common-type/veriguide-injectors';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';

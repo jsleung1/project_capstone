@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from '../common-type/veriguide-injectors';
 import { MainMenuComponent } from '../veriguide-common-ui/common-ui';
 
 const routes: Routes = [

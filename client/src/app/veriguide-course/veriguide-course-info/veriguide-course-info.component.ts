@@ -6,7 +6,7 @@ import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { UpdateCourseRequest } from 'src/app/veriguide-model/rest-api-request/course/UpdateCourseRequest';
 import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
 import { AcadYearsString } from 'src/app/veriguide-model/clientConstants';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
 
 @Component({
   selector: 'app-veriguide-course-info',

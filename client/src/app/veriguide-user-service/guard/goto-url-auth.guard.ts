@@ -3,7 +3,7 @@ import { AuthenticationStateEnum, LoggedInUser } from '../../veriguide-model/log
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree, Router, CanActivate, Route } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../../veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from '../../common-type/veriguide-injectors';
 
 @Injectable({
   providedIn: 'root'

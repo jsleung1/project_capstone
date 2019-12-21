@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { TopMenuItem } from '../veriguide-common-type/top-menu-item';
-import { UrlPathConfig } from '../veriguide-common-type/url-path-config';
+import { TopMenuItem } from '../common-type/top-menu-item';
+import { UrlPathConfig } from '../common-type/url-path-config';
 import { UserService } from './user-service';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from '../common-type/veriguide-injectors';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { UserMenuContainer } from '../veriguide-common-type/user-menu-container';
-import { ContentMenuItem } from '../veriguide-common-type/content-menu-item';
+import { UserMenuContainer } from '../common-type/user-menu-container';
+import { ContentMenuItem } from '../common-type/content-menu-item';
 import { Instructor, Student } from '../veriguide-model/rest-api-response/User';
 import { AuthenticationStateEnum, LoggedInUser } from '../veriguide-model/loggedInUser';
 

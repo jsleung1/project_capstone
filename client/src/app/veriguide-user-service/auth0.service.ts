@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user-service';
 import { User } from '../veriguide-model/rest-api-response/User';
 import { Router } from '@angular/router';
-import { URL_PATH_CONFIG, veriguideInjectors } from '../veriguide-common-type/veriguide-injectors';
+import { URL_PATH_CONFIG, veriguideInjectors } from '../common-type/veriguide-injectors';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { apiEndpoint } from '../config';

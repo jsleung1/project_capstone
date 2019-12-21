@@ -6,7 +6,7 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
 import { AssignmentInfo } from '../assignment-info';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';

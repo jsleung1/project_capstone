@@ -1,10 +1,10 @@
 import { AuthenticationStateEnum, LoggedInUser } from './veriguide-model/loggedInUser';
-import { TopMenuItem } from './veriguide-common-type/top-menu-item';
+import { TopMenuItem } from './common-type/top-menu-item';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 
-import { UrlPathConfig } from './veriguide-common-type/url-path-config';
-import { veriguideInjectors, URL_PATH_CONFIG } from './veriguide-common-type/veriguide-injectors';
+import { UrlPathConfig } from './common-type/url-path-config';
+import { veriguideInjectors, URL_PATH_CONFIG } from './common-type/veriguide-injectors';
 import { MenuBuilderService } from './veriguide-user-service/menu-builder-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Auth0Service } from './veriguide-user-service/auth0.service';

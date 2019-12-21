@@ -11,7 +11,7 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
+import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
 import { UtilService } from 'src/app/veriguide-user-service/util.service';
 
 @Component({
