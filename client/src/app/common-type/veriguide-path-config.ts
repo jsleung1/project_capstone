@@ -1,6 +1,6 @@
 import { UrlPathConfig } from './url-path-config';
 
-export const VeriguidePathConfig: UrlPathConfig = {
+export const VerimarkerPathConfig: UrlPathConfig = {
     userLoginPage: {
         fullPath: '/school',
         relativePath: 'login'
