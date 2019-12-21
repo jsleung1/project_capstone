@@ -24,15 +24,6 @@
               <label class="no-padding user-info-font ">User logged in as: {{loggedInUser.userType}}</label>
             </div>
           </div>
-          <!--
-          <div class="row">
-              <div class="col-md-12 col-xs-12">
-                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('zh_Hans')">[简体中文]</button>
-                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('zh_Hant')"> [繁體中文]</button>
-                  <button class="btn btnChangeLang noBlueBorderBtn" type="button" (click)="onClickTranslate('en')">[English]</button>
-              </div>
-          </div>
-          -->
         </div>
       </div>
       <!--header end-->
@@ -43,15 +34,9 @@
             'top-nav-bar': !isAuthenticated() }" >
           <a class="top-nav-bar-menu-item" *ngIf="topMenuItems.length > 0" [routerLink]="['']" ><img src="assets/images/app/nav-home-icon.png"></a>
           <a class="top-nav-bar-menu-item" *ngFor="let topMenuItem of topMenuItems" routerLink="{{topMenuItem.url}}" routerLinkActive="active">
-            {{ topMenuItem.name | translate }}
-            <span id="alert_count" class="alert_count" *ngIf="topMenuItem.alertOn===true">
-            {{ topMenuItem.numOfAlerts }}
-            </span>
+            {{ topMenuItem.name }}
           </a>
-          <a class="top-nav-bar-menu-item logout"  *ngIf="isAuthenticated()"  (click)="logout()" >{{'topmenu.logout'| translate }}</a>
-          <!--
-          <a class="top-nav-bar-menu-item logout"  *ngIf="isAuthenticated()" href="http://www.cuhk.edu.hk" >{{'topmenu.cuhk'|translate}}</a>
-          -->
+          <a class="top-nav-bar-menu-item logout"  *ngIf="isAuthenticated()"  (click)="logout()" >Logout</a>
         </div>
       </div>
       <!--navigation bar end-->

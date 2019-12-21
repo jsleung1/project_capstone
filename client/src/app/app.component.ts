@@ -5,7 +5,6 @@ import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationErr
 
 import { UrlPathConfig } from './veriguide-common-type/url-path-config';
 import { veriguideInjectors, URL_PATH_CONFIG } from './veriguide-common-type/veriguide-injectors';
-import { TranslateService } from '@ngx-translate/core';
 import { MenuBuilderService } from './veriguide-user-service/menu-builder-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Auth0Service } from './veriguide-user-service/auth0.service';
@@ -24,7 +23,6 @@ export class AppComponent implements OnInit {
   private urlPathConfig: UrlPathConfig;
 
   constructor( private router: Router,
-               private translate: TranslateService,
                private auth0Service: Auth0Service,
                private menuBuilder: MenuBuilderService,
                private spinner: NgxSpinnerService  ) {
@@ -35,11 +33,6 @@ export class AppComponent implements OnInit {
       this.loggedInUser = userMenuContainer.loggedInUser;
       this.topMenuItems = userMenuContainer.topMenuItems;
     });
-
-    translate.addLangs(['en', 'zh_Hant', 'zh_Hans' ]);
-    translate.setDefaultLang('en');
-    translate.use('en');
-
     router.events.subscribe ( event => {
       if ( event instanceof NavigationStart) {
         this.spinner.show();
@@ -57,13 +50,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
-    this.translate.get('HOME').subscribe(
-      translations => {
-        console.log( translations);
-      }
-    );
-    */
   }
 
   private isAuthenticated(): boolean {
@@ -72,10 +58,6 @@ export class AppComponent implements OnInit {
 
   private logout(): void {
     this.auth0Service.logout();
-  }
-
-  private onClickTranslate(lang: string) {
-    this.translate.use(lang);
   }
 
 }

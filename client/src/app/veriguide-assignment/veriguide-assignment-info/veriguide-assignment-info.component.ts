@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { NgbDatepickerI18n, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CustomDatepickerI18n } from 'src/app/veriguide-common-type/custom-datepicker';
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
 import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/veriguide-common-type/veriguide-injectors';
 import { AssignmentInfo } from '../assignment-info';
@@ -17,8 +16,7 @@ import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignment
   templateUrl: './veriguide-assignment-info.component.html',
   styleUrls: ['./veriguide-assignment-info.component.scss'],
   providers: [
-    {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
-    NgbTimepickerConfig
+   NgbTimepickerConfig
   ]
 })
 export class VeriguideAssignmentInfoComponent implements OnInit {
@@ -60,8 +58,11 @@ export class VeriguideAssignmentInfoComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    if ( this.courses.length > 0 ) { 
+      this.selectedCourse  = this.courses[0];
+      this.onCourseSelection();
+    }
   }
 
   private addToAssignmentInfos(assignments: Assignment[]) {

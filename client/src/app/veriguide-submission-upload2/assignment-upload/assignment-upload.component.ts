@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import {NgbCalendar, NgbDate, NgbDatepickerI18n, NgbDateStruct, NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
-import {CustomDatepickerI18n} from '../../veriguide-common-type/custom-datepicker';
+import { NgbDateStruct, NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+
 import { AcadYearsNumber } from 'src/app/veriguide-model/clientConstants';
 import { User } from 'src/app/veriguide-model/rest-api-response/User';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
@@ -18,9 +18,6 @@ import { UtilService } from 'src/app/veriguide-user-service/util.service';
   selector: 'app-assignment-upload',
   templateUrl: './assignment-upload.component.html',
   styleUrls: ['./assignment-upload.component.scss'],
-  providers: [
-    {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}
-  ]
 })
 export class AssignmentUploadComponent implements OnInit, OnDestroy  {
 

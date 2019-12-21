@@ -5,8 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { UtilService } from 'src/app/veriguide-user-service/util.service';
-import { NgbDatepickerI18n, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CustomDatepickerI18n } from 'src/app/veriguide-common-type/custom-datepicker';
+import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/CreateAssignmentRequest';
 import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 
@@ -15,8 +14,7 @@ import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment
   templateUrl: './create-assignment.component.html',
   styleUrls: ['./create-assignment.component.scss'],
   providers: [
-    {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
-    NgbTimepickerConfig
+     NgbTimepickerConfig
   ]
 })
 export class CreateAssignmentComponent implements OnInit {

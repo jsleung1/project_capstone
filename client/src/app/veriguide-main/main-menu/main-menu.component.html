@@ -1,5 +1,5 @@
 <div class="menu-item-container" *ngFor="let contentMenuItem of contentMenuItems" routerLink="{{contentMenuItem.url}}" routerLinkActive="active">
     <img class="linkicon"  src="{{contentMenuItem.iconPath}}" alt="Assignment Submission" />
-    <h3 class="contentMenuItemText">{{ contentMenuItem.name | translate }}</h3>
-    {{ contentMenuItem.description | translate }}
+    <h3 class="contentMenuItemText">{{ contentMenuItem.name }}</h3>
+    {{ contentMenuItem.description }}
 </div>

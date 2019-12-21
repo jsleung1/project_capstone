@@ -11,7 +11,12 @@
             <div class="no-padding" [innerHTML]="assignmentCourseTitle"></div>
         </label>         
     </div>
-    <div class="col-md-6 margin-padding-right-0px inner-bar-style" style="margin-top:0px;" *ngIf="courseIdParam==='0'" >
+    <div class="col-md-2 margin-padding-right-0px inner-bar-style" style="margin-top:3px;text-align:right;" *ngIf="courseIdParam==='0'" >
+        <label class="md-label-text padding-left-10px margin-bottom-0px">
+            Select a Course:
+        </label>      
+    </div>
+    <div class="col-md-4 margin-padding-right-0px inner-bar-style" style="margin-top:0px;" *ngIf="courseIdParam==='0'" >
         <select class="form-control formInputHeight postSelectionText" [(ngModel)]="selectedCourse"
             (ngModelChange)="onCourseSelection()">
             <option *ngFor="let course of courses" [ngValue]="course">{{ course.courseCode }}: {{ course.courseDescription }}</option>

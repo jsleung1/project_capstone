@@ -9,10 +9,6 @@ import { AppComponent } from './app.component';
 import { VeriguideRestServiceModule } from './veriguide-rest-service/veriguide-rest-service.module';
 
 import { CookieService } from 'ngx-cookie-service';
-
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from './veriguide-common-type/common-factory';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -26,14 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     VeriguideRestServiceModule,
     VeriguideUserServiceModule,
-    NgxSpinnerModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    NgxSpinnerModule
   ],
   providers: [
     CookieService,
