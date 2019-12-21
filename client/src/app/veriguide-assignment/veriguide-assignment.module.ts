@@ -2,8 +2,8 @@ import { VeriguideCommonUiModule } from './../veriguide-common-ui/veriguide-comm
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VeriguideAssignmentRoutingModule } from './veriguide-assignment-routing.module';
-import { VeriguideAssignmentInfoComponent } from './veriguide-assignment-info/veriguide-assignment-info.component';
+import { VeriguideAssignmentRoutingModule } from './assignment-routing.module';
+import { VeriguideAssignmentInfoComponent } from './assignment-info/veriguide-assignment-info.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import { veriguideInjectors, URL_PATH_CONFIG } from '../veriguide-common-type/veriguide-injectors';
 import { LoadAssignmentsResolverService } from '../veriguide-user-service/resolver/load-assignments-resolver.service';
-import { VeriguideAssignmentInfoComponent } from './veriguide-assignment-info/veriguide-assignment-info.component';
+import { VeriguideAssignmentInfoComponent } from './assignment-info/veriguide-assignment-info.component';
 import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
 import { LoadCourseResolverService } from '../veriguide-user-service/resolver/load-course-resolver.service';
 
