@@ -21,14 +21,6 @@ export const VerimarkerPathConfig: UrlPathConfig = {
         fullPath: '/school/main/uploadSubmission',
         relativePath: 'uploadSubmission'
     },
-    userAssignmentSubmissionUploadSuccess : {
-        fullPath: '/school/main/submissionSelect/uploadSuccess',
-        relativePath: 'uploadSuccess'
-    },
-    userAssignmentSubmissionUploadFailed : {
-        fullPath: '/school/main/submissionSelect/uploadFailed',
-        relativePath: 'uploadFailed'
-    },
     userAssignmentSubmissionHistory : {
         fullPath: '/school/main/submissionHistory/:assignmentId',
         relativePath: 'submissionHistory/:assignmentId'
@@ -41,10 +33,6 @@ export const VerimarkerPathConfig: UrlPathConfig = {
         fullPath: ':courseId/assignments/createAssignment',
         relativePath: 'createAssignment'
     },
-    userThesisSubmissionUpload: {
-        fullPath: '/school/main/thesisSubmissionUpload',
-        relativePath: 'thesisSubmissionUpload'
-    },
     userCourses : {
         fullPath: '/school/main/courses',
         relativePath: 'courses'
@@ -53,26 +41,10 @@ export const VerimarkerPathConfig: UrlPathConfig = {
         fullPath: '/school/main/courses/createCourse/:acadYear',
         relativePath: 'createCourse/:acadYear'
     },
-    userAssignmentDeadline : {
-        fullPath: '/school/main/assignmentDeadline',
-        relativePath: 'assignmentDeadline'
-    },
-    userAssignmentDeadlineCreate : {
-        fullPath: '/school/main/assignmentDeadline/deadlineCreate',
-        relativePath: 'deadlineCreate'
-    },
     userSubmissions: {
         fullPath: ':assignmentNumber/submissions',
         relativePath: 'submissions'
-    },
-    userShareRequestEndorsement : {
-        fullPath: '/school/main/share',
-        relativePath: 'share'
-    },
-    userPersonnel : {
-        fullPath: '/school/main/personnel',
-        relativePath: 'personnel'
-    },
+    }
 };
 
 

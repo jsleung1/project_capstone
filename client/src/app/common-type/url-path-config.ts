@@ -8,11 +8,7 @@ export interface UrlPathConfig {
 
     userSubmissionUpload: UrlPathInfo;
 
-    userAssignmentSubmissionUploadSuccess: UrlPathInfo;
-    userAssignmentSubmissionUploadFailed: UrlPathInfo;
     userAssignmentSubmissionHistory: UrlPathInfo;
-
-    userThesisSubmissionUpload: UrlPathInfo;
 
     userCourses: UrlPathInfo;
     userCreateCourse: UrlPathInfo;
@@ -20,12 +16,6 @@ export interface UrlPathConfig {
     userAssignments: UrlPathInfo;
     userCreateAssignment: UrlPathInfo;
 
-    userAssignmentDeadline: UrlPathInfo;
-    userAssignmentDeadlineCreate: UrlPathInfo;
-
     userSubmissions: UrlPathInfo;
 
-    userShareRequestEndorsement: UrlPathInfo;
-
-    userPersonnel: UrlPathInfo;
 }
