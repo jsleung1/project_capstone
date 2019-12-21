@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
-import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
+import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';

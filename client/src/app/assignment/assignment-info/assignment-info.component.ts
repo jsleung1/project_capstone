@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
-import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
+import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';

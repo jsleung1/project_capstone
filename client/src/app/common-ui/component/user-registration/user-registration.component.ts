@@ -8,12 +8,11 @@ import { UpdateUserRequest } from '../../../veriguide-model/rest-api-request/use
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { URL_PATH_CONFIG, verimarkerInjectors } from '../../../common-type/verimarker-injectors';
+import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
-import { LoggedInUser, AuthenticationStateEnum } from 'src/app/veriguide-model/loggedInUser';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
-import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { apiEndpoint } from 'src/app/config';
-
+import { LoggedInUser, AuthenticationStateEnum } from 'src/app/veriguide-model/loggedInUser';
 
 @Component({
   selector: 'app-user-registration',

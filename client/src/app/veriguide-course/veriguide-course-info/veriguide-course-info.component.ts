@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { UpdateCourseRequest } from 'src/app/veriguide-model/rest-api-request/course/UpdateCourseRequest';
-import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
+import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { AcadYearsString } from 'src/app/veriguide-model/clientConstants';
 import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 

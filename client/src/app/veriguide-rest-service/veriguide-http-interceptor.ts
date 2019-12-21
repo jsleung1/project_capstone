@@ -3,7 +3,7 @@ import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse}
 import {Observable} from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { AlertDialogService } from '../veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
+import { AlertDialogService } from '../common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()

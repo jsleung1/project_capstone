@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AcadYearsNumber } from '../../veriguide-model/clientConstants';
 import { Course } from '../../veriguide-model/rest-api-response/Course';
 import { UtilService } from '../../veriguide-user-service/util.service';
-import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
+import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';

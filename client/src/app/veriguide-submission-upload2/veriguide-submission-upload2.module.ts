@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VeriguideSubmissionUpload2RoutingModule } from './veriguide-submission-upload2-routing.module';
-import { VeriguideCommonUiModule } from '../veriguide-common-ui/veriguide-common-ui.module';
+import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 

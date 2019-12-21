@@ -1,4 +1,4 @@
-import { VeriguideCommonUiModule } from '../veriguide-common-ui/veriguide-common-ui.module';
+import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

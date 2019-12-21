@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoadCoursesResolverService } from '../veriguide-user-service/resolver/load-courses-resolver.service';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
 import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
-import { VeriguideCourseInfoComponent } from '../veriguide-common-ui/common-ui';
+import { VeriguideCourseInfoComponent } from '../common-ui/common-ui';
 import { CreateCourseComponent } from './create-course/create-course.component';
 
 const routes: Routes = [
