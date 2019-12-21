@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath, // actually it is a relative path, but full path for a submodule (assignment module)
-    loadChildren: () => import('../assignment/veriguide-assignment.module').then(mod => mod.VeriguideAssignmentModule)
+    loadChildren: () => import('../assignment/assignment.module').then(mod => mod.VAssignmentModule)
   }
 ];
 
