@@ -1,6 +1,6 @@
 import { UrlPathConfig } from './url-path-config';
 import { InjectionToken, Injector } from '@angular/core';
-import { VerimarkerPathConfig } from './veriguide-path-config';
+import { VerimarkerPathConfig } from './verimarker-path-config';
 
 export let URL_PATH_CONFIG = new InjectionToken<UrlPathConfig>('urlPath.config',
     { providedIn: 'root', factory: () => VerimarkerPathConfig }) ;
