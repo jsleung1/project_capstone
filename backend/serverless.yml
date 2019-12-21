@@ -1,5 +1,5 @@
 service:
-  name: veriguide-app
+  name: verimarker-app
 
 #package:
 #  individually: true
@@ -19,8 +19,8 @@ custom:
     api:
       info:
         version: v1.0.0
-        title: VeriGuide API
-        description: Serverless application for VeriGuide, a plagiarism checker for managing student's submissions for The Chinese University Of Hong Kong
+        title: VeriMarker API
+        description: Serverless application for VeriMarker, a plagiarism detection application for managing student's submissions
     models:
       - name: CreateUserRequest
         contentType: application/json
@@ -67,35 +67,35 @@ provider:
     lambda: true
     apiGateway: true
   environment:
-    USERS_TABLE: VeriGuide-Users-${self:provider.stage}
+    USERS_TABLE: VeriMarker-Users-${self:provider.stage}
     USERS_USERID_INDEX: Users_userId_Index
     USERS_EMAIL_INDEX: Users_email_Index
     USERS_USERTYPE_INDEX: Users_userType_Index
 
-    COURSES_TABLE: VeriGuide-Courses-${self:provider.stage}
+    COURSES_TABLE: VeriMarker-Courses-${self:provider.stage}
     COURSES_COURSEID_INDEX: Courses_courseId_Index
     COURSES_INSTRUCTORID_INDEX: Courses_instructorId_Index
     COURSES_ACADYEAR_INDEX: Courses_acadYear_Index
     COURSES_COURSECODE_INDEX: Courses_courseCode_Index
 
-    ASSIGNMENTS_TABLE: VeriGuide-Assignments-${self:provider.stage}
+    ASSIGNMENTS_TABLE: VeriMarker-Assignments-${self:provider.stage}
     ASSIGNMENTS_ASSIGNMENTID_INDEX: Assignments_assignmentId_Index
     ASSIGNMENTS_COURSEID_INDEX: Assignments_courseId_Index
     ASSIGNMENTS_ASSIGNMENTNAME_INDEX: Assignments_assignmentName_Index
 
-    SUBMISSIONS_TABLE: VeriGuide-Submissions-${self:provider.stage}
+    SUBMISSIONS_TABLE: VeriMarker-Submissions-${self:provider.stage}
     SUBMISSIONS_SUBMISSIONID_INDEX: Submissions_submissionId_Index
     SUBMISSIONS_ASSIGNMENTID_INDEX: Submissions_assignmentId_Index
     SUBMISSIONS_STUDENTID_INDEX: Submissions_studentId_Index
     SUBMISSIONS_INSTRUCTORID_INDEX: Submissions_instructorId_Index
 
-    VG_SUBMISSIONS_FILES_S3_BUCKET: veriguide-submissions-files-${self:provider.stage}
+    VG_SUBMISSIONS_FILES_S3_BUCKET: verimarker-submissions-files-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
 functions:
-  #Auth0:
-  #  handler: src/lambda/auth/auth0Authorizer.handler
+  Auth0:
+    handler: src/lambda/auth/auth0Authorizer.handler
 
   CreateUser:
     handler: src/lambda/http/user/createUser.handler
@@ -104,6 +104,7 @@ functions:
           method: post
           path: users
           cors: true
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new user
@@ -136,6 +137,7 @@ functions:
           method: patch
           path: users
           cors: true
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Update existing user
@@ -168,6 +170,7 @@ functions:
           method: get
           path: user
           cors: true
+          authorizer: Auth0
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -189,6 +192,7 @@ functions:
           method: get
           path: users/{userType}
           cors: true
+          authorizer: Auth0
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -210,7 +214,7 @@ functions:
           method: post
           path: courses
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new course
@@ -247,17 +251,12 @@ functions:
           method: get
           path: courses
           cors: true
+          authorizer: Auth0
       - http:
           method: get
           path: courses/{queryId}
           cors: true
-          #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -291,13 +290,7 @@ functions:
           method: get
           path: instructor/{instructorId}/courses/{acadYear}
           cors: true
-          #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -319,13 +312,7 @@ functions:
           method: get
           path: course/{queryId}
           cors: true
-          #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -347,7 +334,7 @@ functions:
           method: patch
           path: courses/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Update the course
@@ -384,7 +371,7 @@ functions:
           method: delete
           path: courses/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -419,7 +406,7 @@ functions:
           method: post
           path: assignments
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new assignment under the course of the instructor
@@ -464,7 +451,7 @@ functions:
           method: get
           path: assignments/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -494,7 +481,7 @@ functions:
           method: get
           path: assignment/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -516,7 +503,7 @@ functions:
           method: patch
           path: assignments/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Update an existing assignment under the course of the instructor
@@ -553,13 +540,7 @@ functions:
           method: delete
           path: assignments/{queryId}
           cors: true
-          #authorizer: Auth0
-          #reqValidatorName: RequestBodyValidator
-          #documentation:
-          #  summary: Create a new Todo
-          #  description: Create a new Todo
-          #  requestModels:
-          #    'application/json': CreateTodoRequest
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -598,7 +579,7 @@ functions:
           method: post
           path: submissions
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Create a new submission for the student
@@ -643,7 +624,7 @@ functions:
           method: get
           path: submissions/assignment/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -673,7 +654,7 @@ functions:
           method: get
           path: submissions
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -707,7 +688,7 @@ functions:
           method: get
           path: submission/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:
@@ -729,7 +710,7 @@ functions:
           method: patch
           path: submissions/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
           reqValidatorName: RequestBodyValidator
           documentation:
             summary: Update existing submission of the student
@@ -770,7 +751,7 @@ functions:
           method: delete
           path: submissions/{queryId}
           cors: true
-          #authorizer: Auth0
+          authorizer: Auth0
     iamRoleStatements:
     - Effect: Allow
       Action:

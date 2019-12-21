@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1e10c40a-a868-4142-aeea-c32deb21a4bc",
-		"name": "VeriGuide Capstone Project",
+		"name": "Capstone Project: VeriMarker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -793,19 +793,19 @@
 	],
 	"variable": [
 		{
-			"id": "d0833d0f-e058-472b-9b89-30276010a4ae",
+			"id": "a6968134-4ead-449e-91b6-15f3a331ceed",
 			"key": "apiId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ec197669-e8d8-4b27-8861-2614ffef7fd6",
+			"id": "7ec704a9-73b9-4958-a531-087c30f6c462",
 			"key": "authToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "da649cae-c9d0-4356-91d0-73ded7ad5a1b",
+			"id": "074da43e-cdcd-42d1-834d-c98865075c8c",
 			"key": "env",
 			"value": "",
 			"type": "string"

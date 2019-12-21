@@ -15,7 +15,7 @@ import { Auth0Service } from './veriguide-user-service/auth0.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private title = 'VeriGuide 2.0';
+  private title = 'VeriMarker';
   private topMenuItems: TopMenuItem[] = new Array();
 
   private loggedInUser: LoggedInUser = { authenticationState: AuthenticationStateEnum.NeedToLogin };
