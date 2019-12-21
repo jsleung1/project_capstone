@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user-service';
 import { User } from '../veriguide-model/rest-api-response/User';
 import { Router } from '@angular/router';
-import { URL_PATH_CONFIG, veriguideInjectors } from '../common-type/veriguide-injectors';
+import { URL_PATH_CONFIG, verimarkerInjectors } from '../common-type/verimarker-injectors';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { apiEndpoint } from '../config';
@@ -38,7 +38,7 @@ export class Auth0Service {
   logout() {
     this.userService.deleteLoggedInUserCookie();
     this.auth0.logout({
-      return_to: veriguideInjectors.get(URL_PATH_CONFIG).userLoginPage.fullPath
+      return_to: verimarkerInjectors.get(URL_PATH_CONFIG).userLoginPage.fullPath
     });
   }
 
@@ -72,7 +72,7 @@ export class Auth0Service {
             });
 
             // navigate to the user main page
-            this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+            this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
           } else {
             // navgiate to register new user
             this.userService.setRegisterNewUser({
@@ -85,7 +85,7 @@ export class Auth0Service {
               userName: ''
             });
 
-            let url = veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath;
+            let url = verimarkerInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath;
             url = url.replace(':userId', '0');
             this.router.navigate( [ url ] );
           }

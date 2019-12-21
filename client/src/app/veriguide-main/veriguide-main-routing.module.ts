@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
 import { MainMenuComponent } from '../veriguide-common-ui/common-ui';
 
 const routes: Routes = [
@@ -11,19 +11,19 @@ const routes: Routes = [
     canActivate: [ GotoUrlAuthGuard ]
   },
   {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.relativePath,
+    path: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.relativePath,
     loadChildren: () => import('../veriguide-submission-history/veriguide-submission-history.module').then(mod => mod.VeriguideSubmissionHistoryModule)
   },
   {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.relativePath,
+    path: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.relativePath,
     loadChildren: () => import('../veriguide-submission-upload2/veriguide-submission-upload2.module').then(mod => mod.VeriguideSubmissionUpload2Module)
   },
   {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.relativePath,
+    path: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.relativePath,
     loadChildren: () => import('../veriguide-course/veriguide-course.module').then(mod => mod.VeriguideCourseModule)
   },
   {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath, // actually it is a relative path, but full path for a submodule (assignment module)
+    path: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath, // actually it is a relative path, but full path for a submodule (assignment module)
     loadChildren: () => import('../assignment/assignment.module').then(mod => mod.VAssignmentModule)
   }
 ];

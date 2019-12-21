@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 
 import { UrlPathConfig } from './common-type/url-path-config';
-import { veriguideInjectors, URL_PATH_CONFIG } from './common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from './common-type/verimarker-injectors';
 import { MenuBuilderService } from './veriguide-user-service/menu-builder-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Auth0Service } from './veriguide-user-service/auth0.service';
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
                private menuBuilder: MenuBuilderService,
                private spinner: NgxSpinnerService  ) {
 
-    this.urlPathConfig = veriguideInjectors.get(URL_PATH_CONFIG);
+    this.urlPathConfig = verimarkerInjectors.get(URL_PATH_CONFIG);
 
     this.menuBuilder.getUserMenuContainer().subscribe( userMenuContainer => {
       this.loggedInUser = userMenuContainer.loggedInUser;

@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { TopMenuItem } from '../common-type/top-menu-item';
 import { UrlPathConfig } from '../common-type/url-path-config';
 import { UserService } from './user-service';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserMenuContainer } from '../common-type/user-menu-container';
 import { ContentMenuItem } from '../common-type/content-menu-item';
@@ -43,11 +43,11 @@ export class MenuBuilderService implements OnDestroy {
       if ( loggedInUser.userType === Instructor ) {
         topMenuItems.push({
           name: 'Courses',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         });
 
-        const parentPath = veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath;
-        const assignmentUrlSubPath = veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' );
+        const parentPath = verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath;
+        const assignmentUrlSubPath = verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' );
 
         topMenuItems.push({
           name: 'Assignments',
@@ -56,26 +56,26 @@ export class MenuBuilderService implements OnDestroy {
 
         topMenuItems.push({
           name: 'Submissions',
-          url:  veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
+          url:  verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
         });
       }
 
       if ( loggedInUser.userType === Student ) {
         topMenuItems.push({
           name: 'Submission',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
 
         topMenuItems.push({
           name: 'History',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
         
       }
 
       topMenuItems.push({
         name: 'User',
-        url: veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
+        url: verimarkerInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
       });
 
       return topMenuItems;
@@ -89,21 +89,21 @@ export class MenuBuilderService implements OnDestroy {
           name: 'My Courses',
           iconPath: 'assets/images/veriguide-main/info.png',
           description: 'Teaching Courses by Academic Year',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         } );
 
         contentMenuItems.push({
           name: 'My Assignments',
           iconPath: 'assets/images/veriguide-main/deadline.png',
           description: 'Assignments in My Teaching Course',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' )
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' )
         });
 
         contentMenuItems.push({
           name: 'My Submissions',
           iconPath: 'assets/images/veriguide-main/upload_2.png',
           description: 'Submissions uploaded to me for My Assignments',
-          url:  veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
+          url:  verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
         });
       }
 
@@ -112,14 +112,14 @@ export class MenuBuilderService implements OnDestroy {
           name: 'Upload Submission',
           iconPath: 'assets/images/veriguide-main/upload_2.png',
           description: 'To submit your assignment to VeriGuide.',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
 
         contentMenuItems.push({
           name: 'Submission History',
           iconPath: 'assets/images/veriguide-main/history.png',
           description: 'View your submissions that were uploaded to VeriGuide',
-          url: veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
+          url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
       }
 
@@ -127,7 +127,7 @@ export class MenuBuilderService implements OnDestroy {
         name: 'User Settings',
         iconPath: 'assets/images/veriguide-main/personnel.png',
         description: 'Click here to change user settings',
-        url: veriguideInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
+        url: verimarkerInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
        } );
 
       return contentMenuItems;

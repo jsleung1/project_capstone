@@ -6,7 +6,7 @@ import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { UpdateCourseRequest } from 'src/app/veriguide-model/rest-api-request/course/UpdateCourseRequest';
 import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dialog/alert-dialog-service';
 import { AcadYearsString } from 'src/app/veriguide-model/clientConstants';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 
 @Component({
   selector: 'app-veriguide-course-info',
@@ -44,13 +44,13 @@ export class VeriguideCourseInfoComponent implements OnInit {
   onCreateCourse() {
 
     const acadYearToUse = this.selectedAcadYear === 'All' ? '2019' : this.selectedAcadYear;
-    let url = veriguideInjectors.get(URL_PATH_CONFIG).userCreateCourse.fullPath;
+    let url = verimarkerInjectors.get(URL_PATH_CONFIG).userCreateCourse.fullPath;
     url = url.replace(':acadYear', acadYearToUse )
     this.router.navigate( [ url ] );
   }
 
   openCourse(course: Course) {
-    const url =  `${course.courseId}/${veriguideInjectors.get(URL_PATH_CONFIG).userAssignments.relativePath}`;
+    const url =  `${course.courseId}/${verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.relativePath}`;
     this.router.navigate( [ url ], { relativeTo: this.route } );
   }
 

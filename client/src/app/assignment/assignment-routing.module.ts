@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
 import { LoadAssignmentsResolverService } from '../veriguide-user-service/resolver/load-assignments-resolver.service';
 import { AssignmentInfoComponent } from './assignment-info/assignment-info.component';
 import { CreateAssignmentComponent } from './create-assignment/create-assignment.component';
@@ -17,7 +17,7 @@ const routes: Routes = [
     }
   },
   {
-    path: veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath,
+    path: verimarkerInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath,
     component: CreateAssignmentComponent,
     canActivate: [ GotoUrlAuthGuard ],
     resolve: {

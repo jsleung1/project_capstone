@@ -6,7 +6,7 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 import { AssignmentInfo } from '../assignment-info';
 import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
 import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
@@ -147,7 +147,7 @@ export class AssignmentInfoComponent implements OnInit {
   }
 
   onViewAssigmentSubmissions(assignmentInfo: AssignmentInfo) {
-    const url = veriguideInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', assignmentInfo.assignment.assignmentId)
+    const url = verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', assignmentInfo.assignment.assignmentId)
     this.router.navigate( [ url ] );
   }
 
@@ -156,13 +156,13 @@ export class AssignmentInfoComponent implements OnInit {
 
     if ( this.courseIdParam === '0') {
 
-      const subUrl =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.fullPath.replace(':courseId', this.courseId );
-      const parentUrl = veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath;
+      const subUrl =  verimarkerInjectors.get(URL_PATH_CONFIG).userCreateAssignment.fullPath.replace(':courseId', this.courseId );
+      const parentUrl = verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath;
       const url = `${parentUrl}/${subUrl}`
       this.router.navigate( [ url ] );
 
     } else {
-      const url =  veriguideInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
+      const url =  verimarkerInjectors.get(URL_PATH_CONFIG).userCreateAssignment.relativePath;
       this.router.navigate( [ url ],  { relativeTo: this.route });
     }
   }

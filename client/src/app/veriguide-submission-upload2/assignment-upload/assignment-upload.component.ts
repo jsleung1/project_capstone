@@ -11,7 +11,7 @@ import { AlertDialogService } from 'src/app/veriguide-common-ui/dialog/alert-dia
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
 import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
-import { veriguideInjectors, URL_PATH_CONFIG } from 'src/app/common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 import { UtilService } from 'src/app/veriguide-user-service/util.service';
 
 @Component({
@@ -141,7 +141,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
         message: 'Successfully uploaded submission to VeriGuide.',
         dialogType: 'OKDialog'
       }).then( res => {
-        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+        this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
       });
     } catch (e) {
       this.spinner.hide();

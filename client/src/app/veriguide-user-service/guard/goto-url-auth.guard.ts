@@ -3,7 +3,7 @@ import { AuthenticationStateEnum, LoggedInUser } from '../../veriguide-model/log
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree, Router, CanActivate, Route } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { veriguideInjectors, URL_PATH_CONFIG } from '../../common-type/veriguide-injectors';
+import { verimarkerInjectors, URL_PATH_CONFIG } from '../../common-type/verimarker-injectors';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class GotoUrlAuthGuard implements CanActivate, OnDestroy  {
   private defaultAuthGuardOptions = {
     authConds: [ AuthenticationStateEnum.Authenticated ],
     authCondProceedOrigLink: true,
-    authCondRedirectUrl: veriguideInjectors.get(URL_PATH_CONFIG).userLoginPage.fullPath
+    authCondRedirectUrl: verimarkerInjectors.get(URL_PATH_CONFIG).userLoginPage.fullPath
   };
 
   constructor( private router: Router,

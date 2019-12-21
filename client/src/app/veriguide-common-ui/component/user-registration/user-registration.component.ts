@@ -7,7 +7,7 @@ import { CreateUserRequest } from '../../../veriguide-model/rest-api-request/use
 import { UpdateUserRequest } from '../../../veriguide-model/rest-api-request/user/UpdateUserRequest';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { URL_PATH_CONFIG, veriguideInjectors } from '../../../common-type/veriguide-injectors';
+import { URL_PATH_CONFIG, verimarkerInjectors } from '../../../common-type/verimarker-injectors';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
@@ -49,7 +49,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
     this.subscription = this.userService.getLoggedInUser().subscribe(loggedInUser => {
       const userId = this.route.snapshot.paramMap.get('userId');
       if ( loggedInUser.authenticationState === AuthenticationStateEnum.Authenticated && userId === '0') {
-        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+        this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
       }
       if ( loggedInUser.authenticationState === AuthenticationStateEnum.Authenticated && userId !== '0') {
         this.registerUser =  loggedInUser;
@@ -144,7 +144,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
           idToken: this.registerUser.idToken,
           userId: user.userId
         });
-        this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
+        this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
       });
 
     } catch (e) {
