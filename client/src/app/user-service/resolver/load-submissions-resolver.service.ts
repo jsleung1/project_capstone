@@ -13,7 +13,7 @@ import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 export class LoadSubmissionsResolverService implements Resolve<AssignmentsSubmissionsDTO>  {
 
   constructor(
-    private veriguideHttpClient: VerimarkerHttpClient,
+    private verimarkerHttpClient: VerimarkerHttpClient,
     private spinner: NgxSpinnerService  ) {
   }
 
@@ -24,7 +24,7 @@ export class LoadSubmissionsResolverService implements Resolve<AssignmentsSubmis
 
     let assignments: Assignment[] = []
     if ( assignmentId === '0') {
-      const submissions = await this.veriguideHttpClient.get<Submission[]>(`submissions`).toPromise();
+      const submissions = await this.verimarkerHttpClient.get<Submission[]>(`submissions`).toPromise();
       const assignmentsSubmissionsDTO: AssignmentsSubmissionsDTO = {
         assignments,
         submissions
@@ -34,14 +34,14 @@ export class LoadSubmissionsResolverService implements Resolve<AssignmentsSubmis
 
     let urlPath;
     if ( assignmentId && assignmentId !== 'all' ) {
-      const assignment = await this.veriguideHttpClient.get(`assignment/${assignmentId}`).toPromise() as Assignment;
+      const assignment = await this.verimarkerHttpClient.get(`assignment/${assignmentId}`).toPromise() as Assignment;
       assignments.push( assignment )
       urlPath = `submissions/assignment/${assignmentId}`; // get submissons of the assignment
     } else {
       urlPath = `submissions`; // get submissions uploaded by user
     }
 
-    const submissions = await this.veriguideHttpClient.get<Array<Submission>>( urlPath ).toPromise()
+    const submissions = await this.verimarkerHttpClient.get<Array<Submission>>( urlPath ).toPromise()
     this.spinner.hide()
 
     const assignmentsSubmissionsDTO: AssignmentsSubmissionsDTO = {

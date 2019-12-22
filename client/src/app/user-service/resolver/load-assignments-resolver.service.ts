@@ -13,7 +13,7 @@ import { Course } from 'src/app/model/rest-api-response/Course';
 })
 export class LoadAssignmentsResolverService implements Resolve<CoursesAssignmentsDTO>  {
 
-  constructor(private veriguideHttpClient: VerimarkerHttpClient,
+  constructor(private verimarkerHttpClient: VerimarkerHttpClient,
               private userService: UserService,
               private spinner: NgxSpinnerService  ) {
   }
@@ -22,7 +22,7 @@ export class LoadAssignmentsResolverService implements Resolve<CoursesAssignment
 
     const courseId =  route.paramMap.get('courseId');
     if ( courseId === '0') {
-      const courses = await this.veriguideHttpClient.get<Course[]>(`courses`).toPromise();
+      const courses = await this.verimarkerHttpClient.get<Course[]>(`courses`).toPromise();
       const coursesAssignmentsDTO: CoursesAssignmentsDTO = {
         assignments: [],
         courses
@@ -31,8 +31,8 @@ export class LoadAssignmentsResolverService implements Resolve<CoursesAssignment
     }
 
     this.spinner.show();
-    const assignments = await this.veriguideHttpClient.get<Array<Assignment>>(  `assignments/${courseId}` ).toPromise();
-    const course = await this.veriguideHttpClient.get<Course>( `course/${courseId}` ).toPromise();
+    const assignments = await this.verimarkerHttpClient.get<Array<Assignment>>(  `assignments/${courseId}` ).toPromise();
+    const course = await this.verimarkerHttpClient.get<Course>( `course/${courseId}` ).toPromise();
 
     let courses = [];
     courses.push( course );

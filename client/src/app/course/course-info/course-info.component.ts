@@ -22,7 +22,7 @@ export class CourseInfoComponent implements OnInit {
   private selectedAcadYear = 'All';
 
   constructor( private activatedRoute: ActivatedRoute,
-               private veriguideHttpClient: VerimarkerHttpClient,
+               private verimarkerHttpClient: VerimarkerHttpClient,
                private alertDialogService: AlertDialogService,
                private spinner: NgxSpinnerService,
                private route: ActivatedRoute,
@@ -62,7 +62,7 @@ export class CourseInfoComponent implements OnInit {
 
     this.spinner.show();
     try {
-      const updatedCourse = await this.veriguideHttpClient.patch(`courses/${course.courseId}`, updateCourseRequest ).toPromise() as Course;
+      const updatedCourse = await this.verimarkerHttpClient.patch(`courses/${course.courseId}`, updateCourseRequest ).toPromise() as Course;
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Update Course',
@@ -81,7 +81,7 @@ export class CourseInfoComponent implements OnInit {
   async onDeleteCourse(course: Course) {
     this.spinner.show();
     try {
-      const deletedCourse = await this.veriguideHttpClient.delete(`courses/${course.courseId}`).toPromise() as Course;
+      const deletedCourse = await this.verimarkerHttpClient.delete(`courses/${course.courseId}`).toPromise() as Course;
       await this.reloadCourses();
       this.spinner.hide();
       this.alertDialogService.openDialog({
@@ -106,7 +106,7 @@ export class CourseInfoComponent implements OnInit {
   }
 
   async reloadCourses() {
-    this.courses = await this.veriguideHttpClient.get<Array<Course>>(`courses`).toPromise();
+    this.courses = await this.verimarkerHttpClient.get<Array<Course>>(`courses`).toPromise();
     this.filterCourse();
   }
 }

@@ -32,7 +32,7 @@ export class AssignmentInfoComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VerimarkerHttpClient,
+    private verimarkerHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -107,7 +107,7 @@ export class AssignmentInfoComponent implements OnInit {
 
     this.spinner.show();
     try {
-      const updatedAssignment = await this.veriguideHttpClient.patch(`assignments/${assignmentInfo.assignment.assignmentId}`, updateAssignmentRequest ).toPromise() as Assignment;
+      const updatedAssignment = await this.verimarkerHttpClient.patch(`assignments/${assignmentInfo.assignment.assignmentId}`, updateAssignmentRequest ).toPromise() as Assignment;
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Update Assignment',
@@ -125,7 +125,7 @@ export class AssignmentInfoComponent implements OnInit {
     console.log( assignmentInfo.assignment.assignmentId);
     this.spinner.show();
     try {
-      const deletedAssignment = await this.veriguideHttpClient.delete(`assignments/${assignmentInfo.assignment.assignmentId}`).toPromise() as Assignment;
+      const deletedAssignment = await this.verimarkerHttpClient.delete(`assignments/${assignmentInfo.assignment.assignmentId}`).toPromise() as Assignment;
       await this.reloadAssignments();
       this.spinner.hide();
       this.alertDialogService.openDialog({
@@ -141,7 +141,7 @@ export class AssignmentInfoComponent implements OnInit {
   }
 
   async reloadAssignments() {
-    const assignments = await this.veriguideHttpClient.get<Array<Assignment>>(`assignments/${this.courseId}`).toPromise();
+    const assignments = await this.verimarkerHttpClient.get<Array<Assignment>>(`assignments/${this.courseId}`).toPromise();
     this.assignmentInfos = [];
     this.addToAssignmentInfos(assignments);
   }
@@ -173,7 +173,7 @@ export class AssignmentInfoComponent implements OnInit {
 
     this.spinner.show();
     const baseQueryUrl = `assignments/${this.courseId}`    
-    const assignments = await this.veriguideHttpClient.get<Array<Assignment>>( baseQueryUrl ).toPromise();
+    const assignments = await this.verimarkerHttpClient.get<Array<Assignment>>( baseQueryUrl ).toPromise();
     this.assignmentInfos = [];
     this.addToAssignmentInfos(assignments);
     this.spinner.hide();

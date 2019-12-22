@@ -10,7 +10,7 @@ import { User } from 'src/app/model/rest-api-response/User';
 })
 export class LoadUserResolverService implements Resolve<User> {
   
-  constructor(private veriguideHttpClient: VerimarkerHttpClient,
+  constructor(private verimarkerHttpClient: VerimarkerHttpClient,
               private spinner: NgxSpinnerService) { 
         
   }
@@ -23,7 +23,7 @@ export class LoadUserResolverService implements Resolve<User> {
     }
 
     this.spinner.show();
-    const observableResult = this.veriguideHttpClient.get<User>(`user`);    
+    const observableResult = this.verimarkerHttpClient.get<User>(`user`);    
     observableResult.subscribe( user => {
       this.spinner.hide();
     });

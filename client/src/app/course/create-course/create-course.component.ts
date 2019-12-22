@@ -22,7 +22,7 @@ export class CreateCourseComponent implements OnInit {
     courseDescription: '',
     acadYear: 0
   }
-  constructor( private veriguideHttpClient: VerimarkerHttpClient,
+  constructor( private verimarkerHttpClient: VerimarkerHttpClient,
                private alertDialogService: AlertDialogService,
                private spinner: NgxSpinnerService,
                private route: ActivatedRoute,
@@ -52,7 +52,7 @@ export class CreateCourseComponent implements OnInit {
 
     this.spinner.show();
     try {
-      const course = await this.veriguideHttpClient.post( 'courses', createUserRequest ).toPromise() as Course;
+      const course = await this.verimarkerHttpClient.post( 'courses', createUserRequest ).toPromise() as Course;
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Create Course',

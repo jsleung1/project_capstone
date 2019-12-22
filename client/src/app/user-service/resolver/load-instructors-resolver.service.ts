@@ -10,7 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoadInstructorsResolverService implements Resolve<User[]> {
 
-  constructor(private veriguideHttpClient: VerimarkerHttpClient,
+  constructor(private verimarkerHttpClient: VerimarkerHttpClient,
     private spinner: NgxSpinnerService) { 
   }
 
@@ -18,7 +18,7 @@ export class LoadInstructorsResolverService implements Resolve<User[]> {
     const userType = Instructor
 
     this.spinner.show();
-    const observableResult = this.veriguideHttpClient.get<User[]>(`users/${userType}`); 
+    const observableResult = this.verimarkerHttpClient.get<User[]>(`users/${userType}`); 
     observableResult.subscribe( instructors => {
       this.spinner.hide();
     })

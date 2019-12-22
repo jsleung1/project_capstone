@@ -13,7 +13,7 @@ import { Course } from '../../model/rest-api-response/Course';
   providedIn: 'root'
 })
 export class LoadCoursesResolverService implements Resolve<Array<Course>> {
-  constructor( private veriguideHttpClient: VerimarkerHttpClient,
+  constructor( private verimarkerHttpClient: VerimarkerHttpClient,
                private spinner: NgxSpinnerService  ) {
   }
 
@@ -21,7 +21,7 @@ export class LoadCoursesResolverService implements Resolve<Array<Course>> {
     this.spinner.show();
 
     //for instructor
-    const observableResult = this.veriguideHttpClient.get<Array<Course>>('courses');    
+    const observableResult = this.verimarkerHttpClient.get<Array<Course>>('courses');    
     observableResult.subscribe( courses => {
       this.spinner.hide();
     });

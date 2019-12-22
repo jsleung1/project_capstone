@@ -40,7 +40,7 @@ export class CreateAssignmentComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VerimarkerHttpClient,
+    private verimarkerHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -83,7 +83,7 @@ export class CreateAssignmentComponent implements OnInit {
 
     this.spinner.show();
     try {
-      const createdAssignment = await this.veriguideHttpClient.post(`assignments`, createAssignmentRequest ).toPromise() as Assignment;
+      const createdAssignment = await this.verimarkerHttpClient.post(`assignments`, createAssignmentRequest ).toPromise() as Assignment;
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Create Assignment',

@@ -29,7 +29,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
   constructor(private userService: UserService,
               private http: HttpClient,
-              private veriguideHttpClient: VerimarkerHttpClient,
+              private verimarkerHttpClient: VerimarkerHttpClient,
               private activatedRoute: ActivatedRoute,
               private route: ActivatedRoute,
               private router: Router,
@@ -127,7 +127,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
     this.spinner.show();
     try {
-      const user = await this.veriguideHttpClient.patch( 'users', updateUserRequest ).toPromise() as User;
+      const user = await this.verimarkerHttpClient.patch( 'users', updateUserRequest ).toPromise() as User;
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Update Existing User',

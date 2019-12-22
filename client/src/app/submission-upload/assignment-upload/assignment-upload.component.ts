@@ -44,7 +44,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VerimarkerHttpClient,
+    private verimarkerHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -72,7 +72,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
   tryToLoadCourses() {
     if ( this.selectedInstructor !== undefined ) {
       this.spinner.show();
-      this.veriguideHttpClient.get<Course[]>(`instructor/${ this.selectedInstructor.userId}/courses/${this.selectedAcadYear.toString()}`)
+      this.verimarkerHttpClient.get<Course[]>(`instructor/${ this.selectedInstructor.userId}/courses/${this.selectedAcadYear.toString()}`)
         .subscribe( courses => {
           this.spinner.hide();
           this.courses = courses;
@@ -84,7 +84,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
     this.courseDescription = this.selectedCourse.courseDescription;
     if ( this.selectedCourse !== undefined ) {
       this.spinner.show();
-      this.veriguideHttpClient.get<Assignment[]>(`assignments/${this.selectedCourse.courseId}`)
+      this.verimarkerHttpClient.get<Assignment[]>(`assignments/${this.selectedCourse.courseId}`)
         .subscribe( assignments => {
           this.spinner.hide();
           this.assignments = assignments;
@@ -129,11 +129,11 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
       }
 
       this.spinner.show();
-      const createdSubmission = await this.veriguideHttpClient.post(`submissions`, createSubmissionRequest).toPromise() as Submission;
+      const createdSubmission = await this.verimarkerHttpClient.post(`submissions`, createSubmissionRequest).toPromise() as Submission;
   
       console.log(  JSON.stringify( createdSubmission ) );
 
-      await this.veriguideHttpClient.put( createdSubmission.submissionUploadUrl, this.selectedFile, true, true ).toPromise();
+      await this.verimarkerHttpClient.put( createdSubmission.submissionUploadUrl, this.selectedFile, true, true ).toPromise();
      
       this.spinner.hide();
       this.alertDialogService.openDialog({

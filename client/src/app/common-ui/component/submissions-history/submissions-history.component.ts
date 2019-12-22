@@ -26,7 +26,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VerimarkerHttpClient,
+    private verimarkerHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -97,7 +97,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
     }).then( async res => {
       if ( res === 'YES') {
         this.spinner.show();
-        const deletedSubmission = await this.veriguideHttpClient.delete(`submissions/${submission.submissionId}`).toPromise();
+        const deletedSubmission = await this.verimarkerHttpClient.delete(`submissions/${submission.submissionId}`).toPromise();
        
         let urlPath;
         if ( this.assignmentId !== 'all' ) {
@@ -106,7 +106,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
           urlPath = `submissions`; // get submissions uploaded by user
         }
 
-        this.submissions = await this.veriguideHttpClient.get<Array<Submission>>( urlPath ).toPromise();
+        this.submissions = await this.verimarkerHttpClient.get<Array<Submission>>( urlPath ).toPromise();
         this.spinner.hide();
 
         this.alertDialogService.openDialog({
@@ -149,7 +149,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
     console.log( JSON.stringify(updateSubmissionRequest) );
 
     this.spinner.show();
-    const updatedSubmission = await this.veriguideHttpClient.patch(`submissions/${submission.submissionId}`, updateSubmissionRequest ).toPromise();
+    const updatedSubmission = await this.verimarkerHttpClient.patch(`submissions/${submission.submissionId}`, updateSubmissionRequest ).toPromise();
     this.spinner.hide();
     this.alertDialogService.openDialog({
       title: 'Update Submission',
