@@ -7,5 +7,5 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class VeriguideCommonTypeModule {
+export class CommonTypeModule {
 }

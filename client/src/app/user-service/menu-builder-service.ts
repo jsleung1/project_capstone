@@ -111,14 +111,14 @@ export class MenuBuilderService implements OnDestroy {
         contentMenuItems.push( {
           name: 'Upload Submission',
           iconPath: 'assets/images/verimarker-main/upload_2.png',
-          description: 'To submit your assignment to VeriGuide.',
+          description: 'To submit your assignment to VeriMarker.',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
 
         contentMenuItems.push({
           name: 'Submission History',
           iconPath: 'assets/images/verimarker-main/history.png',
-          description: 'View your submissions that were uploaded to VeriGuide',
+          description: 'View your submissions that were uploaded to VeriMarker',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
       }

@@ -27,15 +27,6 @@
     font-size: 12pt;
     box-shadow: none !important;
 }
-.veriguide-logo-small {
-	height: 58px;
-	overflow: hidden;
-	text-indent: -9999px;
-	background-repeat: no-repeat;
-	background-position: left top;
-	display: block;
-	background-image: url('../../../../assets/images/verimarker-common-ui/veriguidLogoForAlertBox.jpg');
-}
 .alert-dialog-header-label {
     padding-top: 10px;
     font-size: 14pt;

@@ -25,8 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule
   ],
   providers: [
-    CookieService,
-    // [{ provide: URL_PATH_CONFIG, useValue: VeriguidePathConfig }]
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

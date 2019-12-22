@@ -8,7 +8,7 @@ import { LoggedInUser, AuthenticationStateEnum } from '../model/loggedInUser';
 })
 export class UserService {
 
-    private readonly cookieName = 'veriguide-v2-7bf996f9-35ab-4a1b-a5af-3593a333b168';
+    private readonly cookieName = 'verimarker-v2-7bf996f9-35ab-4a1b-a5af-3593a333b168';
 
     private loggedInUserObservable = new BehaviorSubject<LoggedInUser>({
         authenticationState: AuthenticationStateEnum.NeedToLogin,

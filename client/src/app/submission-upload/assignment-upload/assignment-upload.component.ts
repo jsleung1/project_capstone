@@ -138,7 +138,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
       this.spinner.hide();
       this.alertDialogService.openDialog({
         title: 'Upload New Submission',
-        message: 'Successfully uploaded submission to VeriGuide.',
+        message: 'Successfully uploaded submission to VeriMarker.',
         dialogType: 'OKDialog'
       }).then( res => {
         this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );

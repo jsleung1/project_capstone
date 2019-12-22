@@ -110,7 +110,6 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
             idToken: this.registerUser.idToken,
             userId: user.userId
           });
-          // this.router.navigate( [ veriguideInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
         });
       }
     } catch (e) {

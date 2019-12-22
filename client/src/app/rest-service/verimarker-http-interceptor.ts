@@ -15,7 +15,7 @@ export class VerimarkerHttpInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError(e => {
         this.alertDialogService.openDialog({
-          title: `VeriGuide Returns Error Code ${e.status}`,
+          title: `VeriMarker Returns Error Code ${e.status}`,
           message: e.error,
           dialogType: 'OKDialog'
         }).then( res => {
