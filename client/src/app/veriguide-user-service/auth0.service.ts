@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 import { authConfig } from '../config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user-service';
-import { User } from '../veriguide-model/rest-api-response/User';
+import { User } from '../model/rest-api-response/User';
 import { Router } from '@angular/router';
 import { URL_PATH_CONFIG, verimarkerInjectors } from '../common-type/verimarker-injectors';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { apiEndpoint } from '../config';
-import { AuthenticationStateEnum } from '../veriguide-model/loggedInUser';
+import { AuthenticationStateEnum } from '../model/loggedInUser';
 
 @Injectable({
   providedIn: 'root'

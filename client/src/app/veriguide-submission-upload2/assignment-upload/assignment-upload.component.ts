@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NgbDateStruct, NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 
-import { AcadYearsNumber } from 'src/app/veriguide-model/clientConstants';
-import { User } from 'src/app/veriguide-model/rest-api-response/User';
-import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
-import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
+import { AcadYearsNumber } from 'src/app/model/clientConstants';
+import { User } from 'src/app/model/rest-api-response/User';
+import { Course } from 'src/app/model/rest-api-response/Course';
+import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { CreateSubmissionRequest } from 'src/app/veriguide-model/rest-api-request/submission/CreateSubmissionRequest';
-import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
+import { CreateSubmissionRequest } from 'src/app/model/rest-api-request/submission/CreateSubmissionRequest';
+import { Submission } from 'src/app/model/rest-api-response/Submission';
 import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 import { UtilService } from 'src/app/veriguide-user-service/util.service';
 

@@ -1,4 +1,4 @@
-import { AuthenticationStateEnum, LoggedInUser } from './veriguide-model/loggedInUser';
+import { AuthenticationStateEnum, LoggedInUser } from './model/loggedInUser';
 import { TopMenuItem } from './common-type/top-menu-item';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';

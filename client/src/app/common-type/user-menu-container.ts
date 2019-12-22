@@ -1,7 +1,7 @@
 
 import { TopMenuItem } from './top-menu-item';
 import { ContentMenuItem } from './content-menu-item';
-import { LoggedInUser } from '../veriguide-model/loggedInUser';
+import { LoggedInUser } from '../model/loggedInUser';
 
 export class UserMenuContainer {
     topMenuItems: TopMenuItem[] = new Array();

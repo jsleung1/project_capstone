@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
+import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { UpdateAssignmentRequest } from 'src/app/veriguide-model/rest-api-request/assignment/UpdateAssignmentRequest';
+import { UpdateAssignmentRequest } from 'src/app/model/rest-api-request/assignment/UpdateAssignmentRequest';
 import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 import { AssignmentInfo } from '../assignment-info';
-import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
-import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
+import { Course } from 'src/app/model/rest-api-response/Course';
+import { CoursesAssignmentsDTO } from 'src/app/model/coursesAssignmentsDTO';
 
 @Component({
   selector: 'app-assignment-info',

@@ -6,8 +6,8 @@ import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserMenuContainer } from '../common-type/user-menu-container';
 import { ContentMenuItem } from '../common-type/content-menu-item';
-import { Instructor, Student } from '../veriguide-model/rest-api-response/User';
-import { AuthenticationStateEnum, LoggedInUser } from '../veriguide-model/loggedInUser';
+import { Instructor, Student } from '../model/rest-api-response/User';
+import { AuthenticationStateEnum, LoggedInUser } from '../model/loggedInUser';
 
 @Injectable({
     providedIn: 'root'

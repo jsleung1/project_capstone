@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Submission } from 'src/app/veriguide-model/rest-api-response/Submission';
+import { Submission } from 'src/app/model/rest-api-response/Submission';
 import { Observable } from 'rxjs';
-import { AssignmentsSubmissionsDTO } from 'src/app/veriguide-model/assignmentsSubmissionsDTO';
-import { Assignment } from 'src/app/veriguide-model/rest-api-response/Assignment';
+import { AssignmentsSubmissionsDTO } from 'src/app/model/assignmentsSubmissionsDTO';
+import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 
 @Injectable({
   providedIn: 'root'

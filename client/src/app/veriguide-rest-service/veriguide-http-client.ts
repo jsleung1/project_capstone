@@ -5,7 +5,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { apiEndpoint } from '../config';
-import { LoggedInUser, AuthenticationStateEnum } from '../veriguide-model/loggedInUser';
+import { LoggedInUser, AuthenticationStateEnum } from '../model/loggedInUser';
 
 @Injectable({
     providedIn: 'root'

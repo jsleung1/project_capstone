@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Instructor } from 'src/app/veriguide-model/rest-api-response/User';
+import { User, Instructor } from 'src/app/model/rest-api-response/User';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';

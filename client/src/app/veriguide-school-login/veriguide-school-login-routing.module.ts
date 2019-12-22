@@ -5,7 +5,7 @@ import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.
 import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
 import { UserRegistrationComponent } from '../common-ui/component/user-registration/user-registration.component';
 import { Auth0ResolverService } from '../veriguide-user-service/auth0-resolver.service';
-import { AuthenticationStateEnum } from '../veriguide-model/loggedInUser';
+import { AuthenticationStateEnum } from '../model/loggedInUser';
 
 const routes: Routes = [
   {

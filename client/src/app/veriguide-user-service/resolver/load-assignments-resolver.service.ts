@@ -3,10 +3,10 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { VeriguideHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
 import { UserService } from '../user-service';
 import { Observable } from 'rxjs';
-import { Assignment } from '../../veriguide-model/rest-api-response/Assignment';
+import { Assignment } from '../../model/rest-api-response/Assignment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { CoursesAssignmentsDTO } from 'src/app/veriguide-model/coursesAssignmentsDTO';
-import { Course } from 'src/app/veriguide-model/rest-api-response/Course';
+import { CoursesAssignmentsDTO } from 'src/app/model/coursesAssignmentsDTO';
+import { Course } from 'src/app/model/rest-api-response/Course';
 
 @Injectable({
   providedIn: 'root'

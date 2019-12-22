@@ -3,7 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { User } from 'src/app/veriguide-model/rest-api-response/User';
+import { User } from 'src/app/model/rest-api-response/User';
 
 @Injectable({
   providedIn: 'root'

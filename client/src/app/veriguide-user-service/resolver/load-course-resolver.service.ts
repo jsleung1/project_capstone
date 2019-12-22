@@ -6,7 +6,7 @@ import { Resolve,
 import { VeriguideHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
 import { Observable, Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Course } from '../../veriguide-model/rest-api-response/Course';
+import { Course } from '../../model/rest-api-response/Course';
 
 
 @Injectable({

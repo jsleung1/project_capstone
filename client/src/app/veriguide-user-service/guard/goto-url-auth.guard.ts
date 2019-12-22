@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/veriguide-user-service/user-service';
-import { AuthenticationStateEnum, LoggedInUser } from '../../veriguide-model/loggedInUser';
+import { AuthenticationStateEnum, LoggedInUser } from '../../model/loggedInUser';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, UrlTree, Router, CanActivate, Route } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
