@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VerimarkerRestServiceModule } from './veriguide-rest-service/veriguide-rest-service.module';
+import { VerimarkerRestServiceModule } from './veriguide-rest-service/verimarker-rest-service.module';
 
 import { CookieService } from 'ngx-cookie-service';
 import { NgxSpinnerModule } from 'ngx-spinner';

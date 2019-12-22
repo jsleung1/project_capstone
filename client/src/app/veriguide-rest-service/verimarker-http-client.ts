@@ -1,5 +1,5 @@
 
-import { UserService } from './../veriguide-user-service/user-service';
+import { UserService } from '../veriguide-user-service/user-service';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import {Injectable, OnDestroy} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';

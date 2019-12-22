@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { VerimarkerHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from '../../veriguide-rest-service/verimarker-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/model/rest-api-response/Course';

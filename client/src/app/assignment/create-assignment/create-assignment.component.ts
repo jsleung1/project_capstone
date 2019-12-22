@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/verimarker-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
