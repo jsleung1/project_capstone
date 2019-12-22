@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GotoUrlAuthGuard } from '../veriguide-user-service/guard/goto-url-auth.guard';
+import { GotoUrlAuthGuard } from '../user-service/guard/goto-url-auth.guard';
 import { verimarkerInjectors, URL_PATH_CONFIG } from '../common-type/verimarker-injectors';
 import { MainMenuComponent } from '../common-ui/common-ui';
 

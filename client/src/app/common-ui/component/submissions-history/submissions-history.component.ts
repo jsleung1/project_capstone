@@ -1,4 +1,4 @@
-import { UserService } from 'src/app/veriguide-user-service/user-service';
+import { UserService } from 'src/app/user-service/user-service';
 import { LoggedInUser } from '../../../model/loggedInUser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Submission } from 'src/app/model/rest-api-response/Submission';

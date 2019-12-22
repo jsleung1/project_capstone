@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/model/rest-api-request/submission/CreateSubmissionRequest';
 import { Submission } from 'src/app/model/rest-api-response/Submission';
 import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
-import { UtilService } from 'src/app/veriguide-user-service/util.service';
+import { UtilService } from 'src/app/user-service/util.service';
 
 @Component({
   selector: 'app-assignment-upload',

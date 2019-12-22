@@ -5,9 +5,9 @@ import { Router, NavigationEnd, NavigationStart, NavigationCancel, NavigationErr
 
 import { UrlPathConfig } from './common-type/url-path-config';
 import { verimarkerInjectors, URL_PATH_CONFIG } from './common-type/verimarker-injectors';
-import { MenuBuilderService } from './veriguide-user-service/menu-builder-service';
+import { MenuBuilderService } from './user-service/menu-builder-service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Auth0Service } from './veriguide-user-service/auth0.service';
+import { Auth0Service } from './user-service/auth0.service';
 
 @Component({
   selector: 'app-root',

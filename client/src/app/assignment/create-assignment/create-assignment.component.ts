@@ -4,7 +4,7 @@ import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/model/rest-api-response/Course';
-import { UtilService } from 'src/app/veriguide-user-service/util.service';
+import { UtilService } from 'src/app/user-service/util.service';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAssignmentRequest } from 'src/app/model/rest-api-request/assignment/CreateAssignmentRequest';
 import { Assignment } from 'src/app/model/rest-api-response/Assignment';

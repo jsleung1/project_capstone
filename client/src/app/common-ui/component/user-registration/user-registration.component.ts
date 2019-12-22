@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../../../veriguide-user-service/user-service';
+import { UserService } from '../../../user-service/user-service';
 import { User, Instructor, Student } from '../../../model/rest-api-response/User';
-import { UtilService } from '../../../veriguide-user-service/util.service';
+import { UtilService } from '../../../user-service/util.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CreateUserRequest } from '../../../model/rest-api-request/user/CreateUserRequest';
 import { UpdateUserRequest } from '../../../model/rest-api-request/user/UpdateUserRequest';

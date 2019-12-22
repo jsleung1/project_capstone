@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AcadYearsNumber } from '../../model/clientConstants';
 import { Course } from '../../model/rest-api-response/Course';
-import { UtilService } from '../../veriguide-user-service/util.service';
+import { UtilService } from '../../user-service/util.service';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { VerimarkerHttpClient } from 'src/app/rest-service/verimarker-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';

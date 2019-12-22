@@ -1,4 +1,4 @@
-import { Auth0Service } from '../../veriguide-user-service/auth0.service';
+import { Auth0Service } from '../../user-service/auth0.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

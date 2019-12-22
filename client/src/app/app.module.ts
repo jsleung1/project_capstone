@@ -1,4 +1,4 @@
-import { VerimarkerUserServiceModule } from './veriguide-user-service/verimarker-user-service.module';
+import { VerimarkerUserServiceModule } from './user-service/verimarker-user-service.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
