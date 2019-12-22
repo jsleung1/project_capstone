@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'school',
-    loadChildren: () => import('./veriguide-school-login/veriguide-school-login.module').then(mod => mod.VerimarkerSchoolLoginModule)
+    loadChildren: () => import('./veriguide-school-login/verimarker-school-login.module').then(mod => mod.VerimarkerSchoolLoginModule)
   },
 ];
 
