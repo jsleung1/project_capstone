@@ -102,7 +102,7 @@ export class MenuBuilderService implements OnDestroy {
         contentMenuItems.push({
           name: 'My Submissions',
           iconPath: 'assets/images/verimarker-main/upload_2.png',
-          description: 'Submissions uploaded to me for My Assignments',
+          description: 'Student Submissions uploaded to me for My Assignments',
           url:  verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
         });
       }

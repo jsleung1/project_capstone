@@ -54,6 +54,14 @@ export class AssignmentInfoComponent implements OnInit {
         this.addToAssignmentInfos(assignments);
       } else {
         this.courses = coursesAssignmentsDTO.courses;
+        if (this.courses.length == 0) {
+          this.alertDialogService.openDialog({
+            title: 'Get Course Assignments',
+            message: 'Cannot load the course assignments because you do not have any courses created.  Please go to the Courses menu and create a course first.',
+            dialogType: 'OKDialog'
+          }).then( res => {
+          });
+        }
       }
     });
   }
