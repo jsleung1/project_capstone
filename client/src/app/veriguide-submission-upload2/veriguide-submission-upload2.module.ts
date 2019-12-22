@@ -2,7 +2,7 @@ import { AssignmentUploadComponent } from './assignment-upload/assignment-upload
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VeriguideSubmissionUpload2RoutingModule } from './veriguide-submission-upload2-routing.module';
+import { VerimarkerSubmissionUpload2RoutingModule } from './veriguide-submission-upload2-routing.module';
 import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     NgbModule,
-    VeriguideSubmissionUpload2RoutingModule,
+    VerimarkerSubmissionUpload2RoutingModule,
     VerimarkerCommonUiModule
   ],
   // dynamic components:
@@ -23,4 +23,4 @@ import { FormsModule } from '@angular/forms';
     AssignmentUploadComponent,
   ],
 })
-export class VeriguideSubmissionUpload2Module { }
+export class VerimarkerSubmissionUpload2Module { }

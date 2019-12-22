@@ -19,5 +19,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class VeriguideSubmissionUpload2RoutingModule {
+export class VerimarkerSubmissionUpload2RoutingModule {
 }
