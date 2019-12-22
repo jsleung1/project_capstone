@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "startssl": "ng serve --host lms.veriguide.org --port 4200 --ssl",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
