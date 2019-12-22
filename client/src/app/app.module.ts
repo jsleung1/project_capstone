@@ -1,4 +1,4 @@
-import { VeriguideUserServiceModule } from './veriguide-user-service/veriguide-user-service.module';
+import { VerimarkerUserServiceModule } from './veriguide-user-service/veriguide-user-service.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     FormsModule,
     VerimarkerRestServiceModule,
-    VeriguideUserServiceModule,
+    VerimarkerUserServiceModule,
     NgxSpinnerModule
   ],
   providers: [

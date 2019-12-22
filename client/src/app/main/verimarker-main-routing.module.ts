@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.relativePath,
-    loadChildren: () => import('../veriguide-submission-upload2/verimarker-submission-upload.module').then(mod => mod.VerimarkerSubmissionUpload2Module)
+    loadChildren: () => import('../submission-upload/verimarker-submission-upload.module').then(mod => mod.VerimarkerSubmissionUpload2Module)
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.relativePath,
