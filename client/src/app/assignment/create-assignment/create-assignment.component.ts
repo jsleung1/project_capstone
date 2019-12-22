@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -40,7 +40,7 @@ export class CreateAssignmentComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VeriguideHttpClient,
+    private veriguideHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,

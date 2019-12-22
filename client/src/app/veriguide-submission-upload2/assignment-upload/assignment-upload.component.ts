@@ -6,7 +6,7 @@ import { User } from 'src/app/model/rest-api-response/User';
 import { Course } from 'src/app/model/rest-api-response/Course';
 import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreateSubmissionRequest } from 'src/app/model/rest-api-request/submission/CreateSubmissionRequest';
@@ -44,7 +44,7 @@ export class AssignmentUploadComponent implements OnInit, OnDestroy  {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VeriguideHttpClient,
+    private veriguideHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,

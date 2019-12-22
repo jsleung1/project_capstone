@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -32,7 +32,7 @@ export class AssignmentInfoComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VeriguideHttpClient,
+    private veriguideHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,

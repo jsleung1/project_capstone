@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { VeriguideHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
 import { UserService } from '../user-service';
 import { Observable } from 'rxjs';
 import { Assignment } from '../../model/rest-api-response/Assignment';
@@ -13,7 +13,7 @@ import { Course } from 'src/app/model/rest-api-response/Course';
 })
 export class LoadAssignmentsResolverService implements Resolve<CoursesAssignmentsDTO>  {
 
-  constructor(private veriguideHttpClient: VeriguideHttpClient,
+  constructor(private veriguideHttpClient: VerimarkerHttpClient,
               private userService: UserService,
               private spinner: NgxSpinnerService  ) {
   }

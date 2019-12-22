@@ -10,7 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { URL_PATH_CONFIG, verimarkerInjectors } from '../../../common-type/verimarker-injectors';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { apiEndpoint } from 'src/app/config';
 import { LoggedInUser, AuthenticationStateEnum } from 'src/app/model/loggedInUser';
 
@@ -29,7 +29,7 @@ export class UserRegistrationComponent implements OnInit, OnDestroy  {
 
   constructor(private userService: UserService,
               private http: HttpClient,
-              private veriguideHttpClient: VeriguideHttpClient,
+              private veriguideHttpClient: VerimarkerHttpClient,
               private activatedRoute: ActivatedRoute,
               private route: ActivatedRoute,
               private router: Router,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User, Instructor } from 'src/app/model/rest-api-response/User';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoadInstructorsResolverService implements Resolve<User[]> {
 
-  constructor(private veriguideHttpClient: VeriguideHttpClient,
+  constructor(private veriguideHttpClient: VerimarkerHttpClient,
     private spinner: NgxSpinnerService) { 
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { VeriguideHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/model/rest-api-response/Course';
@@ -22,7 +22,7 @@ export class CourseInfoComponent implements OnInit {
   private selectedAcadYear = 'All';
 
   constructor( private activatedRoute: ActivatedRoute,
-               private veriguideHttpClient: VeriguideHttpClient,
+               private veriguideHttpClient: VerimarkerHttpClient,
                private alertDialogService: AlertDialogService,
                private spinner: NgxSpinnerService,
                private route: ActivatedRoute,

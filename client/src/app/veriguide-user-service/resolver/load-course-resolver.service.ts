@@ -3,7 +3,7 @@ import { Resolve,
          RouterStateSnapshot,
          ActivatedRouteSnapshot
 } from '@angular/router';
-import { VeriguideHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from '../../veriguide-rest-service/veriguide-http-client';
 import { Observable, Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Course } from '../../model/rest-api-response/Course';
@@ -13,7 +13,7 @@ import { Course } from '../../model/rest-api-response/Course';
   providedIn: 'root'
 })
 export class LoadCourseResolverService implements Resolve<Course> {
-  constructor( private veriguideHttpClient: VeriguideHttpClient,
+  constructor( private veriguideHttpClient: VerimarkerHttpClient,
                private spinner: NgxSpinnerService  ) {
   }
 

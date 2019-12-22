@@ -3,7 +3,7 @@ import { LoggedInUser } from '../../../model/loggedInUser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Submission } from 'src/app/model/rest-api-response/Submission';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UpdateSubmissionRequest } from 'src/app/model/rest-api-request/submission/UpdateSubmissionRequest';
@@ -26,7 +26,7 @@ export class SubmissionsHistoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private veriguideHttpClient: VeriguideHttpClient,
+    private veriguideHttpClient: VerimarkerHttpClient,
     private alertDialogService: AlertDialogService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,

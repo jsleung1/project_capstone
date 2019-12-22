@@ -10,7 +10,7 @@ import { LoggedInUser, AuthenticationStateEnum } from '../model/loggedInUser';
 @Injectable({
     providedIn: 'root'
 })
-export class VeriguideHttpClient implements OnDestroy {
+export class VerimarkerHttpClient implements OnDestroy {
 
     private loggedInUser: LoggedInUser = { authenticationState: AuthenticationStateEnum.NeedToLogin };
     private subscription: Subscription;

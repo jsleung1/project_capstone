@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from 'src/app/model/rest-api-response/User';
 
@@ -10,7 +10,7 @@ import { User } from 'src/app/model/rest-api-response/User';
 })
 export class LoadUserResolverService implements Resolve<User> {
   
-  constructor(private veriguideHttpClient: VeriguideHttpClient,
+  constructor(private veriguideHttpClient: VerimarkerHttpClient,
               private spinner: NgxSpinnerService) { 
         
   }

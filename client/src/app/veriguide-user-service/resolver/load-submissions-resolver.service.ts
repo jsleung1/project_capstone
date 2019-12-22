@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Submission } from 'src/app/model/rest-api-response/Submission';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { Assignment } from 'src/app/model/rest-api-response/Assignment';
 export class LoadSubmissionsResolverService implements Resolve<AssignmentsSubmissionsDTO>  {
 
   constructor(
-    private veriguideHttpClient: VeriguideHttpClient,
+    private veriguideHttpClient: VerimarkerHttpClient,
     private spinner: NgxSpinnerService  ) {
   }
 

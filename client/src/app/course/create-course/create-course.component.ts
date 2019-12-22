@@ -3,7 +3,7 @@ import { AcadYearsNumber } from '../../model/clientConstants';
 import { Course } from '../../model/rest-api-response/Course';
 import { UtilService } from '../../veriguide-user-service/util.service';
 import { AlertDialogService } from 'src/app/common-ui/dialog/alert-dialog/alert-dialog-service';
-import { VeriguideHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
+import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/veriguide-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateCourseRequest } from 'src/app/model/rest-api-request/course/CreateCourseRequest';
@@ -22,7 +22,7 @@ export class CreateCourseComponent implements OnInit {
     courseDescription: '',
     acadYear: 0
   }
-  constructor( private veriguideHttpClient: VeriguideHttpClient,
+  constructor( private veriguideHttpClient: VerimarkerHttpClient,
                private alertDialogService: AlertDialogService,
                private spinner: NgxSpinnerService,
                private route: ActivatedRoute,
