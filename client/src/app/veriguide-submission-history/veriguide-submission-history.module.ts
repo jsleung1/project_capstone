@@ -2,15 +2,15 @@ import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.modu
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VeriguideSubmissionHistoryRoutingModule } from './veriguide-submission-history-routing.module';
+import { VerimarkerSubmissionHistoryRoutingModule } from './veriguide-submission-history-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    VeriguideSubmissionHistoryRoutingModule,
+    VerimarkerSubmissionHistoryRoutingModule,
     VerimarkerCommonUiModule,
     NgbModule
   ]
 })
-export class VeriguideSubmissionHistoryModule { }
+export class VerimarkerSubmissionHistoryModule { }
