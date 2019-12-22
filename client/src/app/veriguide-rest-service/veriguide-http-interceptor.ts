@@ -4,13 +4,11 @@ import {Observable} from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { AlertDialogService } from '../common-ui/dialog/alert-dialog/alert-dialog-service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
-export class VeriguideHttpInterceptor implements HttpInterceptor {
+export class VerimarkerHttpInterceptor implements HttpInterceptor {
 
-  constructor( private alertDialogService: AlertDialogService,
-               private spinner: NgxSpinnerService ) {
+  constructor( private alertDialogService: AlertDialogService ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
