@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VeriguideSchoolLoginRoutingModule } from './veriguide-school-login-routing.module';
+import { VerimarkerSchoolLoginRoutingModule } from './veriguide-school-login-routing.module';
 import { SchoolLoginComponent } from './school-login/school-login.component';
 import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 
@@ -13,11 +13,11 @@ import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.modu
   imports: [
     CommonModule,
     FormsModule,
-    VeriguideSchoolLoginRoutingModule,
+    VerimarkerSchoolLoginRoutingModule,
     VerimarkerCommonUiModule
   ]
 })
-export class VeriguideSchoolLoginModule {
+export class VerimarkerSchoolLoginModule {
 
   constructor() {
   }
