@@ -17,4 +17,4 @@ import { BrowserModule } from '@angular/platform-browser';
     VerimarkerCommonUiModule
   ]
 })
-export class VeriguideRestServiceModule { }
+export class VerimarkerRestServiceModule { }
