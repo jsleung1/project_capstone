@@ -87,21 +87,21 @@ export class MenuBuilderService implements OnDestroy {
       if ( loggedInUser.userType === Instructor ) {
         contentMenuItems.push({
           name: 'My Courses',
-          iconPath: 'assets/images/veriguide-main/info.png',
+          iconPath: 'assets/images/verimarker-main/info.png',
           description: 'Teaching Courses by Academic Year',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.fullPath
         } );
 
         contentMenuItems.push({
           name: 'My Assignments',
-          iconPath: 'assets/images/veriguide-main/deadline.png',
+          iconPath: 'assets/images/verimarker-main/deadline.png',
           description: 'Assignments in My Teaching Course',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath.replace(':courseId', '0' )
         });
 
         contentMenuItems.push({
           name: 'My Submissions',
-          iconPath: 'assets/images/veriguide-main/upload_2.png',
+          iconPath: 'assets/images/verimarker-main/upload_2.png',
           description: 'Submissions uploaded to me for My Assignments',
           url:  verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', '0')
         });
@@ -110,14 +110,14 @@ export class MenuBuilderService implements OnDestroy {
       if ( loggedInUser.userType === Student ) {
         contentMenuItems.push( {
           name: 'Upload Submission',
-          iconPath: 'assets/images/veriguide-main/upload_2.png',
+          iconPath: 'assets/images/verimarker-main/upload_2.png',
           description: 'To submit your assignment to VeriGuide.',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.fullPath
         });
 
         contentMenuItems.push({
           name: 'Submission History',
-          iconPath: 'assets/images/veriguide-main/history.png',
+          iconPath: 'assets/images/verimarker-main/history.png',
           description: 'View your submissions that were uploaded to VeriGuide',
           url: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.fullPath.replace(':assignmentId', 'all' )
         });
@@ -125,7 +125,7 @@ export class MenuBuilderService implements OnDestroy {
 
       contentMenuItems.push({
         name: 'User Settings',
-        iconPath: 'assets/images/veriguide-main/personnel.png',
+        iconPath: 'assets/images/verimarker-main/personnel.png',
         description: 'Click here to change user settings',
         url: verimarkerInjectors.get(URL_PATH_CONFIG).userRegistrationPage.fullPath.replace( ':userId', loggedInUser.userId )
        } );
