@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User, Instructor } from 'src/app/model/rest-api-response/User';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/verimarker-http-client';
+import { VerimarkerHttpClient } from 'src/app/rest-service/verimarker-http-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({

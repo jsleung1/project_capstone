@@ -3,7 +3,7 @@ import { Resolve,
          RouterStateSnapshot,
          ActivatedRouteSnapshot
 } from '@angular/router';
-import { VerimarkerHttpClient } from '../../veriguide-rest-service/verimarker-http-client';
+import { VerimarkerHttpClient } from '../../rest-service/verimarker-http-client';
 import { Observable, Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Course } from '../../model/rest-api-response/Course';

@@ -10,7 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { URL_PATH_CONFIG, verimarkerInjectors } from '../../../common-type/verimarker-injectors';
 import { AlertDialogService } from '../../dialog/alert-dialog/alert-dialog-service';
 import { Subscription } from 'rxjs';
-import { VerimarkerHttpClient } from 'src/app/veriguide-rest-service/verimarker-http-client';
+import { VerimarkerHttpClient } from 'src/app/rest-service/verimarker-http-client';
 import { apiEndpoint } from 'src/app/config';
 import { LoggedInUser, AuthenticationStateEnum } from 'src/app/model/loggedInUser';
 
