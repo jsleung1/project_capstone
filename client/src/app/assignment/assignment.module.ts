@@ -2,7 +2,7 @@ import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.modu
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AssignmentRoutingModule } from './assignment-routing.module';
+import { VerimarkerAssignmentRoutingModule } from './assignment-routing.module';
 import { AssignmentInfoComponent } from './assignment-info/assignment-info.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,9 +12,9 @@ import { CreateAssignmentComponent } from './create-assignment/create-assignment
     CommonModule,
     FormsModule,
     NgbModule,
-    AssignmentRoutingModule,
+    VerimarkerAssignmentRoutingModule,
     VerimarkerCommonUiModule
   ],
   declarations: [AssignmentInfoComponent, CreateAssignmentComponent]
 })
-export class VAssignmentModule { }
+export class VerimarkerAssignmentModule { }
