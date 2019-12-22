@@ -11,4 +11,4 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
   ],
   declarations: [MainMenuComponent]
 })
-export class VeriguideMainModule { }
+export class VerimarkerMainModule { }

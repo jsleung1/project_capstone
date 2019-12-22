@@ -34,7 +34,7 @@ const routes: Routes = [
   },  
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.relativePath,
-    loadChildren: () => import('../veriguide-main/veriguide-main.module').then(mod => mod.VeriguideMainModule)
+    loadChildren: () => import('../veriguide-main/veriguide-main.module').then(mod => mod.VerimarkerMainModule)
   }
 ];
 
