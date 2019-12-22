@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { VeriguideCourseRoutingModule } from './veriguide-course-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { VeriguideCourseInfoComponent } from './veriguide-course-info/veriguide-course-info.component';
+import { CourseInfoComponent } from './course-info/course-info.component';
 import { FormsModule } from '@angular/forms';
 import { CreateCourseComponent } from './create-course/create-course.component';
 
@@ -17,7 +17,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
     NgbModule
   ],
   declarations: [
-    VeriguideCourseInfoComponent,
+    CourseInfoComponent,
     CreateCourseComponent,
   ]
 })

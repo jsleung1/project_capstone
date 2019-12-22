@@ -9,11 +9,11 @@ import { AcadYearsString } from 'src/app/veriguide-model/clientConstants';
 import { verimarkerInjectors, URL_PATH_CONFIG } from 'src/app/common-type/verimarker-injectors';
 
 @Component({
-  selector: 'app-veriguide-course-info',
-  templateUrl: './veriguide-course-info.component.html',
-  styleUrls: ['./veriguide-course-info.component.scss']
+  selector: 'app-course-info',
+  templateUrl: './course-info.component.html',
+  styleUrls: ['./course-info.component.scss']
 })
-export class VeriguideCourseInfoComponent implements OnInit {
+export class CourseInfoComponent implements OnInit {
 
   private courses: Array<Course> = [];
   private filteredCourses: Array<Course> = [];
