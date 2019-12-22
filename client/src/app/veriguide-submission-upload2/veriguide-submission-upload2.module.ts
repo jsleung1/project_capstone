@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VeriguideSubmissionUpload2RoutingModule } from './veriguide-submission-upload2-routing.module';
-import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
+import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgbModule,
     VeriguideSubmissionUpload2RoutingModule,
-    VeriguideCommonUiModule
+    VerimarkerCommonUiModule
   ],
   // dynamic components:
   entryComponents: [

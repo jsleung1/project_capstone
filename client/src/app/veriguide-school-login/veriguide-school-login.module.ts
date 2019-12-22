@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { VeriguideSchoolLoginRoutingModule } from './veriguide-school-login-routing.module';
 import { SchoolLoginComponent } from './school-login/school-login.component';
-import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
+import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module
     CommonModule,
     FormsModule,
     VeriguideSchoolLoginRoutingModule,
-    VeriguideCommonUiModule
+    VerimarkerCommonUiModule
   ]
 })
 export class VeriguideSchoolLoginModule {

@@ -1,4 +1,4 @@
-import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
+import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     VeriguideSubmissionHistoryRoutingModule,
-    VeriguideCommonUiModule,
+    VerimarkerCommonUiModule,
     NgbModule
   ]
 })

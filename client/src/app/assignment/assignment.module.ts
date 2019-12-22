@@ -1,4 +1,4 @@
-import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
+import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { CreateAssignmentComponent } from './create-assignment/create-assignment
     FormsModule,
     NgbModule,
     AssignmentRoutingModule,
-    VeriguideCommonUiModule
+    VerimarkerCommonUiModule
   ],
   declarations: [AssignmentInfoComponent, CreateAssignmentComponent]
 })

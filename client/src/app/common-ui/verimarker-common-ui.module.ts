@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { VeriguideCommonUiRoutingModule } from './veriguide-common-ui-routing.module';
+import { VeriMarkerCommonUiRoutingModule } from './verimarker-common-ui-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 
@@ -15,7 +15,7 @@ import { SubmissionsHistoryComponent } from './component/submissions-history/sub
     CommonModule,
     NgbModule,
     NgxSpinnerModule,
-    VeriguideCommonUiRoutingModule,
+    VeriMarkerCommonUiRoutingModule,
     FormsModule,
   ],
   entryComponents: [
@@ -27,4 +27,4 @@ import { SubmissionsHistoryComponent } from './component/submissions-history/sub
     SubmissionsHistoryComponent 
   ]
 })
-export class VeriguideCommonUiModule { }
+export class VerimarkerCommonUiModule { }

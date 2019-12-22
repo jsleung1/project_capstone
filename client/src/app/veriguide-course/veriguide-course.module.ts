@@ -1,4 +1,4 @@
-import { VeriguideCommonUiModule } from '../common-ui/veriguide-common-ui.module';
+import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
   imports: [
     CommonModule,
     VeriguideCourseRoutingModule,
-    VeriguideCommonUiModule,
+    VerimarkerCommonUiModule,
     FormsModule,
     NgbModule
   ],
