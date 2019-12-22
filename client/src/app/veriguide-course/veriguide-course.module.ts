@@ -2,7 +2,7 @@ import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.modu
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VeriguideCourseRoutingModule } from './veriguide-course-routing.module';
+import { VerimarkerCourseRoutingModule } from './veriguide-course-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseInfoComponent } from './course-info/course-info.component';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 @NgModule({
   imports: [
     CommonModule,
-    VeriguideCourseRoutingModule,
+    VerimarkerCourseRoutingModule,
     VerimarkerCommonUiModule,
     FormsModule,
     NgbModule
@@ -21,4 +21,4 @@ import { CreateCourseComponent } from './create-course/create-course.component';
     CreateCourseComponent,
   ]
 })
-export class VeriguideCourseModule { }
+export class VerimarkerCourseModule { }

@@ -33,4 +33,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class VeriguideCourseRoutingModule { }
+export class VerimarkerCourseRoutingModule { }
