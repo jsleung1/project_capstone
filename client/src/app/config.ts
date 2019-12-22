@@ -7,7 +7,7 @@ export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com
 export const authConfig_prod = {
   domain: 'dev-clq116aa.auth0.com',
   clientId: 'QLaMP23u6l9whbZWmXf6PTF9eKxMSVU8',
-  callbackUrl: 'https://verimarker.com/school/auth0'
+  callbackUrl: 'https://www.verimarker.com/school/auth0'
 }
 
 export const authConfig_dev = {
