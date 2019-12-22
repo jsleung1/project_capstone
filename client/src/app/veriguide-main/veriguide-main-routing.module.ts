@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userCourses.relativePath,
-    loadChildren: () => import('../veriguide-course/veriguide-course.module').then(mod => mod.VerimarkerCourseModule)
+    loadChildren: () => import('../veriguide-course/verimarker-course.module').then(mod => mod.VerimarkerCourseModule)
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignments.fullPath, // actually it is a relative path, but full path for a submodule (assignment module)

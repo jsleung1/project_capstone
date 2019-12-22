@@ -2,7 +2,7 @@ import { VerimarkerCommonUiModule } from '../common-ui/verimarker-common-ui.modu
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VerimarkerCourseRoutingModule } from './veriguide-course-routing.module';
+import { VerimarkerCourseRoutingModule } from './verimarker-course-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CourseInfoComponent } from './course-info/course-info.component';
 import { FormsModule } from '@angular/forms';
