@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userAssignmentSubmissionHistory.relativePath,
-    loadChildren: () => import('../veriguide-submission-history/verimarker-submission-history.module').then(mod => mod.VerimarkerSubmissionHistoryModule)
+    loadChildren: () => import('../submission-history/verimarker-submission-history.module').then(mod => mod.VerimarkerSubmissionHistoryModule)
   },
   {
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userSubmissionUpload.relativePath,
