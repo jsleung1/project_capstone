@@ -74,7 +74,7 @@ export class Auth0Service {
             // navigate to the user main page
             this.router.navigate( [ verimarkerInjectors.get(URL_PATH_CONFIG).userMainPage.fullPath ] );
           } else {
-            // navgiate to register new user
+            // navigate  to register new user
             this.userService.setRegisterNewUser({
               authenticationState: AuthenticationStateEnum.NeedToCreate,
               idToken: authResult.idToken,

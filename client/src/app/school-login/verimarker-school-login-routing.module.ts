@@ -21,9 +21,8 @@ const routes: Routes = [
     },
   },
   {
-    // http://localhost:4200/school/auth0
+    // listen path: for dev = http://localhost:4200/school/auth0, for prod = 'https://www.verimarker.com/school/auth0'
     path: verimarkerInjectors.get(URL_PATH_CONFIG).userAuth0CallBackPath.relativePath,
-    // component: MainMenuComponent,
     resolve: {
       auth0ResolverService: Auth0ResolverService
     },
