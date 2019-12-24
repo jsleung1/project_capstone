@@ -12,7 +12,7 @@ Using VeriMarker, student can submit files to the course assignments, view the s
 “Option 2” was selected for the Udacity Cloud Developer Capstone project.  The backend was implemented using Serverless and AWS Lambda functions as taught in the project under Course 5 “Develop & Deploy Serverless App”.  The client is a Single Page Application written in Angular 8.  The Angular client was deployed to AWS S3 / CloudFront with the help of Route 53.  The deployed URL is https://www.verimarker.com
 
 ## Important:
-- Please refer to the pdf file: [**project_capstone_rubrics_verimarker**](https://github.com/jsleung1/serverless_application/blob/master/project_capstone_rubrics_verimarker.pdf) in the main project folder for the project screenshots and meeting the rubrics.  The document contains detail description of the Unit Tests in Section 3, and how to meet the rubrics in Section 4.  In addition, it provides information on how to get started in the Demo project in section 1.
+- Please refer to the pdf file: [**project_capstone_rubrics_verimarker**](https://github.com/jsleung1/serverless_application/blob/master/project_capstone_rubrics_verimarker.pdf) or in [**docx**]() ( in the main project folder for the project screenshots and meeting the rubrics.  The document contains detail description of the Unit Tests in Section 3, and how to meet the rubrics in Section 4.  In addition, it provides information on how to get started with the Demo in section 1.
 
 - Rubrics:
 https://review.udacity.com/#!/rubrics/2578/view
@@ -24,14 +24,7 @@ const apiId = 'lh756iw3bi';
 const env = 'v2';
 
 export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com/${env}`
-/*
-export const authConfig_prod = {
-  domain: 'dev-clq116aa.auth0.com',
-  clientId: 'QLaMP23u6l9whbZWmXf6PTF9eKxMSVU8',
-  callbackUrl: 'https://www.verimarker.com/school/auth0',
-  mode: 'prod'
-}
-*/
+
 export const authConfig_dev = {
   domain: 'dev-clq116aa.auth0.com',
   clientId: 'Z52r8N5nV8h3XvWr3jqZJm9wE3JWi6yq',
@@ -48,9 +41,9 @@ The Postman REST API for VeriMarker can be imported from the file: [**capstone_p
 
 To run the Angular client, please perform the following steps:
 
-1.	Execute: git clone https://github.com/jsleung1/project_capstone_verimarker.git
-2.	In Visual Studio Code, open the parent project folder “project_capstone_verimarker”.
-3.	Open terminal in Visual Studio code, and cd to the client folder (project_capstone_verimarker/client).
-4.	In the client folder, install latest Angular by execute: npm install -g @angular/cli (you can try install Angular locally only to the project by: npm install @angular/cli ,but you need additional setup for that to work).
+1.	git clone https://github.com/jsleung1/project_capstone_verimarker.git
+2.	In Visual Studio Code, open the project folder “project_capstone_verimarker”.
+3.	Open a terminal in Visual Studio code, and cd to the client folder (project_capstone_verimarker/client).
+4.	In the client folder, install latest Angular by execute: npm install -g @angular/cli (you can try install Angular locally to the project by: npm install @angular/cli ,but you need additional setup for that to work).
 
 
