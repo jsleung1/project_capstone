@@ -2,6 +2,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LoggedInUser, AuthenticationStateEnum } from '../model/loggedInUser';
+import { authConfig } from '../config';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class UserService {
 
     getLoggedInUser(): BehaviorSubject<LoggedInUser> {
 
-        const userCookie = this.cookieService.get( this.cookieName );
+        const userCookie = this.cookieService.get( `${this.cookieName}-${authConfig.mode}` );
         let alreadyLoggedInUser: LoggedInUser = null;
 
         if ( userCookie &&  userCookie.length > 0 ) {
@@ -43,12 +44,12 @@ export class UserService {
     setLoggedInUser(loggedInUser: LoggedInUser ) {
 
         // cookie duration same as the Auth0 JWT duration
-        this.cookieService.set( this.cookieName,
+        this.cookieService.set( `${this.cookieName}-${authConfig.mode}`,
                                 JSON.stringify(loggedInUser),
                                 new Date( new Date().getTime() + 36000 * 1000 ),
                                 '/' );
 
-        const alreadyLoggedInUserStr = this.cookieService.get( this.cookieName );
+        const alreadyLoggedInUserStr = this.cookieService.get( `${this.cookieName}-${authConfig.mode}` );
         console.log('alreadyLoggedInUserStr=' + alreadyLoggedInUserStr);
 
         this.loggedInUserObservable.next( loggedInUser );
@@ -63,6 +64,6 @@ export class UserService {
     }
 
     deleteLoggedInUserCookie() {
-        this.cookieService.delete( this.cookieName, '/' );
+        this.cookieService.delete( `${this.cookieName}-${authConfig.mode}` , '/' );
     }
 }
