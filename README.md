@@ -45,5 +45,9 @@ To run the Angular client, please perform the following steps:
 2.	In Visual Studio Code, open the project folder “project_capstone_verimarker”.
 3.	Open a terminal in Visual Studio code, and cd to the client folder (project_capstone_verimarker/client).
 4.	In the client folder, install latest Angular by execute: npm install -g @angular/cli (you can try install Angular locally to the project by: npm install @angular/cli ,but you need additional setup for this to work).
+5.  Verify Angular install correctly by Execute: ng –version (it should return Angular 8.0.6).
+6.	Start the Angular 8, execute: npm run start
+7.	In Chrome Browser, go to the Url: http://localhost:4200
+
 
 
