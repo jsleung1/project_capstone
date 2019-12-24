@@ -13,5 +13,8 @@
         "type": "string"
       }      
     },
+    "required": [
+      "studentReferences"
+    ],
     "additionalProperties": false
 }
