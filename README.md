@@ -12,7 +12,7 @@ Using VeriMarker, student can submit files to the course assignments, view the s
 “Option 2” was selected for the Udacity Cloud Developer Capstone project.  The backend was implemented using Serverless and AWS Lambda functions as taught in the project under Course 5 “Develop & Deploy Serverless App”.  The client is a Single Page Application written in Angular 8.  The Angular client was deployed to AWS S3 / CloudFront with the help of Route 53.  The deployed URL is https://www.verimarker.com
 
 ## Important:
-- Please refer to the pdf file: [**project_capstone_rubrics_verimarker**](https://github.com/jsleung1/project_capstone_verimarker/blob/master/project_capstone_rubrics_verimarker.pdf) or in [**docx**](https://github.com/jsleung1/project_capstone_verimarker/blob/master/project_capstone_rubrics_verimarker.docx) ( in the main project folder for the project screenshots and meeting the rubrics.  The document contains detail description of the Unit Tests in Section 3, and how to meet the rubrics in Section 4.  In addition, it provides information on how to get started with the Demo in section 1.
+- Please refer to the pdf file: [**project_capstone_rubrics_verimarker**](https://github.com/jsleung1/project_capstone_verimarker/blob/master/project_capstone_rubrics_verimarker.pdf) or in [**docx**](https://github.com/jsleung1/project_capstone_verimarker/blob/master/project_capstone_rubrics_verimarker.docx) for the project screenshots and meeting the rubrics.  The document contains detail description of the Unit Tests in Section 3, and how to meet the rubrics in Section 4.  In addition, it provides information on how to get started with the Demo in section 1.
 
 - Rubrics:
 https://review.udacity.com/#!/rubrics/2578/view
