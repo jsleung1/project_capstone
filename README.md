@@ -20,14 +20,14 @@ https://review.udacity.com/#!/rubrics/2578/view
 ## Setup Instructions:
 Please use the following settings in the config.ts of the client in order to test our serverless application:
 ```
-const apiId = 'lh756iw3bi';
+const apiId = 'XXXXXXXX';
 const env = 'v2';
 
 export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com/${env}`
 
 export const authConfig_dev = {
   domain: 'dev-clq116aa.auth0.com',
-  clientId: 'Z52r8N5nV8h3XvWr3jqZJm9wE3JWi6yq',
+  clientId: 'XXXXXXXXXXXXXXXXXXXXXXXXXX',
   callbackUrl: 'http://localhost:4200/school/auth0',
   mode: 'dev'
 }
